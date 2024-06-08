@@ -43,7 +43,7 @@ function Navbar({ selected, setSelected }) {
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-100 bg-white p-2">
+      <div className="border-t border-gray-100 bg-white p-2 logout-button">
         <form action="#">
           <button
             type="submit"
@@ -96,8 +96,11 @@ function MenuItem({ name, icon: Icon, selected, setSelected }) {
 function MainContent({ selected }) {
   return (
     <div className="flex-1 p-4">
+      {/* Render different components based on the selected menu */}
       {selected === 'Books' && <Books />}
-      {/* Other components can be added here based on the selected menu */}
+      {selected === 'Dashboard' && <Dashboard />}
+      {selected === 'Account' && <Account />}
+      {selected === 'Status' && <Status />}
     </div>
   );
 }
@@ -151,7 +154,7 @@ function Books() {
             <div className="text-center mt-2 text-sm">{book.title}</div>
             <button
               type="button"
-              className="mt-2 w-full inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-neutral-800 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+              className="mt-2 w-full inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
               data-twe-ripple-init
             >
               Borrow
@@ -159,6 +162,74 @@ function Books() {
           </div>
         ))}
       </div>
+
+      {/* Pagination Component */}
+      <div className="flex justify-center">
+        <div className="inline-flex gap-1">
+          <a
+            href="#"
+            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+          >
+            <span className="sr-only">Prev Page</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </a>
+
+          <div>
+            <label htmlFor="PaginationPage" className="sr-only">Page</label>
+
+            <input
+              type="number"
+              className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+              min="1"
+              value="1"
+              id="PaginationPage"
+            />
+          </div>
+
+          <a
+            href="#"
+            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+          >
+            <span className="sr-only">Next Page</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+    </div>
+  );
+}
+
+function Account() {
+  return (
+    <div>
+      <h1>Account</h1>
+
+    </div>
+  );
+}
+
+function Status() {
+  return (
+    <div>
+      <h1>Status</h1>
     </div>
   );
 }
@@ -207,5 +278,6 @@ function AccountIcon(props) {
     </svg>
   );
 }
+
 
 export default App;
