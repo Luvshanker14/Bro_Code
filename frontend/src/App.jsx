@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import image from './assets/react.svg'
 
 function App() {
   const [selected, setSelected] = useState('Dashboard');
@@ -107,16 +108,16 @@ function MainContent({ selected }) {
 
 function Books() {
   const books = [
-    { title: 'Amadeus: A Play', image: 'link-to-image-1' },
-    { title: 'Annotated Alice: ...', image: 'link-to-image-2' },
-    { title: 'Applied Numeric.', image: 'link-to-image-3' },
-    { title: 'Artaud Anthology', image: 'link-to-image-4' },
-    { title: 'Asterios Polyp', image: 'link-to-image-5' },
-    { title: 'Batman: Year One', image: 'link-to-image-6' },
-    { title: 'The Great Gatsby', image: 'link-to-image-7' },
-    { title: 'To Kill a Mockingbird', image: 'link-to-image-8' },
-    { title: '1984', image: 'link-to-image-9' },
-    { title: 'Moby-Dick', image: 'link-to-image-10' },
+    { title: 'Amadeus: A Play', image: image},
+    { title: 'Annotated Alice: ...', image: image},
+    { title: 'Applied Numeric.', image: image },
+    { title: 'Artaud Anthology', image: image },
+    { title: 'Asterios Polyp', image: image },
+    { title: 'Batman: Year One', image: image },
+    { title: 'The Great Gatsby', image: image },
+    { title: 'To Kill a Mockingbird', image: image },
+    { title: '1984', image: image },
+    { title: 'Moby-Dick', image: image },
     // Add more book data here
   ];
 
@@ -128,12 +129,21 @@ function Books() {
           placeholder="Start Searching..."
           className="w-1/2 p-2 border rounded bg-white"
         />
-        <div>
-          <img
-            src="link-to-profile-image"
-            alt="Profile"
-            className="rounded-full w-10 h-10"
-          />
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            </div>
+          </div>
+          <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52">
+            <li>
+              <a className="justify-between">
+                Account
+              </a>
+            </li>
+            <li><a>Settings</a></li>
+            <li><a>Logout</a></li>
+          </ul>
         </div>
       </div>
       <div className="flex flex-wrap mb-6">
@@ -278,6 +288,5 @@ function AccountIcon(props) {
     </svg>
   );
 }
-
 
 export default App;
