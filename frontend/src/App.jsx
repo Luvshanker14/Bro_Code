@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import image from './assets/react.svg'
+import { FaHeart,FaRegHeart } from 'react-icons/fa';
+import image from './assets/react.svg';
+
 
 function App() {
   const [selected, setSelected] = useState('Dashboard');
@@ -10,8 +12,8 @@ function App() {
       <MainContent selected={selected} />
     </div>
   );
-}
 
+}
 function Navbar({ selected, setSelected }) {
   const menuItems = [
     { name: 'Dashboard', icon: DashboardIcon },
@@ -146,15 +148,15 @@ function Books() {
           </ul>
         </div>
       </div>
-      <div className="flex flex-wrap mb-6">
-        <span className="inline-block px-3 py-1.5 ml-4 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">All</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">CSE</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Electrical</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Mechanical</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Chemical</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Civil</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Physics</span>
-        <span className="inline-block px-3 py-1.5 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Mathematics</span>
+      <div className="flex flex-wrap ml-4 mb-6">
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">All</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">CSE</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Electrical</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Mechanical</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Chemical</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Civil</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Physics</span>
+        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Mathematics</span>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -162,13 +164,18 @@ function Books() {
           <div key={book.title} className="p-4">
             <img src={book.image} alt={book.title} className="w-full h-40 object-cover" />
             <div className="text-center mt-2 text-sm">{book.title}</div>
+            <div className="flex w-full">
             <button
               type="button"
-              className="mt-2 w-full inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+              className="mt-2 w-4/5 mr-2 inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
               data-twe-ripple-init
             >
               Borrow
             </button>
+            {/* <svg xmlns="http://www.w3.org/2000/svg" className="mt-3.5" fill="red" style={{cursor:"pointer"}} width="24" height="24" viewBox="0 0 24 24"><path d="M12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412l7.332 7.332c.17.299.498.492.875.492a.99.99 0 0 0 .792-.409l7.415-7.415c2.354-2.354 2.354-6.049-.002-8.416a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595zm6.791 1.61c1.563 1.571 1.564 4.025.002 5.588L12 18.586l-6.793-6.793c-1.562-1.563-1.561-4.017-.002-5.584.76-.756 1.754-1.172 2.799-1.172s2.035.416 2.789 1.17l.5.5a.999.999 0 0 0 1.414 0l.5-.5c1.512-1.509 4.074-1.505 5.584-.002z"/></svg> */}
+            {/* <svg xmlns="http://www.w3.org/2000/svg" className="mt-3.5" fill="red" style={{cursor:"pointer"}} width="24" height="24" viewBox="0 0 24 24"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"/></svg> */}
+            </div>
+            
           </div>
         ))}
       </div>
