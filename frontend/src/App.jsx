@@ -183,13 +183,13 @@ function Books() {
             <div>
               <button
                 type="button"
-                className="mt-2 w-4/5 inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+                className="mt-2 w-3/4 inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
                 data-twe-ripple-init
               >
                 Borrow
               </button>
               <FavoriteIcon
-                className={`ml-2 stroke-black stroke-2 cursor-pointer ${book.isFavorite ? 'text-pink-500 stroke-none' : 'text-white'}`}
+                className={`ml-2 stroke-black stroke-2 cursor-pointer ${book.isFavorite ? 'text-red-500 stroke-none' : 'text-white'}`}
                 onClick={() => handleFavoriteClick(index)}
                 style={{ transition: 'color 0.3s' }} // Smooth transition for color change
               />
