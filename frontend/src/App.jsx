@@ -138,19 +138,19 @@ function Books() {
 
   return (
     <div>
-      <div className="flex items-center justify-between p-2">
+      <div className="flex items-center justify-between p-3">
         <div className="relative w-3/4 sm:w-1/2 p-2">
           <input
             type="text"
             placeholder="Start Searching..."
-            className="pl-8 border rounded bg-white w-full h-10"
+            className="search-bar"
           />
-          <SearchIcon className="absolute text-gray-500 left-3 top-4" />
+          <SearchIcon className="search-icon" />
         </div>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img alt="component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
           </div>
           <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52">
@@ -164,32 +164,32 @@ function Books() {
           </ul>
         </div>
       </div>
-      <div className="flex flex-wrap ml-4 mb-6">
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">All</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">CSE</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Electrical</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Mechanical</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Chemical</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Civil</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Physics</span>
-        <span className="inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-200 rounded-lg cursor-pointer text-black text-xs">Mathematics</span>
+      <div className="flex flex-wrap ml-5 mb-6">
+        <span className="category-tag">All</span>
+        <span className="category-tag">CSE</span>
+        <span className="category-tag">Electrical</span>
+        <span className="category-tag">Mechanical</span>
+        <span className="category-tag">Chemical</span>
+        <span className="category-tag">Civil</span>
+        <span className="category-tag">Physics</span>
+        <span className="category-tag">Mathematics</span>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {books.map((book, index) => (
           <div key={book.title} className="p-4">
-            <img src={book.image} alt={book.title} className="w-full h-40 object-cover" />
+            <img src={book.image} alt={book.title} className="w-full object-cover" />
             <div className="text-center mt-2 text-sm">{book.title}</div>
             <div>
               <button
                 type="button"
-                className="mt-2 w-3/4 inline-block rounded border-2 border-neutral-800 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-800 transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+                className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
                 data-twe-ripple-init
               >
                 Borrow
               </button>
               <FavoriteIcon
-                className={`ml-2 stroke-black stroke-2 cursor-pointer ${book.isFavorite ? 'text-red-500 stroke-none' : 'text-white'}`}
+                className={`favorite-icon stroke-black stroke-2 ${book.isFavorite ? 'text-pink-500 stroke-none' : 'text-white'}`}
                 onClick={() => handleFavoriteClick(index)}
                 style={{ transition: 'color 0.3s' }} // Smooth transition for color change
               />
@@ -200,12 +200,9 @@ function Books() {
       </div>
 
       {/* Pagination Component */}
-      <div className="flex justify-center">
+      <div className="pagination">
         <div className="inline-flex gap-1">
-          <a
-            href="#"
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
-          >
+          <a href="#">
             <span className="sr-only">Prev Page</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
               <path
@@ -230,7 +227,6 @@ function Books() {
 
           <a
             href="#"
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
           >
             <span className="sr-only">Next Page</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
