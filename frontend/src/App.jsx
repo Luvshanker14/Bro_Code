@@ -251,6 +251,17 @@ function Home() {
     { title: "Article Title 1", author: "Author 1", imageUrl: image },
     { title: "Article Title 2", author: "Author 2", imageUrl: image },
   ];
+  const Article = ({ title, author, imageUrl }) => (
+    <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+      <div className="shrink-0">
+        <img className="h-12 w-12" src={imageUrl} alt={title} />
+      </div>
+      <div>
+        <div className="text-xl font-medium text-black">{title}</div>
+        <p className="text-slate-500">Author: {author}</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="container mx-auto py-8">
@@ -278,13 +289,7 @@ function Home() {
       <div className="flex flex-wrap mb-8">
         {articles.map((article, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-            <div className="flex items-center mb-2">
-              <img className="w-12 h-12 mr-2" src={article.imageUrl} alt={article.title} />
-              <div>
-                <p className="font-semibold text-gray-600">{article.title}</p>
-                <p className="text-gray-500">{article.author}</p>
-              </div>
-            </div>
+            <Article title={article.title} author={article.author} imageUrl={article.imageUrl} />
           </div>
         ))}
       </div>
