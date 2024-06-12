@@ -2,41 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="logo.png" alt="Logo" class="logo">
-            <nav>
-                <ul>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#" class="login-btn">Login</a></li>
-                    <li><a href="#" class="get-started-btn">Get Started</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="login-box">
-            <h2>Login</h2>
-            <form>
-                <div class="textbox">
-                    <input type="text" placeholder="Email" name="email">
-                </div>
-                <div class="textbox">
-                    <input type="password" placeholder="Password" name="password">
-                </div>
-                <div class="remember-me">
-                    <label for="remember">Remember Me</label>
-                    <input type="checkbox" id="remember" name="remember" checked>
-                </div>
-                <input type="submit" class="btn" value="Sign In">
-            </form>
-            <p>Don't have an account? <a href="#">Sign Up!</a></p>
+    <header class="header">
+        <a href="#" class="logo">Logo</a>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <button class="btnLogin-popup" style="margin-right:40px">Admin Login</button>
+            <button class="btnLogin-popup" id="butUser">User Login</button>
+        </nav>
+    </header>
+    <section class="section">
+        <div class="wrap" id="welcome">
+            <h1 class="wraph">Welcome to the library</h1>
+            <br>
+            <h2>Opens at 9:00</h2>
+            <h2>Closes at 20:00</h2>
         </div>
-    </div>
+        <div class="wrapper">
+            <span class="icon-close"><i class='bx bx-x' ></i></span>
+            <div class="logreg-box">
+                <div class="form-box login">
+                    <div class="logreg-title">
+                        <h2>Login</h2>
+                        <p>Login to use the platform</p>
+                    </div>
+
+                    <form action="#">
+                        <div class="input-box">
+                            <span class="icon">
+                                <i class='bx bxs-envelope'></i>
+                            </span>
+                            <input type="email" required>
+                            <label>Email</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon">
+                                <i class='bx bxs-lock-alt' ></i>
+                            </span>
+                            <input type="password" required>
+                            <label>Password</label>
+                        </div>
+                        <div class="remember-forgot">
+                            <label>
+                                <input type="checkbox">
+                                Remember Me
+                            </label>
+                            <a href="#">Forgot password</a>
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+
+                        <div class="logreg-link">
+                            <p>Don't have an account?<a href="#" class="register-link">Register</a></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-box register">
+                    <div class="logreg-title">
+                        <h2>Registration</h2>
+                        <p>Please provide the following to verify your identity</p>
+                    </div>
+
+                    <form action="#">
+                        <div class="input-box">
+                            <span class="icon">
+                                <i class='bx bxs-user' ></i>
+                            </span>
+                            <input type="type" required>
+                            <label>Full Name</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon">
+                                <i class='bx bxs-envelope'></i>
+                            </span>
+                            <input type="email" required>
+                            <label>Email</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon">
+                                <i class='bx bxs-lock-alt' ></i>
+                            </span>
+                            <input type="password" required>
+                            <label>Password</label>
+                        </div>
+                        <div class="remember-forgot">
+                            <label>
+                                <input type="checkbox">
+                                I agree to the terms and conditions
+                            </label>
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+
+                        <div class="logreg-link">
+                            <p>Already have an account?<a href="#" class="login-link">Login</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="media-options">
+                <a href="#"><i class='bx bxl-google' ></i><span>Login with Google</span></a>
+                <a href="#"><i class='bx bxl-facebook-circle' ></i><span>Login with Facebook</span></a>
+
+            </div>
+        </div>
+    </section>
+    <script src="login.js"></script>
 </body>
 </html>
