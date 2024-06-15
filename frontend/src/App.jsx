@@ -35,7 +35,7 @@ function Navbar({ selected, setSelected }) {
       <div>
         <div className="navbar-logo">
           <span>
-            Logo
+            <img src="iitdh_logo.png" />
           </span>
         </div>
         <div className="navbar-divider">
