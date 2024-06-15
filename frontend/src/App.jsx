@@ -177,10 +177,10 @@ function Books() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {books.map((book, index) => (
-          <div key={book.title} className="p-4">
+          <div key={book.title} className="p-4 rounded-md">
             <img src={book.image} alt={book.title} className="w-full object-cover" />
-            <div className="text-center mt-2 text-sm">{book.title}</div>
-            <div>
+            <h3 className="text-center mt-2 text-sm">{book.title}</h3>
+            <div className="flex items-center">
               <button
                 type="button"
                 className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
@@ -189,7 +189,7 @@ function Books() {
                 Borrow
               </button>
               <FavoriteIcon
-                className={`favorite-icon stroke-black stroke-2 ${book.isFavorite ? 'text-pink-500 stroke-none' : 'text-white'}`}
+                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
                 onClick={() => handleFavoriteClick(index)}
                 style={{ transition: 'color 0.3s' }} // Smooth transition for color change
               />

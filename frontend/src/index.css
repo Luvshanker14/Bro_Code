@@ -217,11 +217,6 @@
   text-transform: uppercase;
 }
 
-.favorite-icon {
-  margin-left: 8px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
 
 .pagination {
   display: flex;
