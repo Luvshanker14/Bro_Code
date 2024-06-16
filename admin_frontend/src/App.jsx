@@ -1,9 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React,{useState} from "react";
+import Navbar from "./Navbar.jsx";
 
-function App() {
+function App(){
+    const [selected, setSelected] = useState('Home');
+
+
+    return(
+        <div className="bg-white flex">
+      <Navbar selected={selected} setSelected={setSelected} />
+    </div>);
+      
 }
 
-export default App
+
+export default App;
