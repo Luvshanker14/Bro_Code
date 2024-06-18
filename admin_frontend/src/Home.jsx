@@ -3,26 +3,26 @@ import Time from "./Home_components/Time";
 
 function Home() {
   return (
-    <div className=" px-2 py-2 w-full  bg-black">
-      <section className=" bg-slate-50 text-gray-900 body-font h-full w-full rounded-md">
+    <div className="min-h-screen w-full pl-20 px-2 py-2 bg-red-700">
+      <section className="bg-blue-700 text-gray-900 body-font rounded-md h-full">
         <div className="container px-5 py-10 mx-auto">
           <div className="flex flex-col text-left w-full mb-20">
             <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
               Hello, karan_k
             </h1>
-            <h2 className=" xl:text-3xl sm:text-2xl text-2xl font-normal title-font text-black">
+            <h2 className="xl:text-3xl sm:text-2xl text-2xl font-normal title-font text-black">
               <Time />
             </h2>
           </div>
           <div className="flex flex-wrap -m-4 text-left">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2  bg-gray-100 border-gray-300 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 bg-gray-100 border-gray-300 px-4 py-6 rounded-lg shadow-md">
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="text-indigo-500 w-10 h-8 mb-2 inline-block"
                   viewBox="0 0 24 24"
                 >
@@ -41,9 +41,9 @@ function Home() {
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="text-indigo-500 w-10 h-8 mb-2 inline-block"
                   viewBox="0 0 24 24"
                 >
@@ -58,13 +58,13 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2  bg-gray-100 border-gray-300 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 bg-gray-100 border-gray-300 px-4 py-6 rounded-lg shadow-md">
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="text-indigo-500 w-10 h-8 mb-2 inline-block"
                   viewBox="0 0 24 24"
                 >
@@ -78,13 +78,13 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2  bg-gray-100 border-gray-300 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 bg-gray-100 border-gray-300 px-4 py-6 rounded-lg shadow-md">
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="text-indigo-500 w-10 h-8 mb-2 inline-block"
                   viewBox="0 0 24 24"
                 >
