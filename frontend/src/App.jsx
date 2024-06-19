@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import image from "./assets/react.svg";
 import Status from "./pages/Status";
 import Account from "./pages/Account";
@@ -10,6 +10,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SearchIcon from '@mui/icons-material/Search';
+import booksData from "./assets/UpdatedDatasetSOI.json";
+import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 
 function App() {
   const [selected, setSelected] = useState('Home');
@@ -116,19 +118,30 @@ function MainContent({ selected }) {
 }
 
 function Books() {
-  const [books, setBooks] = useState([
-    { title: 'Amadeus: A Play', image: image, isFavorite: false },
-    { title: 'Annotated Alice: ...', image: image, isFavorite: false },
-    { title: 'Applied Numeric.', image: image, isFavorite: false },
-    { title: 'Artaud Anthology', image: image, isFavorite: false },
-    { title: 'Asterios Polyp', image: image, isFavorite: false },
-    { title: 'Batman: Year One', image: image, isFavorite: false },
-    { title: 'The Great Gatsby', image: image, isFavorite: false },
-    { title: 'To Kill a Mockingbird', image: image, isFavorite: false },
-    { title: '1984', image: image, isFavorite: false },
-    { title: 'Moby-Dick', image: image, isFavorite: false },
-    // Add more book data here
-  ]);
+  // const [books, setBooks] = useState([
+  //   { title: 'Amadeus: A Play', image: image, isFavorite: false },
+  //   { title: 'Annotated Alice: ...', image: image, isFavorite: false },
+  //   { title: 'Applied Numeric.', image: image, isFavorite: false },
+  //   { title: 'Artaud Anthology', image: image, isFavorite: false },
+  //   { title: 'Asterios Polyp', image: image, isFavorite: false },
+  //   { title: 'Batman: Year One', image: image, isFavorite: false },
+  //   { title: 'The Great Gatsby', image: image, isFavorite: false },
+  //   { title: 'To Kill a Mockingbird', image: image, isFavorite: false },
+  //   { title: '1984', image: image, isFavorite: false },
+  //   { title: 'Moby-Dick', image: image, isFavorite: false },
+  //   // Add more book data here
+  // ]);
+
+    const [books,setBooks]=useState([]);
+    useEffect(()=>{
+      const transformedBooks=booksData.map(book=>({
+        title:book.title,
+        image:image,
+        isFavorite:false,
+
+      }));
+      setBooks(transformedBooks);
+    },[]);
 
   const handleFavoriteClick = (index) => {
     const updatedBooks = [...books];
@@ -198,6 +211,9 @@ function Books() {
           </div>
         ))}
       </div>
+
+      
+
 
       {/* Pagination Component */}
       <div className="pagination">

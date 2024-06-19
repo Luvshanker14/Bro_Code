@@ -9,7 +9,7 @@ const app=express();
 //app.use(cors());
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://127.0.0.1:3000',
   optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 };
 
