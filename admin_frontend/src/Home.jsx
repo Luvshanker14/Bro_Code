@@ -3,9 +3,8 @@ import Time from "./Home_components/Time";
 
 function Home() {
   return (
-    <div className="min-h-screen w-full pl-20 px-2 py-2 bg-red-700">
-      <section className="bg-blue-700 text-gray-900 body-font rounded-md h-full">
-        <div className="container px-5 py-10 mx-auto">
+      <section className=" flex bg-white text-gray-900 body-font h-full w-full pl-14 ">
+        <div className="container px-5 py-8 mx-auto">
           <div className="flex flex-col text-left w-full mb-20">
             <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
               Hello, karan_k
@@ -93,15 +92,17 @@ function Home() {
                 <h2 className="title-font font-semibold text-4xl text-gray-900">
                   46
                 </h2>
-                <p className="leading-relaxed">Book Request</p>
+                <p className="leading-relaxed">Reserved Books</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
+   
   );
 }
 
-
 export default Home;
+
+
+
