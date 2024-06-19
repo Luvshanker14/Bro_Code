@@ -3,7 +3,8 @@ import Time from "./Home_components/Time";
 
 function Home() {
   return (
-      <section className=" flex bg-white text-gray-900 body-font h-full w-full pl-14 ">
+    <div className="flex h-full w-full ">
+      <section className=" flex bg-white text-gray-900 body-font h-full w-full pl-5 ">
         <div className="container px-5 py-8 mx-auto">
           <div className="flex flex-col text-left w-full mb-20">
             <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
@@ -98,6 +99,7 @@ function Home() {
           </div>
         </div>
       </section>
+      </div>
    
   );
 }

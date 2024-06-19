@@ -7,6 +7,7 @@ function Navbar({ selected, setSelected }) {
   const menuItems = [
     { name: "Home", icon: HomeIcon },
     { name: "Books", icon: BooksIcon },
+    { name: "Status", icon: StatusIcon },
     { name: "Account", icon: AccountIcon },
   ];
 

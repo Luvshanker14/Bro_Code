@@ -1,16 +1,15 @@
 import React, { useState,useEffect } from 'react';
 import image from "./assets/react.svg";
 import Status from "./pages/Status";
+import Navbar from './pages/Navbar';
 import Account from "./pages/Account";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import HomeIcon from '@mui/icons-material/Dashboard';
-import AccountIcon from '@mui/icons-material/Person';
-import BooksIcon from '@mui/icons-material/AutoStories';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SearchIcon from '@mui/icons-material/Search';
 import booksData from "./assets/UpdatedDatasetSOI.json";
+
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 
 function App() {
@@ -24,86 +23,6 @@ function App() {
   );
 }
 
-function Navbar({ selected, setSelected }) {
-  const menuItems = [
-    { name: 'Home', icon: HomeIcon },
-    { name: 'Books', icon: BooksIcon },
-    { name: 'Status', icon: StatusIcon },
-    { name: 'Account', icon: AccountIcon },
-  ];
-
-  return (
-    <div className="navbar-container">
-      <div>
-        <div className="navbar-logo">
-          <span>
-            <img src="iitdh_logo.png" />
-          </span>
-        </div>
-        <div className="navbar-divider">
-          <div className="px-2">
-            <div className="py-4">
-              {menuItems.map((item) => (
-                <MenuItem
-                  key={item.name}
-                  name={item.name}
-                  icon={item.icon}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="logout-button">
-        <form action="#">
-          <button
-            type="submit"
-            className="logout-button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-5 opacity-75"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-              />
-            </svg>
-            <span>
-              Logout
-            </span>
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-function MenuItem({ name, icon: Icon, selected, setSelected }) {
-  const isSelected = selected === name;
-
-  return (
-    <div className="menu-item">
-      <a
-        href="#"
-        onClick={() => setSelected(name)}
-        className={`menu-link ${isSelected ? 'selected' : ''}`}
-      >
-        <Icon className={`menu-link-icon ${isSelected ? 'selected' : ''}`}  />
-        <span>
-          {name}
-        </span>
-      </a>
-    </div>
-  );
-}
 
 function MainContent({ selected }) {
   return (
@@ -117,133 +36,6 @@ function MainContent({ selected }) {
   );
 }
 
-// function Books() {
-  
-//     const [books,setBooks]=useState([]);
-
-//     useEffect(()=>{
-//       const transformedBooks=booksData.map(book=>({
-//         title:book.title,
-//         image:image,
-//         isFavorite:false,
-
-//       }));
-//       setBooks(transformedBooks);
-//     },[]);
-
-//   const handleFavoriteClick = (index) => {
-//     const updatedBooks = [...books];
-//     updatedBooks[index].isFavorite = !updatedBooks[index].isFavorite;
-//     setBooks(updatedBooks);
-//   };
-
-//   return (
-//     <div> 
-//       <div className="flex items-center justify-between p-3">
-//         <div className="relative w-3/4 sm:w-1/2 p-2">
-//           <input
-//             type="text"
-//             placeholder="Start Searching..."
-//             className="search-bar"
-//           />
-//           <SearchIcon className="search-icon" />
-//         </div>
-//         <div className="dropdown dropdown-end">
-//           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-//             <div className="w-10 rounded-full">
-//               <img alt="component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-//             </div>
-//           </div>
-//           <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52">
-//             <li>
-//               <a className="justify-between">
-//                 Account
-//               </a>
-//             </li>
-//             <li><a>Settings</a></li>
-//             <li><a>Logout</a></li>
-//           </ul>
-//         </div>
-//       </div>
-//       <div className="flex flex-wrap ml-5 mb-6">
-//         <span className="category-tag">All</span>
-//         <span className="category-tag">CSE</span>
-//         <span className="category-tag">Electrical</span>
-//         <span className="category-tag">Mechanical</span>
-//         <span className="category-tag">Chemical</span>
-//         <span className="category-tag">Civil</span>
-//         <span className="category-tag">Physics</span>
-//         <span className="category-tag">Mathematics</span>
-//       </div>
-
-//       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-//         {books.map((book, index) => (
-//           <div key={book.title} className="p-4 rounded-md">
-//             <img src={book.image} alt={book.title} className="w-full object-cover" />
-//             <h3 className="text-center mt-2 text-sm">{book.title}</h3>
-//             <div className="flex items-center">
-//               <button
-//                 type="button"
-//                 className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
-//                 data-twe-ripple-init
-//               >
-//                 Borrow
-//               </button>
-//               <FavoriteIcon
-//                 className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
-//                 onClick={() => handleFavoriteClick(index)}
-//                 style={{ transition: 'color 0.3s' }} // Smooth transition for color change
-//               />
-//             </div>
-
-//           </div>
-//         ))}
-//       </div>
-
-      
-
-
-//       {/* Pagination Component */}
-//       <div className="pagination">
-//         <div className="inline-flex gap-1">
-//           <a href="#">
-//             <span className="sr-only">Prev Page</span>
-//             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-//               <path
-//                 fillRule="evenodd"
-//                 d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-//                 clipRule="evenodd"
-//               />
-//             </svg>
-//           </a>
-
-//           <div>
-//             <label htmlFor="PaginationPage" className="sr-only">Page</label>
-
-//             <input
-//               type="number"
-//               className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-//               min="1"
-//               value="1"
-//               id="PaginationPage"
-//             />
-//           </div>
-
-//           <a
-//             href="#"
-//           >
-//             <span className="sr-only">Next Page</span>
-//             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-//               <path
-//                 fillRule="evenodd"
-//                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 0 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-//             </svg>
-//           </a>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 
 function Books() {

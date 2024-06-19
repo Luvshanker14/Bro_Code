@@ -7,7 +7,7 @@ function App(){
 
 
     return(
-        <div className="bg-white flex">
+        <div className="bg-white flex ">
       <Navbar selected={selected} setSelected={setSelected} />
       <Home />
     </div>);
