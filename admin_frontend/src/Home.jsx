@@ -1,5 +1,6 @@
 import React from "react";
 import Time from "./Home_components/Time";
+import H_graph from "./Home_components/H_graph";
 
 function Home() {
   return (
@@ -97,14 +98,15 @@ function Home() {
               </div>
             </div>
           </div>
+          <div className=" pt-6 md:w-1/3">
+          <div className="border-2 bg-gray-100 border-gray-300 rounded-sm shadow-md">
+            <H_graph />
+            </div>
+          </div>
         </div>
       </section>
-      </div>
-   
+    </div>
   );
 }
 
 export default Home;
-
-
-
