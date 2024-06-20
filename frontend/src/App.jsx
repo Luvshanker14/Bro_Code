@@ -37,10 +37,11 @@ function MainContent({ selected }) {
 }
 
 
-
 function Books() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const booksPerPage = 20;
 
   useEffect(() => {
     const transformedBooks = booksData.map(book => ({
@@ -57,9 +58,39 @@ function Books() {
     setBooks(updatedBooks);
   };
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
   const filteredBooks = books.filter(book =>
     book.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Calculate the books to be displayed on the current page
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+
+  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+
+  const handlePageChange = (event) => {
+    const pageNumber = Number(event.target.value);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div>
@@ -101,7 +132,7 @@ function Books() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {filteredBooks.map((book, index) => (
+        {currentBooks.map((book, index) => (
           <div key={book.title} className="p-4 rounded-md">
             <img src={book.image} alt={book.title} className="w-full object-cover" />
             <h3 className="text-center mt-2 text-sm">{book.title}</h3>
@@ -115,7 +146,7 @@ function Books() {
               </button>
               <FavoriteIcon
                 className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
-                onClick={() => handleFavoriteClick(index)}
+                onClick={() => handleFavoriteClick(indexOfFirstBook + index)}
                 style={{ transition: 'color 0.3s' }} 
               />
             </div>
@@ -125,35 +156,50 @@ function Books() {
 
       <div className="pagination">
         <div className="inline-flex gap-1">
-          <a href="#">
+          <button onClick={goToPrevPage} disabled={currentPage === 1}>
             <span className="sr-only">Prev Page</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-3 w-3"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
               <path
                 fillRule="evenodd"
                 d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </button>
           <div>
-            <label htmlFor="PaginationPage" className="sr-only">Page</label>
+            <label htmlFor="PaginationPage" className="sr-only">
+              Page
+            </label>
             <input
               type="number"
               className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
               min="1"
+              max={totalPages}
+              value={currentPage}
+              onChange={handlePageChange}
               id="PaginationPage"
             />
           </div>
-          <a href="#">
+          <button onClick={goToNextPage} disabled={currentPage === totalPages}>
             <span className="sr-only">Next Page</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-3 w-3"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
               <path
                 fillRule="evenodd"
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </div>
