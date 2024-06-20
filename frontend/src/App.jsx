@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import image from "./assets/react.svg";
 import Status from "./pages/Status";
 import Navbar from './pages/Navbar';
@@ -147,7 +147,7 @@ function Books() {
               <FavoriteIcon
                 className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
                 onClick={() => handleFavoriteClick(indexOfFirstBook + index)}
-                style={{ transition: 'color 0.3s' }} 
+                style={{ transition: 'color 0.3s' }}
               />
             </div>
           </div>
@@ -209,15 +209,17 @@ function Books() {
 
 
 function Home() {
-  const books = [{ title: "Book Title 1", imageUrl: image },
-  { title: "Book Title 2", imageUrl: image },
-  { title: "Book Title 3", imageUrl: image },
-  ];
+  const [books, setBooks] = useState([]);
+  const [articles, setArticles] = useState([]);
 
-  const articles = [
-    { title: "Article Title 1", author: "Author 1", imageUrl: image },
-    { title: "Article Title 2", author: "Author 2", imageUrl: image },
-  ];
+  useEffect(() => {
+    // Assuming booksData is an array of book objects
+    const books = booksData;
+    const articles = books.slice(0, 3); // Use the first two books as articles
+    setBooks(books);
+    setArticles(articles);
+  }, []);
+
   const Article = ({ title, author, imageUrl }) => (
     <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
       <div className="shrink-0">
@@ -244,9 +246,9 @@ function Home() {
 
       <h2 className="text-2xl font-bold mb-4 text-blue-500">Featured Books</h2>
       <div className="flex flex-wrap mb-8">
-        {books.map((book, index) => (
+        {books.slice(4, 8).map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-            <img className="w-full mb-3" src={book.imageUrl} alt={book.title} />
+            <img className="w-full mb-3" src={image} alt={book.title} />
             <p className="font-semibold text-center text-gray-600">{book.title}</p>
           </div>
         ))}
@@ -256,7 +258,7 @@ function Home() {
       <div className="flex flex-wrap mb-8">
         {articles.map((article, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-            <Article title={article.title} author={article.author} imageUrl={article.imageUrl} />
+            <Article title={article.title} author={article.author} imageUrl={image} />
           </div>
         ))}
       </div>
@@ -370,10 +372,6 @@ function Home() {
           </div>
         </div>
       </div>
-
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Location of Library</h2>
-      <p className="text-gray-600">Library Address</p>
-
       <div className="flex justify-center space-x-4 mt-8">
         <InstagramIcon className="hover:text-pink-500 text-2xl" />
         <XIcon className="hover:text-black text-2xl" />
@@ -381,7 +379,7 @@ function Home() {
       </div>
     </div>
   );
-};
+}
 
 
 // function HomeIcon(props) {
