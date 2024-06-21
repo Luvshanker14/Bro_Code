@@ -3,6 +3,7 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { LineChart } from '@mui/x-charts/LineChart';
 import SearchIcon from '@mui/icons-material/Search';
 import Time from './Home_components/Time';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -179,6 +180,18 @@ function Home() {
                           <td className="px-6 py-4 whitespace-nowrap">90</td>
                         </tr>
                         <tr className="text-left">
+                          <td className="px-6 py-4 whitespace-nowrap">G-95501-31</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Stroller</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Amanda Parrish</td>
+                          <td className="px-6 py-4 whitespace-nowrap">90</td>
+                        </tr>
+                        <tr className="text-left">
+                          <td className="px-6 py-4 whitespace-nowrap">G-95501-31</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Stroller</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Amanda Parrish</td>
+                          <td className="px-6 py-4 whitespace-nowrap">90</td>
+                        </tr>
+                        <tr className="text-left">
                           <td className="px-6 py-4 whitespace-nowrap">R-773521-67</td>
                           <td className="px-6 py-4 whitespace-nowrap">The Secret Syllabus</td>
                           <td className="px-6 py-4 whitespace-nowrap">Terence C. Burnham</td>
@@ -193,11 +206,83 @@ function Home() {
                     </button>
                     <a href='#' className='text-pink-500 mt-6'>Show All</a>
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
+
+          <div className='flex justify-between'>
+            <div className="w-full">
+              <div className="border-2 rounded-md shadow-md p-4">
+                <h3 className="text-lg font-semibold mb-4">User List</h3>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full bg-white border rounded-md">
+                    <thead className="bg-gray-100">
+                      <tr className="text-left">
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">User ID</th>
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">Name</th>
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">Total Books Issued</th>
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">Branch</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      <tr className="text-left">
+                        <td className="px-6 py-4 whitespace-nowrap">U-10201-30</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Alice Johnson</td>
+                        <td className="px-6 py-4 whitespace-nowrap">5</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Literature</td>
+                      </tr>
+                      <tr className="text-left">
+                        <td className="px-6 py-4 whitespace-nowrap">U-35201-31</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Bob Smith</td>
+                        <td className="px-6 py-4 whitespace-nowrap">3</td>
+                        <td className="px-6 py-4 whitespace-nowrap">History</td>
+                      </tr>
+                      <tr className="text-left">
+                        <td className="px-6 py-4 whitespace-nowrap">U-24510-45</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Carol White</td>
+                        <td className="px-6 py-4 whitespace-nowrap">7</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Social Science</td>
+                      </tr>
+                      <tr className="text-left">
+                        <td className="px-6 py-4 whitespace-nowrap">U-95501-31</td>
+                        <td className="px-6 py-4 whitespace-nowrap">David Brown</td>
+                        <td className="px-6 py-4 whitespace-nowrap">4</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Psychology</td>
+                      </tr>
+                      <tr className="text-left">
+                        <td className="px-6 py-4 whitespace-nowrap">U-773521-67</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Eva Green</td>
+                        <td className="px-6 py-4 whitespace-nowrap">6</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Philosophy</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className='flex justify-between'>
+                  <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                    Add New User
+                  </button>
+                  <a href='#' className='text-pink-500 mt-6'>Show All</a>
+                </div>
+              </div>
+            </div>
+            <div className="ml-4 flex-shrink-0 flex items-center">
+              <PieChart
+                series={[
+                  {
+                    data: [
+                      { id: 0, value: 10, label: 'Returned' },
+                      { id: 1, value: 3, label: 'Not Returned' },
+                    ],
+                  },
+                ]}
+                width={500}
+                height={300}
+              />
+            </div>
+          </div>
+
         </div>
       </section >
     </div >
