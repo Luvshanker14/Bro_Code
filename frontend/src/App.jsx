@@ -10,7 +10,10 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SearchIcon from '@mui/icons-material/Search';
 import booksData from "./assets/UpdatedDatasetSOI.json";
 
+
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import Books from './pages/Book';
+ import Home from './pages/Home';
 
 function App() {
   const [selected, setSelected] = useState('Home');
@@ -37,358 +40,200 @@ function MainContent({ selected }) {
 }
 
 
-function Books() {
-  const [books, setBooks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 20;
-
-  useEffect(() => {
-    const transformedBooks = booksData.map(book => ({
-      title: book.title,
-      image: image,
-      isFavorite: false,
-    }));
-    setBooks(transformedBooks);
-  }, []);
-
-  const handleFavoriteClick = (index) => {
-    const updatedBooks = [...books];
-    updatedBooks[index].isFavorite = !updatedBooks[index].isFavorite;
-    setBooks(updatedBooks);
-  };
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery]);
-
-  const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Calculate the books to be displayed on the current page
-  const indexOfLastBook = currentPage * booksPerPage;
-  const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
-
-  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
-
-  const handlePageChange = (event) => {
-    const pageNumber = Number(event.target.value);
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
-  };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  return (
-    <div>
-      <div className="flex items-center justify-between p-3">
-        <div className="relative w-3/4 sm:w-1/2 p-2">
-          <input
-            type="text"
-            placeholder="Start Searching..."
-            className="search-bar"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <SearchIcon className="search-icon" />
-        </div>
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img alt="component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-            </div>
-          </div>
-          <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52">
-            <li>
-              <a className="justify-between">Account</a>
-            </li>
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
-          </ul>
-        </div>
-      </div>
-      <div className="flex flex-wrap ml-5 mb-6">
-        <span className="category-tag">All</span>
-        <span className="category-tag">CSE</span>
-        <span className="category-tag">Electrical</span>
-        <span className="category-tag">Mechanical</span>
-        <span className="category-tag">Chemical</span>
-        <span className="category-tag">Civil</span>
-        <span className="category-tag">Physics</span>
-        <span className="category-tag">Mathematics</span>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {currentBooks.map((book, index) => (
-          <div key={book.title} className="p-4 rounded-md">
-            <img src={book.image} alt={book.title} className="w-full object-cover" />
-            <h3 className="text-center mt-2 text-sm">{book.title}</h3>
-            <div className="flex items-center">
-              <button
-                type="button"
-                className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
-                data-twe-ripple-init
-              >
-                Borrow
-              </button>
-              <FavoriteIcon
-                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
-                onClick={() => handleFavoriteClick(indexOfFirstBook + index)}
-                style={{ transition: 'color 0.3s' }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="pagination">
-        <div className="inline-flex gap-1">
-          <button onClick={goToPrevPage} disabled={currentPage === 1}>
-            <span className="sr-only">Prev Page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-3 w-3"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          <div>
-            <label htmlFor="PaginationPage" className="sr-only">
-              Page
-            </label>
-            <input
-              type="number"
-              className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
-              min="1"
-              max={totalPages}
-              value={currentPage}
-              onChange={handlePageChange}
-              id="PaginationPage"
-            />
-          </div>
-          <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-            <span className="sr-only">Next Page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-3 w-3"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+<>
+<Books></Books>
+<Home></Home> 
+</>
 
 
 
-function Home() {
-  const [books, setBooks] = useState([]);
-  const [articles, setArticles] = useState([]);
 
-  useEffect(() => {
-    // Assuming booksData is an array of book objects
-    const books = booksData;
-    const articles = books.slice(0, 3); // Use the first two books as articles
-    setBooks(books);
-    setArticles(articles);
-  }, []);
-
-  const Article = ({ title, author, imageUrl }) => (
-    <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-      <div className="shrink-0">
-        <img className="h-12 w-12" src={imageUrl} alt={title} />
-      </div>
-      <div>
-        <div className="text-xl font-medium text-black">{title}</div>
-        <p className="text-slate-500">Author: {author}</p>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="container mx-auto py-8">
-      <div className="flex flex-wrap items-center mb-8">
-        <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
-          <h1 className="text-3xl font-bold mb-4 text-blue-500">Welcome to the library</h1>
-          <p className="mb-4 text-gray-600">Explore our vast collection of books</p>
-        </div>
-        <div className="w-full md:w-1/2 lg:w-2/5 px-2">
-          <img className="w-1/2" src={image} alt="Logo" />
-        </div>
-      </div>
-
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Featured Books</h2>
-      <div className="flex flex-wrap mb-8">
-        {books.slice(4, 8).map((book, index) => (
-          <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-            <img className="w-full mb-3" src={image} alt={book.title} />
-            <p className="font-semibold text-center text-gray-600">{book.title}</p>
-          </div>
-        ))}
-      </div>
-
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Popular Articles</h2>
-      <div className="flex flex-wrap mb-8">
-        {articles.map((article, index) => (
-          <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-            <Article title={article.title} author={article.author} imageUrl={image} />
-          </div>
-        ))}
-      </div>
-
-      <h2 className="text-2xl font-bold mb-2 text-blue-500">Subscribe to Newsletter</h2>
-      <p className="text-gray-400 mb-4">Receive the latest updates and offers directly to your inbox!</p>
-      <div className="flex items-center mb-2">
-        <input
-          type="email"
-          className="px-4 py-2 rounded-md w-5/12 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your email"
-        />
-      </div>
-      <button className="px-6 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md mb-8">Subscribe</button>
-
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Library Statistics</h2>
-      <div className="flex flex-wrap items-center mb-8">
-        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-600">
-          <p>Total Books: 500+</p>
-          <p>Total Active Members: 200+</p>
-        </div>
-      </div>
-
-      <div class="flex flex-col items-center w-full max-w-screen-md p-6 pb-6 bg-white rounded-lg sm:p-8">
-        <h2 class="text-xl font-bold text-gray-600">Monthly Visitors</h2>
-        <span class="text-sm font-semibold text-gray-500">2024</span>
-        <div class="flex items-end flex-grow w-full mt-2 space-x-2 sm:space-x-3">
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">65</span>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-16 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Jan</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">69</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Feb</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">70</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Mar</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">71</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Apr</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">70</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">May</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">73</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Jun</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">76</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-16 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Jul</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">72</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Aug</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">78</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full bg-indigo-400 h-28"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Sep</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">78</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-32 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Oct</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">80</span>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-40 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Nov</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">100</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-40 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Dec</span>
-          </div>
-        </div>
-      </div>
-      <div className="flex justify-center space-x-4 mt-8">
-        <InstagramIcon className="hover:text-pink-500 text-2xl" />
-        <XIcon className="hover:text-black text-2xl" />
-        <LinkedInIcon className="hover:text-blue-600 text-2xl" />
-      </div>
-    </div>
-  );
-}
+ 
 
 
-// function HomeIcon(props) {
+
+
+// function Home() {
+//   const [books, setBooks] = useState([]);
+//   const [articles, setArticles] = useState([]);
+
+//   useEffect(() => {
+//     // Assuming booksData is an array of book objects
+//     const books = booksData;
+//     const articles = books.slice(0, 3); // Use the first two books as articles
+//     setBooks(books);
+//     setArticles(articles);
+//   }, []);
+
+//   const Article = ({ title, author, imageUrl }) => (
+//     <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+//       <div className="shrink-0">
+//         <img className="h-12 w-12" src={imageUrl} alt={title} />
+//       </div>
+//       <div>
+//         <div className="text-xl font-medium text-black">{title}</div>
+//         <p className="text-slate-500">Author: {author}</p>
+//       </div>
+//     </div>
+//   );
+
 //   return (
-//     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none" viewBox="0 0 19 19" {...props}>
-//       <path fill="currentColor" d="M10.216.018v6h8v-6m-8 18h8v-10h-8m-10 10h8v-6h-8v10Z" />
-//     </svg>
+//     <div className="container mx-auto py-8">
+//       <div className="flex flex-wrap items-center mb-8">
+//         <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
+//           <h1 className="text-3xl font-bold mb-4 text-blue-500">Welcome to the library</h1>
+//           <p className="mb-4 text-gray-600">Explore our vast collection of books</p>
+//         </div>
+//         <div className="w-full md:w-1/2 lg:w-2/5 px-2">
+//           <img className="w-1/2" src={image} alt="Logo" />
+//         </div>
+//       </div>
+
+//       <h2 className="text-2xl font-bold mb-4 text-blue-500">Featured Books</h2>
+//       <div className="flex flex-wrap mb-8">
+//         {books.slice(4, 8).map((book, index) => (
+//           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+//             <img className="w-full mb-3" src={image} alt={book.title} />
+//             <p className="font-semibold text-center text-gray-600">{book.title}</p>
+//           </div>
+//         ))}
+//       </div>
+
+//       <h2 className="text-2xl font-bold mb-4 text-blue-500">Popular Articles</h2>
+//       <div className="flex flex-wrap mb-8">
+//         {articles.map((article, index) => (
+//           <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
+//             <Article title={article.title} author={article.author} imageUrl={image} />
+//           </div>
+//         ))}
+//       </div>
+
+//       <h2 className="text-2xl font-bold mb-2 text-blue-500">Subscribe to Newsletter</h2>
+//       <p className="text-gray-400 mb-4">Receive the latest updates and offers directly to your inbox!</p>
+//       <div className="flex items-center mb-2">
+//         <input
+//           type="email"
+//           className="px-4 py-2 rounded-md w-5/12 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           placeholder="Enter your email"
+//         />
+//       </div>
+//       <button className="px-6 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md mb-8">Subscribe</button>
+
+//       <h2 className="text-2xl font-bold mb-4 text-blue-500">Library Statistics</h2>
+//       <div className="flex flex-wrap items-center mb-8">
+//         <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-600">
+//           <p>Total Books: 500+</p>
+//           <p>Total Active Members: 200+</p>
+//         </div>
+//       </div>
+
+//       <div class="flex flex-col items-center w-full max-w-screen-md p-6 pb-6 bg-white rounded-lg sm:p-8">
+//         <h2 class="text-xl font-bold text-gray-600">Monthly Visitors</h2>
+//         <span class="text-sm font-semibold text-gray-500">2024</span>
+//         <div class="flex items-end flex-grow w-full mt-2 space-x-2 sm:space-x-3">
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">65</span>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-16 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Jan</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">69</span>
+//             <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Feb</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">70</span>
+//             <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Mar</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">71</span>
+//             <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Apr</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">70</span>
+//             <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">May</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">73</span>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Jun</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">76</span>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-16 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Jul</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">72</span>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-10 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Aug</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">78</span>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full bg-indigo-400 h-28"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Sep</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">78</span>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-32 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Oct</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">80</span>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-40 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Nov</span>
+//           </div>
+//           <div class="relative flex flex-col items-center flex-grow pb-5 group">
+//             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">100</span>
+//             <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
+//             <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
+//             <div class="relative flex justify-center w-full h-40 bg-indigo-400"></div>
+//             <span class="absolute bottom-0 text-xs font-bold">Dec</span>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="flex justify-center space-x-4 mt-8">
+//         <InstagramIcon className="hover:text-pink-500 text-2xl" />
+//         <XIcon className="hover:text-black text-2xl" />
+//         <LinkedInIcon className="hover:text-blue-600 text-2xl" />
+//       </div>
+//     </div>
 //   );
 // }
+
+
+function HomeIcon(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none" viewBox="0 0 19 19" {...props}>
+      <path fill="currentColor" d="M10.216.018v6h8v-6m-8 18h8v-10h-8m-10 10h8v-6h-8v10Z" />
+    </svg>
+  );
+}
 
 
 // function BooksIcon(props) {
