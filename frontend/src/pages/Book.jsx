@@ -119,7 +119,7 @@ function Books() {
                 Borrow
               </button>
               <FavoriteIcon
-                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
+                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400'}`}
                 onClick={() => handleFavoriteClick(indexOfFirstBook + index)}
                 style={{ transition: 'color 0.3s' }}
               />
