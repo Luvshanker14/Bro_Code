@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import image from "./assets/react.svg";
 import Status from "./pages/Status";
 import Navbar from './pages/Navbar';
@@ -9,9 +9,11 @@ import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SearchIcon from '@mui/icons-material/Search';
 import booksData from "./assets/UpdatedDatasetSOI.json";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import './App.css'; 
 
 
-import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, duration } from '@mui/material';
 import Books from './pages/Book';
  import Home from './pages/Home';
 
@@ -21,21 +23,28 @@ function App() {
   return (
     <div style={{ backgroundColor: 'white', display: 'flex' }}>
       <Navbar selected={selected} setSelected={setSelected} />
-      <MainContent selected={selected} />
+      <MainContent selected={selected}/>
     </div>
   );
 }
 
-
 function MainContent({ selected }) {
   return (
-    <div className="flex-1 p-4">
+    <TransitionGroup className="main-content">
+      <CSSTransition
+        key={selected}
+        timeout={300} // Duration of the transition in milliseconds
+        classNames="page" // Class name prefix for transition styles
+      >
+    <div className="flex-1 p-5 page">
       {/* Render different components based on the selected menu */}
       {selected === 'Books' && <Books />}
       {selected === 'Home' && <Home />}
       {selected === 'Account' && <Account />}
       {selected === 'Status' && <Status />}
     </div>
+  </CSSTransition>
+  </TransitionGroup>
   );
 }
 
