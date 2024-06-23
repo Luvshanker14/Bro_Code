@@ -4,6 +4,7 @@ import XIcon from '@mui/icons-material/Close';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import image from '../assets/react.svg'; // Adjust the path as needed
 import booksData from '../assets/UpdatedDatasetSOI.json';
+import './home.css'
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -18,7 +19,7 @@ function Home() {
   }, []);
 
   const Article = ({ title, author, imageUrl }) => (
-    <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+    <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4 hover:cursor-pointer box">
       <div className="shrink-0">
         <img className="h-12 w-12" src={imageUrl} alt={title} />
       </div>
@@ -41,7 +42,7 @@ function Home() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Featured Books</h2>
+      <h2 className="text-2xl font-bold mb-8 text-blue-500">Featured Books</h2>
       <div className="flex flex-wrap mb-8">
         {books.slice(4, 8).map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
