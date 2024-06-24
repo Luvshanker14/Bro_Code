@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import image from "../assets/react.svg";
-import SearchIcon from '@mui/icons-material/Search';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import SearchIcon from "@mui/icons-material/Search";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import booksData from "../assets/UpdatedDatasetSOI.json"; // Make sure this path is correct
 
 function Books() {
   const [books, setBooks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedDepartment, setSelectedDepartment] = useState('All');
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
+  const [selectedBook, setSelectedBook] = useState(null);
   const booksPerPage = 20;
 
   useEffect(() => {
-    const transformedBooks = booksData.map(book => ({
+    const transformedBooks = booksData.map((book) => ({
       ...book,
       image: image,
       isFavorite: false,
@@ -31,10 +32,20 @@ function Books() {
   }, [searchQuery, selectedDepartment]);
 
   const filterBooks = () => {
-    return books.filter(book => 
-      (selectedDepartment === 'All' || book.department === selectedDepartment) &&
-      book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return books.filter(
+      (book) =>
+        (selectedDepartment === "All" ||
+          book.department === selectedDepartment) &&
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
+  };
+
+  const handleBookClick = (book) => {
+    setSelectedBook(book);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBook(null);
   };
 
   const filteredBooks = filterBooks();
@@ -79,25 +90,51 @@ function Books() {
           <SearchIcon className="search-icon" />
         </div>
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
             <div className="w-10 rounded-full">
-              <img alt="component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img
+                alt="component"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              />
             </div>
           </div>
-          <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52">
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52"
+          >
             <li>
               <a className="justify-between">Account</a>
             </li>
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li>
+              <a>Logout</a>
+            </li>
           </ul>
         </div>
       </div>
       <div className="flex flex-wrap ml-5 mb-6">
-        {['All', 'Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Chemical Engineering', 'Civil Engineering', 'Engineering Physics'].map(department => (
+        {[
+          "All",
+          "Computer Science",
+          "Electrical Engineering",
+          "Mechanical Engineering",
+          "Chemical Engineering",
+          "Civil Engineering",
+          "Engineering Physics",
+        ].map((department) => (
           <span
             key={department}
-            className={`category-tag ${selectedDepartment === department ? 'selected' : ''}`}
+            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 rounded-sm text-black text-sm cursor-pointer leading-4 ${
+              selectedDepartment === department
+                ? "selected bg-gray-600 text-white transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 "
+                : " "
+            }`}
             onClick={() => setSelectedDepartment(department)}
           >
             {department}
@@ -108,8 +145,18 @@ function Books() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {currentBooks.map((book, index) => (
           <div key={book.title} className="p-4 rounded-md">
-            <img src={book.image} alt={book.title} className="w-full object-cover" />
-            <h3 className="text-center mt-2 text-sm">{book.title}</h3>
+            <button
+              type="button"
+              className="w-full object-cover"
+              onClick={() => handleBookClick(book)}
+            >
+              <img
+                src={book.image}
+                alt={book.title}
+                className="w-full object-cover"
+              />
+            </button>
+            <h3 className="text-center mt-2 text-sm truncate">{book.title}</h3>
             <div className="flex items-center">
               <button
                 type="button"
@@ -119,9 +166,11 @@ function Books() {
                 Borrow
               </button>
               <FavoriteIcon
-                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? 'text-red-500' : 'text-gray-400'}`}
+                className={`ml-3 mt-2 cursor-pointer ${
+                  book.isFavorite ? "text-red-500" : "text-gray-400"
+                }`}
                 onClick={() => handleFavoriteClick(indexOfFirstBook + index)}
-                style={{ transition: 'color 0.3s' }}
+                style={{ transition: "color 0.3s" }}
               />
             </div>
           </div>
@@ -176,6 +225,67 @@ function Books() {
           </button>
         </div>
       </div>
+
+      {selectedBook && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm ">
+          <div className=" bg-slate-100 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row ">
+            <button
+              className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black"
+              onClick={handleCloseModal}
+            >
+              &times;
+            </button>
+            <img
+              src={selectedBook.image}
+              alt={selectedBook.title}
+              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
+            />
+            <div className="mt-4 lg:pb-56 lg:pl-14 flex flex-col justify-center">
+              <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black">
+                {selectedBook.title}
+              </h2>
+              <p className="text-left mt-2 text-md lg:text-xl text-black">
+                <span className="text-black font-medium">Author:</span>{" "}
+                {selectedBook.author}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black">
+                <span className="text-black font-medium">Description:</span>{" "}
+                {selectedBook.description}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black">
+                <span className="text-black font-medium">Department:</span>{" "}
+                {selectedBook.department}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black">
+                <span className="text-black font-medium">Genre:</span>{" "}
+                {selectedBook.genre}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black">
+                <span className="text-black font-medium">Publisher:</span>{" "}
+                {selectedBook.publisher}
+              </p>
+              <div className="w-1/2 pt-12">
+                <button
+                  type="button"
+                  className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+                  data-twe-ripple-init
+                >
+                  Borrow
+                </button>
+                <FavoriteIcon
+                  className={`ml-2 0 mb-1 cursor-pointer ${
+                    selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
+                  }`}
+                  onClick={() =>
+                    handleFavoriteClick(books.indexOf(selectedBook))
+                  }
+                  style={{ transition: "color 0.3s" }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
