@@ -14,9 +14,13 @@ function Navbar({ selected, setSelected }) {
     <div className="flex flex-col justify-between w-16 h-screen  bg-white sticky top-0 left-0 bg-[rgba(173,216,230,0.6)] border-r-[1px] border-r-[rgba(30,28,28,0.18)]">
       <div>
         <div className="inline-flex justify-center items-center w-16 h-16 pt-4 pb-4">
+          <button
+          onClick={() => setSelected("Home")}
+          >
           <span className="grid place-content-center w-10 h-10 text-xs leading-4 bg-transparent text-gray-600 rounded-md">
             <img src="iitdh_logo.png" />
           </span>
+          </button>
         </div>
         <div className=" border-t border-white">
           <div className="px-2">
