@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bookRoutes = require('./routes/bookRoutes');
 const cors = require('cors');
-
+const bookRequestRoutes = require('./routes/bookRequestRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost:27017/booksdb', {
 
 // Routes
 app.use('/books', bookRoutes);
+app.use('/bookRequests', bookRequestRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
