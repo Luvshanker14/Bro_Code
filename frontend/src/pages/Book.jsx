@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import image from "../assets/react.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import booksData from "../assets/UpdatedDatasetSOI.json"; // Make sure this path is correct
-import axios from 'axios'
+import axios from 'axios';
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -14,25 +13,21 @@ function Books() {
   const booksPerPage = 20;
 
   useEffect(() => {
-    const getBook = async()=>{
+    const getBooks = async () => {
       try {
-        const res=await axios.get('http://localhost:3000/books')
+        const res = await axios.get('http://localhost:3000/books');
         setBooks(res.data);
-      } catch(error) {
-        console.log('Error',error)
+      } catch (error) {
+        console.log('Error', error);
       }
-    }
-    getBook();
-    // const transformedBooks = booksData.map((book) => ({
-    //   ...book,
-    //   image: image,
-    //   isFavorite: false,
-    // }));
+    };
+    getBooks();
   }, []);
 
-  const handleFavoriteClick = (index) => {
-    const updatedBooks = [...books];
-    updatedBooks[index].isFavorite = !updatedBooks[index].isFavorite;
+  const handleFavoriteClick = (bookId) => {
+    const updatedBooks = books.map(book =>
+      book._id === bookId ? { ...book, isFavorite: !book.isFavorite } : book
+    );
     setBooks(updatedBooks);
   };
 
@@ -92,7 +87,7 @@ function Books() {
           <input
             type="text"
             placeholder="Start Searching..."
-            className="search-bar"
+            className="search-bar text-black"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -152,15 +147,15 @@ function Books() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {currentBooks.map((book, index) => (
-          <div key={book.title} className="p-4 rounded-md">
+        {currentBooks.map((book) => (
+          <div key={book._id} className="p-4 rounded-md">
             <button
               type="button"
               className="w-full object-cover"
               onClick={() => handleBookClick(book)}
             >
               <img
-                src={book.image}
+                src={image}
                 alt={book.title}
                 className="w-full object-cover"
               />
@@ -178,7 +173,7 @@ function Books() {
                 className={`ml-3 mt-2 cursor-pointer ${
                   book.isFavorite ? "text-red-500" : "text-gray-400"
                 }`}
-                onClick={() => handleFavoriteClick(indexOfFirstBook + index)}
+                onClick={() => handleFavoriteClick(book._id)}
                 style={{ transition: "color 0.3s" }}
               />
             </div>
@@ -198,7 +193,7 @@ function Books() {
             >
               <path
                 fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                 clipRule="evenodd"
               />
             </svg>
@@ -236,8 +231,8 @@ function Books() {
       </div>
 
       {selectedBook && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md ">
-          <div className=" bg-slate-100 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row ">
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
+          <div className="bg-slate-100 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
             <button
               className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black"
               onClick={handleCloseModal}
@@ -245,7 +240,7 @@ function Books() {
               &times;
             </button>
             <img
-              src={selectedBook.image}
+              src={image}
               alt={selectedBook.title}
               className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
             />
@@ -286,7 +281,7 @@ function Books() {
                     selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
                   }`}
                   onClick={() =>
-                    handleFavoriteClick(books.indexOf(selectedBook))
+                    handleFavoriteClick(selectedBook._id)
                   }
                   style={{ transition: "color 0.3s" }}
                 />

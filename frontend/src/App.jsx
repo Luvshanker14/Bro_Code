@@ -1,17 +1,9 @@
-import React, { useState, useEffect, useTransition } from 'react';
-import image from "./assets/react.svg";
+import React, { useState } from 'react';
 import Status from "./pages/Status";
 import Navbar from './pages/Navbar';
 import Account from "./pages/Account";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import XIcon from '@mui/icons-material/X';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import SearchIcon from '@mui/icons-material/Search';
-import booksData from "./assets/UpdatedDatasetSOI.json";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css'; 
-import { Card, CardContent, CardMedia, Typography, Grid, duration } from '@mui/material';
 import Books from './pages/Book';
  import Home from './pages/Home';
 
