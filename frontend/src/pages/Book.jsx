@@ -3,6 +3,7 @@ import image from "../assets/react.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import booksData from "../assets/UpdatedDatasetSOI.json"; // Make sure this path is correct
+import axios from 'axios'
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -13,12 +14,20 @@ function Books() {
   const booksPerPage = 20;
 
   useEffect(() => {
-    const transformedBooks = booksData.map((book) => ({
-      ...book,
-      image: image,
-      isFavorite: false,
-    }));
-    setBooks(transformedBooks);
+    const getBook = async()=>{
+      try {
+        const res=await axios.get('http://localhost:3000/books')
+        setBooks(res.data);
+      } catch(error) {
+        console.log('Error',error)
+      }
+    }
+    getBook();
+    // const transformedBooks = booksData.map((book) => ({
+    //   ...book,
+    //   image: image,
+    //   isFavorite: false,
+    // }));
   }, []);
 
   const handleFavoriteClick = (index) => {
