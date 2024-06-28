@@ -6,13 +6,16 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css'; 
 import Books from './pages/Book';
  import Home from './pages/Home';
+import Darkmode from './pages/Darkmode';
+
+
 
 function App() {
   const [selected, setSelected] = useState('Home');
 
   return (
-    <div style={{ backgroundColor: 'white', display: 'flex' }}>
-      <Navbar selected={selected} setSelected={setSelected} />
+    <div className='flex  bg-slate-200 dark:bg-black'>
+      <Navbar selected={selected} setSelected={setSelected}/>
       <MainContent selected={selected}/>
     </div>
   );
@@ -26,7 +29,7 @@ function MainContent({ selected }) {
         timeout={300} // Duration of the transition in milliseconds
         classNames="page" // Class name prefix for transition styles
       >
-    <div className="flex-1 p-5 page">
+    <div className="flex-1 p-2 page dark:bg-black">
       {/* Render different components based on the selected menu */}
       {selected === 'Books' && <Books />}
       {selected === 'Home' && <Home />}
