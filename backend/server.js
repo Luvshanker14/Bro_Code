@@ -7,6 +7,9 @@ const cors = require('cors');
 const bookRequestRoutes = require('./routes/bookRequestRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const dotenv = require('dotenv');
+const userRoute = require('./routes/userRouter');
+dotenv.config()
 
 // Middleware
 app.use(bodyParser.json());
@@ -23,6 +26,11 @@ mongoose.connect('mongodb://localhost:27017/booksdb', {
 });
 
 // Routes
+app.get('/', (req, res) => {
+    res.json({ msg: "Welcome To LMS Server" });
+})
+
+app.use('/user', userRoute);
 app.use('/books', bookRoutes);
 app.use('/bookRequests', bookRequestRoutes);
 
