@@ -14,6 +14,6 @@ const bookSchema = mongoose.Schema({
     publisher_id: Number
 });
 
-const Book = mongoose.model('Book', bookSchema);
+const Book = mongoose.model('book_datasets', bookSchema);
 
 module.exports = Book;
