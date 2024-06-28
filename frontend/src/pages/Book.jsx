@@ -134,11 +134,10 @@ function Books() {
         ].map((department) => (
           <span
             key={department}
-            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 rounded-sm text-black text-sm cursor-pointer leading-4 ${
-              selectedDepartment === department
+            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 rounded-sm text-black text-sm cursor-pointer leading-4 ${selectedDepartment === department
                 ? "selected bg-gray-600 text-white transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 "
                 : " "
-            }`}
+              }`}
             onClick={() => setSelectedDepartment(department)}
           >
             {department}
@@ -170,9 +169,8 @@ function Books() {
                 Borrow
               </button>
               <FavoriteIcon
-                className={`ml-3 mt-2 cursor-pointer ${
-                  book.isFavorite ? "text-red-500" : "text-gray-400"
-                }`}
+                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? "text-red-500" : "text-gray-400"
+                  }`}
                 onClick={() => handleFavoriteClick(book._id)}
                 style={{ transition: "color 0.3s" }}
               />
@@ -185,15 +183,10 @@ function Books() {
         <div className="inline-flex gap-6 bg-slate-100 rounded-md">
           <button onClick={goToPrevPage} disabled={currentPage === 1}>
             <span className="sr-only">Prev Page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                 clipRule="evenodd"
               />
             </svg>
@@ -277,9 +270,8 @@ function Books() {
                   Borrow
                 </button>
                 <FavoriteIcon
-                  className={`ml-2 0 mb-1 cursor-pointer ${
-                    selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
-                  }`}
+                  className={`ml-2 0 mb-1 cursor-pointer ${selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
+                    }`}
                   onClick={() =>
                     handleFavoriteClick(selectedBook._id)
                   }
