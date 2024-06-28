@@ -17,9 +17,9 @@ function Status() {
   ];
 
   return (
-    <div className="w-full">
+    <div className="pl-4 bg-white dark:bg-neutral-900">
       <div className="mb-10">
-        <h2 className="text-3xl font-semibold mb-4 border-b pb-2 text-slate-800">Book Request</h2>
+        <h2 className="text-3xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
         <table className="w-full table-auto bg-white shadow-md rounded">
           <thead>
             <tr className="bg-gray-200">
@@ -44,7 +44,7 @@ function Status() {
 
       <div className="flex mb-10">
         <div className="w-3/5 pr-4">
-          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800">Borrowed Books</h2>
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowed Books</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">
@@ -63,7 +63,7 @@ function Status() {
               ))}
             </tbody>
           </table>
-        </div>
+        </div> 
         <PieChart
           series={[
             {
@@ -97,7 +97,7 @@ function Status() {
         />
 
         <div className="w-3/4 pr-4">
-          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800">My Favorite Books</h2>
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">My Favorite Books</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">

@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from 'axios';
 
+
 function Books() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -81,18 +82,19 @@ function Books() {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between p-3">
+    <div className="rounded-sm bg-white dark:bg-neutral-900">
+      <div className="flex items-center justify-between p-3 ">
         <div className="relative w-3/4 sm:w-1/2 p-2">
           <input
             type="text"
             placeholder="Start Searching..."
-            className="search-bar text-black"
+            className="search-bar text-black dark:text-white dark:bg-neutral-800"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <SearchIcon className="search-icon" />
         </div>
+       
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -134,8 +136,8 @@ function Books() {
         ].map((department) => (
           <span
             key={department}
-            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 rounded-sm text-black text-sm cursor-pointer leading-4 ${selectedDepartment === department
-                ? "selected bg-gray-600 text-white transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 "
+            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 dark:bg-neutral-800 rounded-sm text-black dark:text-white text-sm cursor-pointer leading-4 ${selectedDepartment === department
+                ? "selected bg-neutral-300 text-black transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-white"
                 : " "
               }`}
             onClick={() => setSelectedDepartment(department)}
@@ -163,7 +165,7 @@ function Books() {
             <div className="flex items-center">
               <button
                 type="button"
-                className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+                className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400  focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
                 data-twe-ripple-init
               >
                 Borrow
@@ -225,9 +227,9 @@ function Books() {
 
       {selectedBook && (
         <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
-          <div className="bg-slate-100 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
+          <div className="bg-slate-100 dark:bg-neutral-800 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
             <button
-              className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black"
+              className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black dark:text-white dark:hover:text-black"
               onClick={handleCloseModal}
             >
               &times;
@@ -264,7 +266,7 @@ function Books() {
               <div className="w-1/2 pt-12">
                 <button
                   type="button"
-                  className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 hover:bg-neutral-100 hover:text-white focus:border-neutral-800 focus:bg-neutral-100 focus:text-white focus:ring-0 active:border-neutral-900 active:text-neutral-900 motion-reduce:transition-none dark:text-neutral-600 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+                  className="borrow-button transition duration-150 ease-in-out dark:border-black hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800  focus:bg-neutral-400 focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
                   data-twe-ripple-init
                 >
                   Borrow

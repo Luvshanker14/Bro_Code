@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import Darkmode from './Darkmode';
 
 function Account() {
   // Placeholder data
@@ -26,8 +28,8 @@ function Account() {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen bg-white dark:bg-neutral-900 flex items-center justify-center p-6">
+      <div className="w-full max-w-6xl rounded-lg shadow-lg p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div className="col-span-1 flex flex-col items-center">
             <div className="w-32 h-32 bg-gray-300 rounded-full mb-4 flex items-center justify-center">
@@ -45,6 +47,7 @@ function Account() {
               <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p>
             </div>
           </div>
+          <Darkmode />
         </div>
 
         <div className="mb-10">

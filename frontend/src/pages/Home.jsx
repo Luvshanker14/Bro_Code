@@ -31,7 +31,7 @@ function Home() {
   );
 
   return (
-    <div className="container mx-auto py-8">
+    <div className=" py-8 pl-4 bg-white dark:bg-neutral-900 rounded-sm">
       <div className="flex flex-wrap items-center mb-8">
         <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
           <h1 className="text-3xl font-bold mb-4 text-blue-500">Welcome to the library</h1>
