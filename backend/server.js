@@ -16,7 +16,8 @@ app.use(bodyParser.json());
 app.use(cors())
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/booksdb', {
+const URL=process.env.MONGODB_URL;
+mongoose.connect(URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
