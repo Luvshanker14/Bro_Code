@@ -20,3 +20,12 @@ exports.borrowBook = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+exports.getBookRequests = async (req, res) => {
+    try {
+        const bookRequests = await BookRequest.find();
+        res.status(200).json(bookRequests);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
