@@ -1,14 +1,33 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 
 function Account() {
   // Placeholder data
+
+  const adminCookie = Cookies.get('adminId');
+if (adminCookie) {
+  const admin=JSON.parse(adminCookie);
+  console.log('Admin ID from cookie:', admin);
+} else {
+  console.log('Admin ID not found in cookie');
+}
+const admin=JSON.parse(adminCookie);
+
+
+
   const profile = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "123-456-7890",
-    address: "123 Main St, City, State",
-    dob: "January 1, 1990",
+    name: admin.adminName,
+    email: admin.adminEmail,
+   
   };
+
+  function handleLogout()
+  {
+    Cookies.remove('adminId',{path:'/'});
+
+    window.location.href= 'http://localhost:5175';
+    
+  }
 
   const borrowedBooks = [
     { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
@@ -40,9 +59,9 @@ function Account() {
             <div className="space-y-2">
               <p><strong className="text-gray-700">Name:</strong> {profile.name}</p>
               <p><strong className="text-gray-700">Email:</strong> {profile.email}</p>
-              <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
+              {/* <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
               <p><strong className="text-gray-700">Address:</strong> {profile.address}</p>
-              <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p>
+              <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p> */}
             </div>
           </div>
         </div>
@@ -121,7 +140,7 @@ function Account() {
 
         <div className="flex justify-between">
           <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Edit Profile</button>
-          <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+          <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
         </div>
       </div>
     </div>

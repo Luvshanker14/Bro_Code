@@ -1,4 +1,4 @@
-const Users=require('../models/userModel');
+
 const Admins=require('../models/adminModel');
 const jwt=require("jsonwebtoken");
 const bcrypt=require("bcrypt");
@@ -10,7 +10,7 @@ const emailValidate=z.string().email().refine((email)=>{
 
 const passwordValidate=z.string().min(8);
 
-const userCtrl={
+const adminCtrl={
   register:async(req,res)=>{
     try {
       console.log("i am in register controller");
@@ -31,8 +31,8 @@ const userCtrl={
             return res.status(400).json({ error: "Password shoul have at least 8 characters" });
           }
 
-      const user=await Users.findOne({email});
-      if(user)
+      const admin=await Admins.findOne({email});
+      if(admin)
         {
           
           return res.status(400).json({msg:"Email already registered"});
@@ -41,12 +41,12 @@ const userCtrl={
         //hashing password
         const passwordHash=await bcrypt.hash(password,10);
 
-        const newUser= new Users({
+        const newAdmin= new Admins({
           name,email,password
         });
-        await newUser.save();
+        await newAdmin.save();
 
-       res.status(200).json({msg:"User registered"});
+       res.status(200).json({msg:"Admin registered"});
 
 
 
@@ -59,18 +59,17 @@ const userCtrl={
 
     try{
       const {email,password}=req.body;
-      const user=await Users.findOne({email,password});
-      console.log("hey");
+      const admin=await Admins.findOne({email,password});
+     // console.log("hey");
       console.log(email);
       console.log(password);
-      if(!user)
+      if(!admin)
       {
-        return res.status(404).send("User not Found");
+        return res.status(404).send("Admin not Found");
       }
-      res.cookie('user', JSON.stringify(user), { httpOnly: true, secure: false });
-      res.status(200).json({success:true,user,});
+      res.status(200).json({success:true,admin,});
       
-      console.log("hey2");
+      //console.log("hey2");
       }catch(error)
     {
       res.status(400).json({
@@ -85,4 +84,4 @@ const userCtrl={
 
   
 }
-module.exports=userCtrl;
+module.exports=adminCtrl;

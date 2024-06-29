@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const dotenv = require('dotenv');
 const userRoute = require('./routes/userRouter');
+const adminRoute=require('./routes/adminRoute');
 dotenv.config()
 
 // Middleware
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRoute);
 app.use('/books', bookRoutes);
 app.use('/bookRequests', bookRequestRoutes);
+app.use('/admin',adminRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
