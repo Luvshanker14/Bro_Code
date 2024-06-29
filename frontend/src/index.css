@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 
+
+
+*{
+  @apply transition-colors duration-300;
+}
+
+
   
 /* Books.css */
 .search-bar {
@@ -52,7 +59,7 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border: 1px solid #f0f0f0;
-  background-color: white;
-  color: #000;
+  border: 1px solid #ab1818;
+  background-color: rgb(171, 30, 30);
+  color: #b01111;
 }

@@ -160,8 +160,9 @@ function Books() {
                 alt={book.title}
                 className="w-full object-cover"
               />
+            
+            <h3 className="text-center mt-2 text-sm truncate text-black dark:text-white">{book.title}</h3>
             </button>
-            <h3 className="text-center mt-2 text-sm truncate">{book.title}</h3>
             <div className="flex items-center">
               <button
                 type="button"
@@ -182,7 +183,7 @@ function Books() {
       </div>
 
       <div className="pagination">
-        <div className="inline-flex gap-6 bg-slate-100 rounded-md">
+        <div className="inline-flex gap-6 bg-slate-300 dark:bg-slate-800 rounded-md">
           <button onClick={goToPrevPage} disabled={currentPage === 1}>
             <span className="sr-only">Prev Page</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -199,7 +200,7 @@ function Books() {
             </label>
             <input
               type="number"
-              className="h-8 w-12 rounded border border-gray-900 bg-white p-0 text-center text-xl font-bold text-gray-900 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
+              className="h-8 w-12 rounded border border-gray-900 bg-white dark:bg-neutral-700 p-0 text-center text-xl font-semibold text-gray-900 dark:text-white [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
               min="1"
               max={totalPages}
               value={currentPage}
@@ -240,27 +241,27 @@ function Books() {
               className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
             />
             <div className="mt-4 lg:pb-40 lg:pl-14 flex flex-col justify-center">
-              <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black">
+              <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black dark:text-white">
                 {selectedBook.title}
               </h2>
-              <p className="text-left mt-2 text-md lg:text-xl text-black">
-                <span className="text-black font-medium">Author:</span>{" "}
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Author:</span>{" "}
                 {selectedBook.author}
               </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black">
-                <span className="text-black font-medium">Description:</span>{" "}
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Description:</span>{" "}
                 {selectedBook.description}
               </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black">
-                <span className="text-black font-medium">Department:</span>{" "}
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Department:</span>{" "}
                 {selectedBook.department}
               </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black">
-                <span className="text-black font-medium">Genre:</span>{" "}
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Genre:</span>{" "}
                 {selectedBook.genre}
               </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black">
-                <span className="text-black font-medium">Publisher:</span>{" "}
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Publisher:</span>{" "}
                 {selectedBook.publisher}
               </p>
               <div className="w-1/2 pt-12">
