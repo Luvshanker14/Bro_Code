@@ -2,6 +2,7 @@ import React from "react";
 import HomeIcon from "@mui/icons-material/Dashboard";
 import AccountIcon from "@mui/icons-material/Person";
 import BooksIcon from "@mui/icons-material/AutoStories";
+import Cookies from 'js-cookie';
 
 function Navbar({ selected, setSelected }) {
   const menuItems = [
@@ -9,6 +10,15 @@ function Navbar({ selected, setSelected }) {
     { name: "Books", icon: BooksIcon },
     { name: "Account", icon: AccountIcon },
   ];
+
+  function handleLogout(event)
+  {
+    event.preventDefault();
+    Cookies.remove('adminId',{path:'/'});
+
+    window.location.href= 'http://localhost:5175';
+    
+  }
 
   return (
     <div className="flex flex-col justify-between w-16 h-screen  bg-white sticky top-0 left-0 bg-[rgba(173,216,230,0.6)] border-r-[1px] border-r-[rgba(30,28,28,0.18)]">
@@ -43,6 +53,7 @@ function Navbar({ selected, setSelected }) {
           <button
             type="submit"
             className="group relative flex w-full justify-center rounded-md px-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+            onClick={handleLogout}
           >
             <LogoutIcon />
             <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-3 py-1.5 text-xs font-medium text-white group-hover:visible group-hover:shadow-slate-400">

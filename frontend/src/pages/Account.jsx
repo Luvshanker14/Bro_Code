@@ -1,16 +1,35 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Darkmode from './Darkmode';
+import Cookies from 'js-cookie';
+
 
 function Account() {
   // Placeholder data
+  // const user=JSON.parse(localStorage.getItem('user'));
+  // console.log(user);
+
+  const userCookie = Cookies.get('userId');
+if (userCookie) {
+  const user=JSON.parse(userCookie);
+  console.log('User ID from cookie:', user);
+} else {
+  console.log('User ID not found in cookie');
+}
+const user=JSON.parse(userCookie);
+
   const profile = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "123-456-7890",
-    address: "123 Main St, City, State",
-    dob: "January 1, 1990",
+    name: user.userName,
+    email: user.userEmail,
+    
   };
+
+  function handleLogout()
+  {
+    window.location.href= 'http://localhost:5175';
+    Cookies.remove('userId',{path:'/'});
+   
+  }
 
   const borrowedBooks = [
     { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
@@ -42,9 +61,9 @@ function Account() {
             <div className="space-y-2">
               <p><strong className="text-gray-700">Name:</strong> {profile.name}</p>
               <p><strong className="text-gray-700">Email:</strong> {profile.email}</p>
-              <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
+              {/* <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
               <p><strong className="text-gray-700">Address:</strong> {profile.address}</p>
-              <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p>
+              <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p> */}
             </div>
           </div>
           <Darkmode />
@@ -124,7 +143,7 @@ function Account() {
 
         <div className="flex justify-between">
           <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Edit Profile</button>
-          <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+          <button onClick={()=>handleLogout()}className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
         </div>
       </div>
     </div>

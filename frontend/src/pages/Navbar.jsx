@@ -2,14 +2,27 @@ import React from "react";
 import HomeIcon from "@mui/icons-material/Dashboard";
 import AccountIcon from "@mui/icons-material/Person";
 import BooksIcon from "@mui/icons-material/AutoStories";
+import Cookies from 'js-cookie';
 
 function Navbar({ selected, setSelected }) {
+
+  //const userCookie = Cookies.get('userId');
+  //const user=JSON.parse(userCookie);
+
   const menuItems = [
     { name: "Home", icon: HomeIcon },
     { name: "Books", icon: BooksIcon },
     { name: "Status", icon: StatusIcon },
     { name: "Account", icon: AccountIcon },
   ];
+
+  function handleLogout(event)
+  {
+    event.preventDefault();
+    window.location.href= 'http://localhost:5175';
+    Cookies.remove('userId',{path:'/'});
+
+  }
 
   return (
     <div className="flex flex-col justify-between w-16 h-screen border-t-8 border-b-8 border-l-4 rounded-lg dark:border-black border-slate-200 bg-white dark:bg-neutral-900 sticky top-0 left-0 bg-[rgba(173,216,230,0.6)] border-2 border-r-[rgba(30,28,28,0.18)]">
@@ -42,6 +55,9 @@ function Navbar({ selected, setSelected }) {
           <button
             type="submit"
             className="group relative flex w-full justify-center rounded-md px-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-neutral-700 dark:hover:text-slate-100"
+            onClick={
+              handleLogout
+            }
           >
             <LogoutIcon />
             <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 dark:bg-slate-300 px-3 py-1.5 text-sm font-semibold  text-white  dark:text-black group-hover:visible group-hover:shadow-slate-400">
