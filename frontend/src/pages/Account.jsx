@@ -59,8 +59,8 @@ const user=JSON.parse(userCookie);
           <div className="col-span-2">
             <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Personal Information</h2>
             <div className="space-y-2">
-              <p><strong className="text-gray-700">Name:</strong> {profile.name}</p>
-              <p><strong className="text-gray-700">Email:</strong> {profile.email}</p>
+            <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Name:</strong> {profile.name}</p>
+            <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Email:</strong> {profile.email }</p>
               {/* <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
               <p><strong className="text-gray-700">Address:</strong> {profile.address}</p>
               <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p> */}
@@ -70,7 +70,7 @@ const user=JSON.parse(userCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Borrowed Books</h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Borrowed Books</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">
@@ -96,7 +96,7 @@ const user=JSON.parse(userCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Book History</h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Book History</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">
@@ -120,7 +120,7 @@ const user=JSON.parse(userCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Fine Details</h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Fine Details</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">

@@ -6,6 +6,7 @@ import Time from "./Home_components/Time";
 import { PieChart } from "@mui/x-charts/PieChart";
 import Cookies from 'js-cookie';
 
+
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -15,14 +16,14 @@ function Home() {
 
   return (
     <div className="flex h-full w-full">
-      <section className="flex bg-white text-gray-900 body-font h-full w-full pl-5">
+      <section className="flex bg-white rounded-md text-gray-900 dark:bg-neutral-900 body-font h-full w-full pl-5">
         <div className="container px-5 py-6 mx-auto">
           <div className="flex flex-row justify-between items-center w-full mb-10">
             <div>
               <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
                 Hello, {name}
               </h1>
-              <h2 className="xl:text-3xl sm:text-2xl text-2xl font-normal title-font text-black">
+              <h2 className="xl:text-3xl sm:text-2xl text-2xl font-normal title-font text-black dark:text-white">
                 <Time />
               </h2>
               <div className="flex flex-row absolute lg:top-6 lg:right-14 space-x-4 lg:space-x-2 mt-4 lg:mt-0">
@@ -30,7 +31,7 @@ function Home() {
                   <input
                     type="text"
                     placeholder="Start Books"
-                    className="search-bar border-2 border-gray-300 p-3 rounded-md w-80 sm:w-96 focus:outline-none focus:border-black"
+                    className="search-bar border-2 border-gray-300 p-3 rounded-md w-80 sm:w-96 focus:outline-none focus:border-black dark:text-white dark:bg-neutral-800"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -42,7 +43,7 @@ function Home() {
 
           <div className="flex flex-wrap -m-4 pt-12 lg:pt-0 text-left">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -56,14 +57,14 @@ function Home() {
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
                 </svg>
-                <h2 className="title-font font-semibold text-4xl text-gray-900">
+                <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   2.7K
                 </h2>
-                <p className="leading-relaxed">Total Visitors</p>
+                <p className="leading-relaxed dark:text-white">Total Visitors</p>
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -77,14 +78,14 @@ function Home() {
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
                 </svg>
-                <h2 className="title-font font-semibold text-4xl text-gray-900">
+                <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   1.3K
                 </h2>
-                <p className="leading-relaxed">Borrowed Books</p>
+                <p className="leading-relaxed dark:text-white">Borrowed Books</p>
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -97,14 +98,14 @@ function Home() {
                   <path d="M3 18v-6a9 9 0 0118 0v6"></path>
                   <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"></path>
                 </svg>
-                <h2 className="title-font font-semibold text-4xl text-gray-900">
+                <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   74
                 </h2>
-                <p className="leading-relaxed">Overdue Books</p>
+                <p className="leading-relaxed dark:text-white">Overdue Books</p>
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -116,17 +117,17 @@ function Home() {
                 >
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
-                <h2 className="title-font font-semibold text-4xl text-gray-900">
+                <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   46
                 </h2>
-                <p className="leading-relaxed">Reserved Books</p>
+                <p className="leading-relaxed dark:text-white">Reserved Books</p>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col pr-9 lg:flex-row w-full pt-6">
             <div className="flex flex-col items-center space-y-4">
-              <h3 className="text-lg font-semibold text-center">
+              <h3 className="text-lg font-semibold text-center dark:text-white">
                 Number of Books
               </h3>
               <BarChart
@@ -144,7 +145,7 @@ function Home() {
                 width={400}
                 height={250}
               />
-              <h3 className="text-lg font-semibold text-center">
+              <h3 className="text-lg font-semibold text-center dark:text-white">
                 Books Borrowed Over Time
               </h3>
               <LineChart
@@ -162,7 +163,7 @@ function Home() {
             <div className="flex flex-wrap w-full pl-8">
               <div className="w-full">
                 <div className="border-2 rounded-md shadow-md p-4">
-                  <h3 className="text-lg font-semibold mb-4">Books List</h3>
+                  <h3 className="text-lg font-semibold mb-4 dark:text-white">Books List</h3>
                   <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border rounded-md">
                       <thead className="bg-gray-100">
@@ -283,7 +284,7 @@ function Home() {
           <div className="flex pt-6 justify-between flex-col lg:flex-row">
             <div className="w-full">
               <div className="border-2 rounded-md shadow-md p-4">
-                <h3 className="text-lg font-semibold mb-4">User List</h3>
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">User List</h3>
                 <div className="overflow-x-auto">
                   <table className="min-w-full bg-white border rounded-md">
                     <thead className="bg-gray-100">
@@ -323,7 +324,7 @@ function Home() {
                           Bob Smith
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">3</td>
-                        <td className="px-6 py-4 whitespace-nowrap">History</td>
+                        <td className="px-6 py-4 whitespace-nowrap ">History</td>
                       </tr>
                       <tr className="text-left">
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -379,7 +380,7 @@ function Home() {
                 series={[
                   {
                     data: [
-                      { id: 0, value: 10, label: "Returned" },
+                      { id: 0, value: 10, label: "Returned", },
                       { id: 1, value: 3, label: "Not Returned" },
                     ],
                   },

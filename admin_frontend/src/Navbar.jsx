@@ -21,13 +21,11 @@ function Navbar({ selected, setSelected }) {
   }
 
   return (
-    <div className="flex flex-col justify-between w-16 h-screen  bg-white sticky top-0 left-0 bg-[rgba(173,216,230,0.6)] border-r-[1px] border-r-[rgba(30,28,28,0.18)]">
+    <div className="flex flex-col justify-between w-16 h-screen border-t-8 border-b-8 border-l-4 rounded-lg dark:border-black border-slate-200 bg-white dark:bg-neutral-900 sticky top-0 left-0 bg-[rgba(173,216,230,0.6)] border-2 border-r-[rgba(30,28,28,0.18)]">
       <div>
         <div className="inline-flex justify-center items-center w-16 h-16 pt-4 pb-4">
-          <button
-          onClick={() => setSelected("Home")}
-          >
-          <span className="grid place-content-center w-10 h-10 text-xs leading-4 bg-transparent text-gray-600 rounded-md">
+        <button onClick={() => setSelected("Home")}>
+          <span className="grid items-center pr-1 w-11 h-10 text-xs  bg-transparent text-gray-600 rounded-md">
             <img src="iitdh_logo.png" />
           </span>
           </button>
@@ -52,11 +50,13 @@ function Navbar({ selected, setSelected }) {
         <form action="#">
           <button
             type="submit"
-            className="group relative flex w-full justify-center rounded-md px-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            onClick={handleLogout}
+            className="group relative flex w-full justify-center rounded-md px-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-neutral-700 dark:hover:text-slate-100"
+            onClick={
+              handleLogout
+            }
           >
             <LogoutIcon />
-            <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-3 py-1.5 text-xs font-medium text-white group-hover:visible group-hover:shadow-slate-400">
+            <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 dark:bg-slate-300 px-3 py-1.5 text-sm font-semibold  text-white  dark:text-black group-hover:visible group-hover:shadow-slate-400">
               Logout
             </span>
           </button>
@@ -76,14 +76,14 @@ function MenuItem({ name, icon: Icon, selected, setSelected }) {
         onClick={() => setSelected(name)}
         className={`group relative flex justify-center rounded px-2 py-1.5 ${
           isSelected
-            ? "bg-blue-50 text-blue-700 transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400"
-            : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+            ? "bg-blue-100 dark:bg-neutral-900 text-blue-700 transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-slate-200"
+            : "text-gray-500 hover:bg-gray-300 dark:hover:bg-neutral-700 hover:text-slate-700 dark:hover:text-slate-50"
         }`}
       >
         <Icon
           className={`size-5 opacity-100 ${isSelected ? "fill-black" : ""}`}
         />
-        <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+        <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 dark:bg-slate-300 px-2 py-1.5 text-sm font-semibold text-white dark:text-black group-hover:visible">
           {name}
         </span>
       </a>
@@ -133,3 +133,5 @@ function LogoutIcon() {
 }
 
 export default Navbar;
+
+

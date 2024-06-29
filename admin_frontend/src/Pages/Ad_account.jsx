@@ -1,4 +1,5 @@
 import React from 'react';
+import Darkmode from '../Darkmode';
 import Cookies from 'js-cookie';
 
 function Account() {
@@ -45,8 +46,8 @@ const admin=JSON.parse(adminCookie);
   ];
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen rounded-md bg-white dark:bg-neutral-900 flex items-center justify-center p-6">
+      <div className="w-full max-w-6xl rounded-lg shadow-lg p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div className="col-span-1 flex flex-col items-center">
             <div className="w-32 h-32 bg-gray-300 rounded-full mb-4 flex items-center justify-center">
@@ -55,19 +56,20 @@ const admin=JSON.parse(adminCookie);
             <button className="text-blue-500 hover:underline">Click to upload a new profile picture</button>
           </div>
           <div className="col-span-2">
-            <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Personal Information</h2>
+            <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Personal Information</h2>
             <div className="space-y-2">
-              <p><strong className="text-gray-700">Name:</strong> {profile.name}</p>
-              <p><strong className="text-gray-700">Email:</strong> {profile.email}</p>
+              <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Name:</strong> {profile.name}</p>
+              <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Email:</strong> {profile.email }</p>
               {/* <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
               <p><strong className="text-gray-700">Address:</strong> {profile.address}</p>
               <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p> */}
             </div>
           </div>
+          <Darkmode />
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Borrowed Books</h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Borrowed Books</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">
@@ -93,7 +95,7 @@ const admin=JSON.parse(adminCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Book History</h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Book History</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">
@@ -117,7 +119,7 @@ const admin=JSON.parse(adminCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Fine Details</h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Fine Details</h2>
           <table className="w-full table-auto bg-white shadow-md rounded">
             <thead>
               <tr className="bg-gray-200">

@@ -12,7 +12,7 @@ function App(){
 
 
     return(
-        <div className="bg-white flex ">
+        <div className="flex  bg-slate-200 dark:bg-black">
       <Navbar selected={selected} setSelected={setSelected} />
       <MainContent selected={selected}/>
     </div>);
@@ -28,7 +28,7 @@ function MainContent({ selected }) {
         timeout={300} // Duration of the transition in milliseconds
         classNames="page" // Class name prefix for transition styles
       >
-    <div className="flex-1 p-5 page">
+    <div className="flex-1 p-2 page dark:bg-black">
       {/* Render different components based on the selected menu */}
       {selected === 'Books' && <Books />}
       {selected === 'Home' && <Home />}
