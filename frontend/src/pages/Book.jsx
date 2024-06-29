@@ -5,8 +5,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-
-
 function Books() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,12 +14,7 @@ function Books() {
   const booksPerPage = 20;
 
   const userCookie = Cookies.get('userId');
-  const user=JSON.parse(userCookie);
-
-  //to use userId do the following 
-  //const id=user.userId;
-
-
+  const user = JSON.parse(userCookie);
 
   useEffect(() => {
     const getBooks = async () => {
@@ -35,11 +28,9 @@ function Books() {
     getBooks();
   }, []);
 
-  function handleLogout()
-  {
-    Cookies.remove('userId',{path:'/'});
-    window.location.href= 'http://localhost:5175';
-    
+  function handleLogout() {
+    Cookies.remove('userId', { path: '/' });
+    window.location.href = 'http://localhost:5175';
   }
 
   const handleFavoriteClick = (bookId) => {
@@ -61,9 +52,17 @@ function Books() {
         book.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
-  const handleBorrowClick=(book)=>{
-    const currentBookId=book._id;
-    console.log(currentBookId);
+
+  const handleBorrowClick = async (bookId) => {
+    try {
+      const res = await axios.post('http://localhost:3000/bookRequests/borrow', {
+        userId: user.userId,
+        bookId: bookId
+      });
+      console.log('Book borrowed successfully', res.data);
+    } catch (error) {
+      console.log('Error borrowing book', error);
+    }
   };
 
   const handleBookClick = (book) => {
@@ -76,7 +75,6 @@ function Books() {
 
   const filteredBooks = filterBooks();
 
-  // Calculate the books to be displayed on the current page
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
@@ -115,7 +113,7 @@ function Books() {
           />
           <SearchIcon className="search-icon" />
         </div>
-       
+
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -181,15 +179,15 @@ function Books() {
                 alt={book.title}
                 className="w-full object-cover"
               />
-            
-            <h3 className="text-center mt-2 text-sm truncate text-black dark:text-white">{book.title}</h3>
+
+              <h3 className="text-center mt-2 text-sm truncate text-black dark:text-white">{book.title}</h3>
             </button>
             <div className="flex items-center">
               <button
                 type="button"
                 className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400  focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
                 data-twe-ripple-init
-                onClick={()=>handleBorrowClick(book)}
+                onClick={() => handleBorrowClick(book._id)}
               >
                 Borrow
               </button>
@@ -222,22 +220,18 @@ function Books() {
             </label>
             <input
               type="number"
-              className="h-8 w-12 rounded border border-gray-900 bg-white dark:bg-neutral-700 p-0 text-center text-xl font-semibold text-gray-900 dark:text-white [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
-              min="1"
+              className="h-8 w-12 rounded border border-gray-900 bg-white dark:bg-neutral-700 p-0 text-center text-xl font-semibold text-gray-900 dark:text-white [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+              min={1}
               max={totalPages}
+              id="PaginationPage"
               value={currentPage}
               onChange={handlePageChange}
-              id="PaginationPage"
             />
+            <span className="text-gray-900 dark:text-white"> of {totalPages}</span>
           </div>
           <button onClick={goToNextPage} disabled={currentPage === totalPages}>
             <span className="sr-only">Next Page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -249,60 +243,28 @@ function Books() {
       </div>
 
       {selectedBook && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
-          <div className="bg-slate-100 dark:bg-neutral-800 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
-            <button
-              className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black dark:text-white dark:hover:text-black"
-              onClick={handleCloseModal}
-            >
-              &times;
-            </button>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg w-3/4 sm:w-1/2">
+            <h2 className="text-xl mb-4">{selectedBook.title}</h2>
             <img
               src={image}
               alt={selectedBook.title}
-              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
+              className="w-full object-cover mb-4"
             />
-            <div className="mt-4 lg:pb-40 lg:pl-14 flex flex-col justify-center">
-              <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black dark:text-white">
-                {selectedBook.title}
-              </h2>
-              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Author:</span>{" "}
-                {selectedBook.author}
-              </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Description:</span>{" "}
-                {selectedBook.description}
-              </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Department:</span>{" "}
-                {selectedBook.department}
-              </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Genre:</span>{" "}
-                {selectedBook.genre}
-              </p>
-              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Publisher:</span>{" "}
-                {selectedBook.publisher}
-              </p>
-              <div className="w-1/2 pt-12">
-                <button
-                  type="button"
-                  className="borrow-button transition duration-150 ease-in-out dark:border-black hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800  focus:bg-neutral-400 focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
-                  data-twe-ripple-init
-                >
-                  Borrow
-                </button>
-                <FavoriteIcon
-                  className={`ml-2 0 mb-1 cursor-pointer ${selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
-                    }`}
-                  onClick={() =>
-                    handleFavoriteClick(selectedBook._id)
-                  }
-                  style={{ transition: "color 0.3s" }}
-                />
-              </div>
+            <p className="text-black dark:text-white">{selectedBook.description}</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                onClick={() => handleBorrowClick(selectedBook._id)}
+              >
+                Borrow
+              </button>
+              <button
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleCloseModal}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>

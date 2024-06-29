@@ -1,13 +1,47 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Status() {
-  const borrowedBooks = [
+  // const [borrowedBooks, setBorrowedBooks] = useState([]);
+  const userCookie = Cookies.get('userId');
+  const user = JSON.parse(userCookie);
+
+  // useEffect(() => {
+  //   const fetchBorrowedBooks = async () => {
+  //     try {
+  //       const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests/request/${user.userId}`);
+  //       const bookRequests = bookRequestsRes.data;
+
+  //       const bookIds = bookRequests.map(request => request.bookId);
+  //       const booksRes = await axios.get('http://localhost:3000/books');
+  //       const books = booksRes.data;
+
+  //       const borrowedBooksData = bookRequests.map(request => {
+  //         const book = books.find(book => book._id === request.bookId);
+  //         return {
+  //           title: book.title,
+  //           author: book.author,
+  //           status: request.status,
+  //           dueDate: request.requestDate // Assuming dueDate is the same as requestDate for now
+  //         };
+  //       });
+
+  //       setBorrowedBooks(borrowedBooksData);
+  //     } catch (error) {
+  //       console.log('Error fetching borrowed books', error);
+  //     }
+  //   };
+  //   fetchBorrowedBooks();
+  // }, [user.userId]);
+
+  const borrowingHistory = [
     { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
     { title: "Book 2", author: "Author 2", dueDate: "2022-01-01" },
   ];
-  const borrowingHistory = [
+  const borrowedBooks = [
     { title: "Book 1", author: "Author 1", Status: "Pending", Actions: "Cancel Request" },
     { title: "Book 2", author: "Author 2", Status: "Pending", Actions: "Cancel Request" },
   ];
@@ -30,7 +64,7 @@ function Status() {
             </tr>
           </thead>
           <tbody>
-            {borrowingHistory.map((book, index) => (
+            {borrowedBooks.map((book, index) => (
               <tr key={index} className="border-t hover:bg-gray-100">
                 <td className="p-4 text-center text-gray-600">{book.title}</td>
                 <td className="p-4 text-center text-gray-600">{book.author}</td>
@@ -54,7 +88,7 @@ function Status() {
               </tr>
             </thead>
             <tbody>
-              {borrowedBooks.map((book, index) => (
+              {borrowingHistory.map((book, index) => (
                 <tr key={index} className="border-t hover:bg-gray-100">
                   <td className="p-4 text-center text-gray-600">{book.title}</td>
                   <td className="p-4 text-center text-gray-600">{book.author}</td>
