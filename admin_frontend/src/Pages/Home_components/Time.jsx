@@ -28,16 +28,16 @@ function Time() {
   
     return (
       <div className="flex text-left">
-        <h1 className="font-mono text-2.5xl text-gray-900">
+        <h1 className="font-mono text-2.5xl text-gray-900 dark:text-white">
           {formatDate(currentTime)}
         </h1>
-        <h1 className="pl-4 text-2xl font-bold text-gray-900">
+        <h1 className="pl-4 text-2xl font-bold text-gray-900 dark:text-white">
           |
         </h1>
-        <h2 className="font-mono text-2.5xl pl-3 pr-5 text-gray-900">
+        <h2 className="font-mono text-2.5xl pl-3 pr-5 text-gray-900 dark:text-white">
           {formatDay(currentTime)}
         </h2>
-        <h2 className="font-mono text-2.5xl text-gray-900">
+        <h2 className="font-mono text-2.5xl text-gray-900 dark:text-white">
           {formatTime(currentTime)}
         </h2>
       </div>
