@@ -3,6 +3,8 @@ import image from "../assets/react.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import useNavigate from 'react-router-dom';
 
 
 function Books() {
@@ -12,6 +14,14 @@ function Books() {
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [selectedBook, setSelectedBook] = useState(null);
   const booksPerPage = 20;
+
+  const userCookie = Cookies.get('userId');
+  const user=JSON.parse(userCookie);
+
+  //to use userId do the following 
+  //const id=user.userId;
+
+
 
   useEffect(() => {
     const getBooks = async () => {
@@ -24,6 +34,13 @@ function Books() {
     };
     getBooks();
   }, []);
+
+  function handleLogout()
+  {
+    Cookies.remove('userId',{path:'/'});
+    window.location.href= 'http://localhost:5175';
+    
+  }
 
   const handleFavoriteClick = (bookId) => {
     const updatedBooks = books.map(book =>
@@ -43,6 +60,10 @@ function Books() {
           book.department === selectedDepartment) &&
         book.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
+  };
+  const handleBorrowClick=(book)=>{
+    const currentBookId=book._id;
+    console.log(currentBookId);
   };
 
   const handleBookClick = (book) => {
@@ -113,13 +134,13 @@ function Books() {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52"
           >
             <li>
-              <a className="justify-between">Account</a>
+              <a className="justify-between" >Account</a>
             </li>
             <li>
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <a onClick={handleLogout}>Logout</a>
             </li>
           </ul>
         </div>
@@ -168,6 +189,7 @@ function Books() {
                 type="button"
                 className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400  focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
                 data-twe-ripple-init
+                onClick={()=>handleBorrowClick(book)}
               >
                 Borrow
               </button>

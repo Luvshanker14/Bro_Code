@@ -4,9 +4,14 @@ import { LineChart } from "@mui/x-charts/LineChart";
 import SearchIcon from "@mui/icons-material/Search";
 import Time from "./Home_components/Time";
 import { PieChart } from "@mui/x-charts/PieChart";
+import Cookies from 'js-cookie';
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const adminCookie = Cookies.get('adminId');
+  const admin=JSON.parse(adminCookie);
+  const name=admin.adminName;
 
   return (
     <div className="flex h-full w-full">
@@ -15,7 +20,7 @@ function Home() {
           <div className="flex flex-row justify-between items-center w-full mb-10">
             <div>
               <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
-                Hello, karan_k
+                Hello, {name}
               </h1>
               <h2 className="xl:text-3xl sm:text-2xl text-2xl font-normal title-font text-black">
                 <Time />
