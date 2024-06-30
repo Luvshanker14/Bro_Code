@@ -5,46 +5,46 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 function Status() {
-  // const [borrowedBooks, setBorrowedBooks] = useState([]);
+  const [borrowedBooks, setBorrowedBooks] = useState([]);
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
 
-  // useEffect(() => {
-  //   const fetchBorrowedBooks = async () => {
-  //     try {
-  //       const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests/request/${user.userId}`);
-  //       const bookRequests = bookRequestsRes.data;
+  useEffect(() => {
+    const fetchBorrowedBooks = async () => {
+      try {
+        const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
+        const bookRequests = bookRequestsRes.data.filter(request => request.userId === user.userId);
 
-  //       const bookIds = bookRequests.map(request => request.bookId);
-  //       const booksRes = await axios.get('http://localhost:3000/books');
-  //       const books = booksRes.data;
+        const bookIds = bookRequests.map(request => request.bookId);
+        const booksRes = await axios.get('http://localhost:3000/books');
+        const books = booksRes.data;
 
-  //       const borrowedBooksData = bookRequests.map(request => {
-  //         const book = books.find(book => book._id === request.bookId);
-  //         return {
-  //           title: book.title,
-  //           author: book.author,
-  //           status: request.status,
-  //           dueDate: request.requestDate // Assuming dueDate is the same as requestDate for now
-  //         };
-  //       });
+        const borrowedBooksData = bookRequests.map(request => {
+          const book = books.find(book => book._id === request.bookId);
+          return {
+            title: book.title,
+            author: book.author,
+            status: request.status,
+            actions: 'Cancel Request'
+          };
+        });
 
-  //       setBorrowedBooks(borrowedBooksData);
-  //     } catch (error) {
-  //       console.log('Error fetching borrowed books', error);
-  //     }
-  //   };
-  //   fetchBorrowedBooks();
-  // }, [user.userId]);
+        setBorrowedBooks(borrowedBooksData);
+      } catch (error) {
+        console.log('Error fetching borrowed books', error);
+      }
+    };
+    fetchBorrowedBooks();
+  }, [user.userId]);
 
   const borrowingHistory = [
     { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
     { title: "Book 2", author: "Author 2", dueDate: "2022-01-01" },
   ];
-  const borrowedBooks = [
-    { title: "Book 1", author: "Author 1", Status: "Pending", Actions: "Cancel Request" },
-    { title: "Book 2", author: "Author 2", Status: "Pending", Actions: "Cancel Request" },
-  ];
+  // const borrowedBooks = [
+  //   { title: "Book 1", author: "Author 1", Status: "Pending", Actions: "Cancel Request" },
+  //   { title: "Book 2", author: "Author 2", Status: "Pending", Actions: "Cancel Request" },
+  // ];
   const favoriteBooks = [
     { title: "Book 3", author: "Author 3" },
     { title: "Book 4", author: "Author 4" },
@@ -68,8 +68,8 @@ function Status() {
               <tr key={index} className="border-t hover:bg-gray-100">
                 <td className="p-4 text-center text-gray-600">{book.title}</td>
                 <td className="p-4 text-center text-gray-600">{book.author}</td>
-                <td className="p-4 text-center text-gray-600">{book.Status}</td>
-                <td className="p-4 text-center text-red-600 cursor-pointer">{book.Actions}</td>
+                <td className="p-4 text-center text-gray-600">{book.status}</td>
+                <td className="p-4 text-center text-red-600 cursor-pointer">{book.actions}</td>
               </tr>
             ))}
           </tbody>
