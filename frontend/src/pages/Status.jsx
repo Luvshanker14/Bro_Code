@@ -68,7 +68,7 @@ function Status() {
               <tr key={index} className="border-t hover:bg-gray-100">
                 <td className="p-4 text-center text-gray-600">{book.title}</td>
                 <td className="p-4 text-center text-gray-600">{book.author}</td>
-                <td className="p-4 text-center text-gray-600">{book.status}</td>
+                <td className="p-4 text-center text-yellow-500">{book.status}</td>
                 <td className="p-4 text-center text-red-600 cursor-pointer">{book.actions}</td>
               </tr>
             ))}
