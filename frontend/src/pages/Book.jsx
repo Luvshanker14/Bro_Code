@@ -206,43 +206,59 @@ function Books() {
         ))}
       </div>
 
-      <div className="pagination">
-        <div className="inline-flex gap-6 bg-slate-300 dark:bg-slate-800 rounded-md">
-          <button onClick={goToPrevPage} disabled={currentPage === 1}>
-            <span className="sr-only">Prev Page</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          <div>
-            <label htmlFor="PaginationPage" className="sr-only">
-              Page
-            </label>
-            <input
-              type="number"
-              className="h-8 w-12 rounded border border-gray-900 bg-white dark:bg-neutral-700 p-0 text-center text-xl font-semibold text-gray-900 dark:text-white [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-              min={1}
-              max={totalPages}
-              id="PaginationPage"
-              value={currentPage}
-              onChange={handlePageChange}
-            />
-          </div>
-          <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-            <span className="sr-only">Next Page</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
+      <div className="flex justify-center">
+        <nav aria-label="Pagination">
+          <ul className="inline-flex items-center space-x-1 rounded-md text-sm">
+            <li>
+              <button
+                onClick={goToPrevPage}
+                disabled={currentPage === 1}
+                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50"
+              >
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li>
+              <span className="inline-flex items-center space-x-1 rounded-md bg-white px-4 py-2 text-gray-500">
+                Page{" "}
+                <b className="mx-1">{currentPage}</b> of <b className="ml-1">{totalPages}</b>
+              </span>
+            </li>
+            <li>
+              <button
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages}
+                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50"
+              >
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
 
       {selectedBook && (
