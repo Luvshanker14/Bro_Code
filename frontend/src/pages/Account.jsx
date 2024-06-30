@@ -108,7 +108,7 @@ const user=JSON.parse(userCookie);
             </thead>
             <tbody>
               {borrowingHistory.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
                   <td className="p-4 dark:text-slate-100">{book.title}</td>
                   <td className="p-4 dark:text-slate-100">{book.author}</td>
                   <td className="p-4 text-yellow-500">{book.borrowedDate}</td>
@@ -131,7 +131,7 @@ const user=JSON.parse(userCookie);
             </thead>
             <tbody>
               {fines.map((fine, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
                   <td className="p-4 dark:text-slate-100">{fine.title}</td>
                   <td className="p-4 dark:text-slate-100">{fine.amount}</td>
                   <td className="p-4 text-red-600">{fine.dueDate}</td>

@@ -43,7 +43,7 @@ function Home() {
 
           <div className="flex flex-wrap -m-4 pt-12 lg:pt-0 text-left">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -64,7 +64,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -85,7 +85,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -105,7 +105,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-slate-100">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -162,108 +162,108 @@ function Home() {
 
             <div className="flex flex-wrap w-full pl-8">
               <div className="w-full">
-                <div className="border-2 rounded-md shadow-md p-4">
+                <div className="border-2 dark:border-black rounded-md shadow-md dark:shadow-black p-4">
                   <h3 className="text-lg font-semibold mb-4 dark:text-white">Books List</h3>
                   <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border rounded-md">
-                      <thead className="bg-gray-100">
+                    <table className="min-w-full bg-white dark:bg-neutral-800 border dark:border-slate-400 rounded-md">
+                      <thead className="bg-gray-100 dark:bg-neutral-600">
                         <tr className="text-left">
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                             Book ID
                           </th>
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                             Name
                           </th>
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                             Author
                           </th>
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                             Quantity
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-200">
+                      <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             B-10201-30
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Ancestor Trouble
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Maud Newton
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">30</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">30</td>
                         </tr>
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             B-35201-31
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Life Is Everywhere
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Lucy Ives
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">23</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">23</td>
                         </tr>
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             C-24510-45
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Life Of Pie
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">XXXXX</td>
-                          <td className="px-6 py-4 whitespace-nowrap">15</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">XXXXX</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">15</td>
                         </tr>
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             G-95501-31
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Stroller
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Amanda Parrish
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">90</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">90</td>
                         </tr>
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             G-95501-31
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Stroller
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Amanda Parrish
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">90</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">90</td>
                         </tr>
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             G-95501-31
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Stroller
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Amanda Parrish
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">90</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">90</td>
                         </tr>
                         <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             R-773521-67
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             The Secret Syllabus
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                             Terence C. Burnham
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">06</td>
+                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">06</td>
                         </tr>
                       </tbody>
                     </table>
@@ -283,82 +283,82 @@ function Home() {
 
           <div className="flex pt-6 justify-between flex-col lg:flex-row">
             <div className="w-full">
-              <div className="border-2 rounded-md shadow-md p-4">
+              <div className="border-2 dark:border-black rounded-md shadow-md p-4 dark:shadow-black">
                 <h3 className="text-lg font-semibold mb-4 dark:text-white">User List</h3>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full bg-white border rounded-md">
-                    <thead className="bg-gray-100">
+                  <table className="min-w-full bg-white border dark:border-slate-400 dark:bg-neutral-800 rounded-md">
+                    <thead className="bg-gray-100 dark:bg-neutral-600">
                       <tr className="text-left">
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                           User ID
                         </th>
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                           Name
                         </th>
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                           Total Books Issued
                         </th>
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600">
+                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
                           Branch
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200">
+                    <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
                       <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           U-10201-30
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Alice Johnson
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">5</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">5</td>
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Literature
                         </td>
                       </tr>
                       <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           U-35201-31
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Bob Smith
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">3</td>
-                        <td className="px-6 py-4 whitespace-nowrap ">History</td>
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">3</td>
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">History</td>
                       </tr>
                       <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           U-24510-45
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Carol White
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">7</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">7</td>
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Social Science
                         </td>
                       </tr>
                       <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           U-95501-31
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           David Brown
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">4</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">4</td>
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Psychology
                         </td>
                       </tr>
                       <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           U-773521-67
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Eva Green
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">6</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">6</td>
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
                           Philosophy
                         </td>
                       </tr>
