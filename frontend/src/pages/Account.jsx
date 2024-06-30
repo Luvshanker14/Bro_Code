@@ -51,13 +51,13 @@ const user=JSON.parse(userCookie);
       <div className="w-full max-w-6xl rounded-lg shadow-lg p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div className="col-span-1 flex flex-col items-center">
-            <div className="w-32 h-32 bg-gray-300 rounded-full mb-4 flex items-center justify-center">
-              <span className="text-2xl text-gray-500">+</span>
+            <div className="w-32 h-32 bg-gray-300  rounded-full mb-4 flex items-center justify-center">
+              <span className="text-2xl text-gray-500 dark:text-white">+</span>
             </div>
             <button className="text-blue-500 hover:underline">Click to upload a new profile picture</button>
           </div>
           <div className="col-span-2">
-            <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Personal Information</h2>
+            <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Personal Information</h2>
             <div className="space-y-2">
             <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Name:</strong> {profile.name}</p>
             <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Email:</strong> {profile.email }</p>
@@ -71,21 +71,21 @@ const user=JSON.parse(userCookie);
 
         <div className="mb-10">
           <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Borrowed Books</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <table className="w-full table-auto bg-white shadow-md dark:shadow-black dark:bg-neutral-800 rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Book Title</th>
-                <th className="p-4 text-left">Author</th>
-                <th className="p-4 text-left">Due Date</th>
-                <th className="p-4 text-left">Renewal Option</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-left dark:text-white">Book Title</th>
+                <th className="p-4 text-left dark:text-white">Author</th>
+                <th className="p-4 text-left dark:text-white">Due Date</th>
+                <th className="p-4 text-left dark:text-white">Renewal Option</th>
               </tr>
             </thead>
             <tbody>
               {borrowedBooks.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4">{book.title}</td>
-                  <td className="p-4">{book.author}</td>
-                  <td className="p-4">{book.dueDate}</td>
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <td className="p-4 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-red-600">{book.dueDate}</td>
                   <td className="p-4">
                     <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">Renew</button>
                   </td>
@@ -97,22 +97,22 @@ const user=JSON.parse(userCookie);
 
         <div className="mb-10">
           <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Book History</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Book Title</th>
-                <th className="p-4 text-left">Author</th>
-                <th className="p-4 text-left">Borrowed Date</th>
-                <th className="p-4 text-left">Returned Date</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-left dark:text-white">Book Title</th>
+                <th className="p-4 text-left dark:text-white">Author</th>
+                <th className="p-4 text-left dark:text-white">Borrowed Date</th>
+                <th className="p-4 text-left dark:text-white">Returned Date</th>
               </tr>
             </thead>
             <tbody>
               {borrowingHistory.map((book, index) => (
                 <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4">{book.title}</td>
-                  <td className="p-4">{book.author}</td>
-                  <td className="p-4">{book.borrowedDate}</td>
-                  <td className="p-4">{book.returnedDate}</td>
+                  <td className="p-4 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-yellow-500">{book.borrowedDate}</td>
+                  <td className="p-4 text-red-600">{book.returnedDate}</td>
                 </tr>
               ))}
             </tbody>
@@ -121,20 +121,20 @@ const user=JSON.parse(userCookie);
 
         <div className="mb-10">
           <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Fine Details</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Book Title</th>
-                <th className="p-4 text-left">Fine Amount</th>
-                <th className="p-4 text-left">Due Date</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-left dark:text-white">Book Title</th>
+                <th className="p-4 text-left dark:text-white">Fine Amount</th>
+                <th className="p-4 text-left dark:text-white">Due Date</th>
               </tr>
             </thead>
             <tbody>
               {fines.map((fine, index) => (
                 <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4">{fine.title}</td>
-                  <td className="p-4">{fine.amount}</td>
-                  <td className="p-4">{fine.dueDate}</td>
+                  <td className="p-4 dark:text-slate-100">{fine.title}</td>
+                  <td className="p-4 dark:text-slate-100">{fine.amount}</td>
+                  <td className="p-4 text-red-600">{fine.dueDate}</td>
                 </tr>
               ))}
             </tbody>
