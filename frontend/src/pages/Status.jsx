@@ -51,23 +51,23 @@ function Status() {
   ];
 
   return (
-    <div className="pl-4 bg-white dark:bg-neutral-900">
+    <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="mb-10">
         <h2 className="text-3xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
-        <table className="w-full table-auto bg-white shadow-md rounded">
+        <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="p-4 text-center text-slate-600">Book Title</th>
-              <th className="p-4 text-center text-slate-600">Author</th>
-              <th className="p-4 text-center text-slate-600">Status</th>
-              <th className="p-4 text-center text-slate-600">Actions</th>
+            <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
+              <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
+              <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
+              <th className="p-4 text-center text-slate-600 dark:text-white">Status</th>
+              <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
             </tr>
           </thead>
           <tbody>
             {borrowedBooks.map((book, index) => (
-              <tr key={index} className="border-t hover:bg-gray-100">
-                <td className="p-4 text-center text-gray-600">{book.title}</td>
-                <td className="p-4 text-center text-gray-600">{book.author}</td>
+              <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
                 <td className="p-4 text-center text-yellow-500">{book.status}</td>
                 <td className="p-4 text-center text-red-600 cursor-pointer">{book.actions}</td>
               </tr>
@@ -79,20 +79,20 @@ function Status() {
       <div className="flex mb-10">
         <div className="w-3/5 pr-4">
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowed Books</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-center text-slate-600">Book Title</th>
-                <th className="p-4 text-center text-slate-600">Author</th>
-                <th className="p-4 text-center text-slate-600">Due Date</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Due Date</th>
               </tr>
             </thead>
             <tbody>
               {borrowingHistory.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4 text-center text-gray-600">{book.title}</td>
-                  <td className="p-4 text-center text-gray-600">{book.author}</td>
-                  <td className="p-4 text-center text-gray-600">{book.dueDate}</td>
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-center text-red-600">{book.dueDate}</td>
                 </tr>
               ))}
             </tbody>
@@ -132,18 +132,18 @@ function Status() {
 
         <div className="w-3/4 pr-4">
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">My Favorite Books</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-center text-slate-600">Book Title</th>
-                <th className="p-4 text-center text-slate-600">Author</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
               </tr>
             </thead>
             <tbody>
               {favoriteBooks.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4 text-center text-gray-600">{book.title}</td>
-                  <td className="p-4 text-center text-gray-600">{book.author}</td>
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
                 </tr>
               ))}
             </tbody>
