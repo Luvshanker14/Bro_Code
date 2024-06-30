@@ -11,6 +11,7 @@ function Books() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [selectedBook, setSelectedBook] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const booksPerPage = 20;
 
   const userCookie = Cookies.get('userId');
@@ -60,6 +61,8 @@ function Books() {
         bookId: bookId
       });
       console.log('Book borrowed successfully', res.data);
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
     } catch (error) {
       console.log('Error borrowing book', error);
     }
@@ -102,7 +105,7 @@ function Books() {
 
   return (
     <div className="rounded-sm bg-white dark:bg-neutral-900">
-      <div className="flex items-center justify-between p-3 ">
+      <div className="flex items-center justify-between p-3">
         <div className="relative w-3/4 sm:w-1/2 p-2">
           <input
             type="text"
@@ -143,6 +146,7 @@ function Books() {
           </ul>
         </div>
       </div>
+      
       <div className="flex flex-wrap ml-5 mb-6">
         {[
           "All",
@@ -156,8 +160,8 @@ function Books() {
           <span
             key={department}
             className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 dark:bg-neutral-800 rounded-sm text-black dark:text-white text-sm cursor-pointer leading-4 ${selectedDepartment === department
-                ? "selected bg-neutral-300 text-black transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-white"
-                : " "
+              ? "selected bg-neutral-300 text-black transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-white"
+              : " "
               }`}
             onClick={() => setSelectedDepartment(department)}
           >
@@ -227,7 +231,6 @@ function Books() {
               value={currentPage}
               onChange={handlePageChange}
             />
-            <span className="text-gray-900 dark:text-white"> of {totalPages}</span>
           </div>
           <button onClick={goToNextPage} disabled={currentPage === totalPages}>
             <span className="sr-only">Next Page</span>
@@ -243,29 +246,78 @@ function Books() {
       </div>
 
       {selectedBook && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-3/4 sm:w-1/2">
-            <h2 className="text-xl mb-4">{selectedBook.title}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
+          <div className="bg-slate-100 dark:bg-neutral-800 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
+            <button
+              className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black dark:text-white dark:hover:text-black"
+              onClick={handleCloseModal}
+            >
+              &times;
+            </button>
             <img
               src={image}
               alt={selectedBook.title}
-              className="w-full object-cover mb-4"
+              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
             />
-            <p className="text-black dark:text-white">{selectedBook.description}</p>
-            <div className="flex justify-end mt-4">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                onClick={() => handleBorrowClick(selectedBook._id)}
-              >
-                Borrow
-              </button>
-              <button
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleCloseModal}
-              >
-                Close
-              </button>
+            <div className="mt-4 lg:pb-40 lg:pl-14 flex flex-col justify-center">
+              <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black dark:text-white">
+                {selectedBook.title}
+              </h2>
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Author:</span>{" "}
+                {selectedBook.author}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Description:</span>{" "}
+                {selectedBook.description}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Department:</span>{" "}
+                {selectedBook.department}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Genre:</span>{" "}
+                {selectedBook.genre}
+              </p>
+              <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
+                <span className="text-black dark:text-slate-400 font-medium">Publisher:</span>{" "}
+                {selectedBook.publisher}
+              </p>
+              <div className="w-1/2 pt-12">
+                <button
+                  type="button"
+                  className="borrow-button transition duration-150 ease-in-out dark:border-black hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800  focus:bg-neutral-400 focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
+                  data-twe-ripple-init
+                  onClick={() => handleBorrowClick(selectedBook._id)}
+                >
+                  Borrow
+                </button>
+                <FavoriteIcon
+                  className={`ml-2 0 mb-1 cursor-pointer ${selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
+                    }`}
+                  onClick={() =>
+                    handleFavoriteClick(selectedBook._id)
+                  }
+                  style={{ transition: "color 0.3s" }}
+                />
+              </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showAlert && (
+        <div className="fixed top-0 left-0 right-0 flex justify-center p-4 z-50">
+          <div className="flex rounded-md bg-green-50 p-4 text-sm text-green-500">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="mr-3 h-5 w-5 flex-shrink-0">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+            </svg>
+            <div><b>Book Request Sent Successfully.</b></div>
+            <button className="ml-auto" onClick={() => setShowAlert(false)}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+            </button>
           </div>
         </div>
       )}
