@@ -1,33 +1,28 @@
-import React from 'react';
-import Darkmode from '../Darkmode';
-import Cookies from 'js-cookie';
+import React from "react";
+import Darkmode from "../Darkmode";
+import Cookies from "js-cookie";
 
 function Account() {
   // Placeholder data
 
-  const adminCookie = Cookies.get('adminId');
-if (adminCookie) {
-  const admin=JSON.parse(adminCookie);
-  console.log('Admin ID from cookie:', admin);
-} else {
-  console.log('Admin ID not found in cookie');
-}
-const admin=JSON.parse(adminCookie);
-
-
+  const adminCookie = Cookies.get("adminId");
+  if (adminCookie) {
+    const admin = JSON.parse(adminCookie);
+    console.log("Admin ID from cookie:", admin);
+  } else {
+    console.log("Admin ID not found in cookie");
+  }
+  const admin = JSON.parse(adminCookie);
 
   const profile = {
     name: admin.adminName,
     email: admin.adminEmail,
-   
   };
 
-  function handleLogout()
-  {
-    Cookies.remove('adminId',{path:'/'});
+  function handleLogout() {
+    Cookies.remove("adminId", { path: "/" });
 
-    window.location.href= 'http://localhost:5175';
-    
+    window.location.href = "http://localhost:5175";
   }
 
   const borrowedBooks = [
@@ -36,8 +31,18 @@ const admin=JSON.parse(adminCookie);
   ];
 
   const borrowingHistory = [
-    { title: "Book 1", author: "Author 1", borrowedDate: "2021-01-01", returnedDate: "2021-01-10" },
-    { title: "Book 2", author: "Author 2", borrowedDate: "2021-02-01", returnedDate: "2021-02-10" },
+    {
+      title: "Book 1",
+      author: "Author 1",
+      borrowedDate: "2021-01-01",
+      returnedDate: "2021-01-10",
+    },
+    {
+      title: "Book 2",
+      author: "Author 2",
+      borrowedDate: "2021-02-01",
+      returnedDate: "2021-02-10",
+    },
   ];
 
   const fines = [
@@ -53,13 +58,27 @@ const admin=JSON.parse(adminCookie);
             <div className="w-32 h-32 bg-gray-300 rounded-full mb-4 flex items-center justify-center">
               <span className="text-2xl text-gray-500">+</span>
             </div>
-            <button className="text-blue-500 hover:underline">Click to upload a new profile picture</button>
+            <button className="text-blue-500 hover:underline">
+              Click to upload a new profile picture
+            </button>
           </div>
           <div className="col-span-2">
-            <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Personal Information</h2>
+            <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">
+              Personal Information
+            </h2>
             <div className="space-y-2">
-              <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Name:</strong> {profile.name}</p>
-              <p className='dark:text-white'><strong className="text-gray-700 dark:text-slate-400">Email:</strong> {profile.email }</p>
+              <p className="dark:text-white">
+                <strong className="text-gray-700 dark:text-slate-400">
+                  Name:
+                </strong>{" "}
+                {profile.name}
+              </p>
+              <p className="dark:text-white">
+                <strong className="text-gray-700 dark:text-slate-400">
+                  Email:
+                </strong>{" "}
+                {profile.email}
+              </p>
               {/* <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
               <p><strong className="text-gray-700">Address:</strong> {profile.address}</p>
               <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p> */}
@@ -69,24 +88,33 @@ const admin=JSON.parse(adminCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Borrowed Books</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">
+            Borrowed Books
+          </h2>
+          <table className="w-full table-auto bg-white shadow-md dark:shadow-black dark:bg-neutral-800 rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Book Title</th>
-                <th className="p-4 text-left">Author</th>
-                <th className="p-4 text-left">Due Date</th>
-                <th className="p-4 text-left">Renewal Option</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-left dark:text-white">Book Title</th>
+                <th className="p-4 text-left dark:text-white">Author</th>
+                <th className="p-4 text-left dark:text-white">Due Date</th>
+                <th className="p-4 text-left dark:text-white">
+                  Renewal Option
+                </th>
               </tr>
             </thead>
             <tbody>
               {borrowedBooks.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4">{book.title}</td>
-                  <td className="p-4">{book.author}</td>
-                  <td className="p-4">{book.dueDate}</td>
+                <tr
+                  key={index}
+                  className="border-t hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <td className="p-4 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-red-600">{book.dueDate}</td>
                   <td className="p-4">
-                    <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">Renew</button>
+                    <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                      Renew
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -95,23 +123,25 @@ const admin=JSON.parse(adminCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Book History</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">
+            Book History
+          </h2>
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Book Title</th>
-                <th className="p-4 text-left">Author</th>
-                <th className="p-4 text-left">Borrowed Date</th>
-                <th className="p-4 text-left">Returned Date</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-left dark:text-white">Book Title</th>
+                <th className="p-4 text-left dark:text-white">Author</th>
+                <th className="p-4 text-left dark:text-white">Borrowed Date</th>
+                <th className="p-4 text-left dark:text-white">Returned Date</th>
               </tr>
             </thead>
             <tbody>
               {borrowingHistory.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4">{book.title}</td>
-                  <td className="p-4">{book.author}</td>
-                  <td className="p-4">{book.borrowedDate}</td>
-                  <td className="p-4">{book.returnedDate}</td>
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <td className="p-4 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-yellow-500">{book.borrowedDate}</td>
+                  <td className="p-4 text-red-600">{book.returnedDate}</td>
                 </tr>
               ))}
             </tbody>
@@ -119,21 +149,23 @@ const admin=JSON.parse(adminCookie);
         </div>
 
         <div className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">Fine Details</h2>
-          <table className="w-full table-auto bg-white shadow-md rounded">
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">
+            Fine Details
+          </h2>
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Book Title</th>
-                <th className="p-4 text-left">Fine Amount</th>
-                <th className="p-4 text-left">Due Date</th>
+              <tr className="bg-gray-200 dark:bg-neutral-600">
+                <th className="p-4 text-left dark:text-white">Book Title</th>
+                <th className="p-4 text-left dark:text-white">Fine Amount</th>
+                <th className="p-4 text-left dark:text-white">Due Date</th>
               </tr>
             </thead>
             <tbody>
               {fines.map((fine, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100">
-                  <td className="p-4">{fine.title}</td>
-                  <td className="p-4">{fine.amount}</td>
-                  <td className="p-4">{fine.dueDate}</td>
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <td className="p-4 dark:text-slate-100">{fine.title}</td>
+                  <td className="p-4 dark:text-slate-100">{fine.amount}</td>
+                  <td className="p-4 text-red-600">{fine.dueDate}</td>
                 </tr>
               ))}
             </tbody>
@@ -141,12 +173,18 @@ const admin=JSON.parse(adminCookie);
         </div>
 
         <div className="flex justify-between">
-          <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Edit Profile</button>
-          <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+          <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+            Edit Profile
+          </button>
+          <button
+            onClick={() => handleLogout()}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </div>
   );
 }
-
 export default Account;

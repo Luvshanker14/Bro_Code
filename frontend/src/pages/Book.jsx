@@ -181,7 +181,7 @@ function Books() {
               <img
                 src={image}
                 alt={book.title}
-                className="w-full object-cover"
+                className="w-full object-cover  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
               />
 
               <h3 className="text-center mt-2 text-sm truncate text-black dark:text-white">{book.title}</h3>
