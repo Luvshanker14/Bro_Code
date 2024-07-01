@@ -281,7 +281,7 @@ function Books() {
       </div>
 
       {selectedBook && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
+        <div className="fixed inset-0 z-5 flex items-center justify-center backdrop-blur-md">
           <div className="bg-slate-100 dark:bg-neutral-800 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
             <button
               className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black dark:text-white dark:hover:text-black"
@@ -290,7 +290,10 @@ function Books() {
               &times;
             </button>
             <img
-              src={image}
+              src={`http://localhost:3000/uploads/${selectedBook.image}`}
+              onError={(e) => {
+                e.target.src = image; //if book database does not have image show react svg
+              }}
               alt={selectedBook.title}
               className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
             />
@@ -341,9 +344,9 @@ function Books() {
         </div>
       )}
 
-{showAlert && (
+      {showAlert && (
         <div
-          className={`fixed top-5 right-5 p-4 rounded-md flex items-center space-x-2 ${alertType === "success"
+          className={`fixed top-5 right-5 p-4 z-10 rounded-md flex items-center space-x-2 ${alertType === "success"
             ? "bg-green-500 text-white"
             : "bg-red-500 text-white"
             }`}
