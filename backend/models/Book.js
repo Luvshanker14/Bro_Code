@@ -11,7 +11,8 @@ const bookSchema = mongoose.Schema({
     vendor: String,
     vendor_id: Number,
     publisher: String,
-    publisher_id: Number
+    publisher_id: Number,
+    image:String
 });
 
 const Book = mongoose.model('book_datasets', bookSchema);
