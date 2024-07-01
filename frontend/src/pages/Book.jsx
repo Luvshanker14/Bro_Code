@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import image from "../assets/react.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -12,6 +15,8 @@ function Books() {
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [selectedBook, setSelectedBook] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
   const booksPerPage = 20;
 
   const userCookie = Cookies.get('userId');
@@ -61,9 +66,20 @@ function Books() {
         bookId: bookId
       });
       console.log('Book borrowed successfully', res.data);
+      setAlertMessage("Book borrowed successfully.");
+      setAlertType("success");
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
     } catch (error) {
+      if (error.response && error.response.status === 409) {
+        setAlertMessage("Duplicate request. You have already requested this book.");
+        setAlertType("error");
+      } else {
+        setAlertMessage("Error borrowing book.");
+        setAlertType("error");
+      }
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
       console.log('Error borrowing book', error);
     }
   };
@@ -146,7 +162,7 @@ function Books() {
           </ul>
         </div>
       </div>
-      
+
       <div className="flex flex-wrap ml-5 mb-6">
         {[
           "All",
@@ -322,19 +338,22 @@ function Books() {
         </div>
       )}
 
-      {showAlert && (
-        <div className="fixed top-0 left-0 right-0 flex justify-center p-4 z-50">
-          <div className="flex rounded-md bg-green-50 p-4 text-sm text-green-500">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="mr-3 h-5 w-5 flex-shrink-0">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
-            </svg>
-            <div><b>Book Request Sent Successfully.</b></div>
-            <button className="ml-auto" onClick={() => setShowAlert(false)}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </div>
+{showAlert && (
+        <div
+          className={`fixed top-5 right-5 p-4 rounded-md flex items-center space-x-2 ${alertType === "success"
+            ? "bg-green-500 text-white"
+            : "bg-red-500 text-white"
+            }`}
+        >
+          {alertType === "success" ? (
+            <CheckCircleIcon />
+          ) : (
+            <ErrorIcon />
+          )}
+          <span>{alertMessage}</span>
+          <button onClick={() => setShowAlert(false)}>
+            <CloseIcon />
+          </button>
         </div>
       )}
     </div>
