@@ -10,3 +10,27 @@ exports.getBooks = async (req, res) => {
     }
 };
 
+exports.addBook = async (req, res) => {
+    const { title, description, author, genre, department, count, vendor, vendor_id, publisher, publisher_id, image } = req.body;
+
+    const newBook = new Book({
+        title,
+        description,
+        author,
+        genre,
+        department,
+        count,
+        vendor,
+        vendor_id,
+        publisher,
+        publisher_id,
+        image
+    });
+
+    try {
+        const savedBook = await newBook.save();
+        res.status(201).json(savedBook);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
