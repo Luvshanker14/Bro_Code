@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 3000;
 const dotenv = require('dotenv');
 const userRoute = require('./routes/userRouter');
 const adminRoute=require('./routes/adminRoute');
-dotenv.config()
+const imageRoute=require('./routes/imageRoutes');
+const path = require('path');
+dotenv.config();
 
 // Middleware
 app.use(bodyParser.json());
@@ -36,6 +38,8 @@ app.use('/user', userRoute);
 app.use('/books', bookRoutes);
 app.use('/bookRequests', bookRequestRoutes);
 app.use('/admin',adminRoute);
+app.use('/image',imageRoute);
+app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -195,7 +195,10 @@ function Books() {
               onClick={() => handleBookClick(book)}
             >
               <img
-                src={image}
+                src={`http://localhost:3000/uploads/${book.image}`}
+                onError={(e) => {
+                  e.target.src = image; //if book database does not have image show react svg
+                }}
                 alt={book.title}
                 className="w-full object-cover  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
               />
