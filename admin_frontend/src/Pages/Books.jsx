@@ -1,39 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sumbitimg from "./Sumbitimg";
 import axios from "axios";
-import Cookies from 'js-cookie';
 
 const Books = () => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    author: '',
-    genre: '',
-    department: '',
-    count: '',
-    vendor: '',
-    vendor_id: '',
-    publisher: '',
-    publisher_id: '',
-    image: ''
+    title: "",
+    description: "",
+    author: "",
+    genre: "",
+    department: "",
+    count: "",
+    vendor: "",
+    vendor_id: "",
+    publisher: "",
+    publisher_id: "",
+    image: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/books/addBook', formData);
+      const response = await axios.post(
+        "http://localhost:3000/books/addBook",
+        formData
+      );
       console.log(response.data);
+      // Clear the form after successful submission
+      setFormData({
+        title: "",
+        description: "",
+        author: "",
+        genre: "",
+        department: "",
+        count: "",
+        vendor: "",
+        vendor_id: "",
+        publisher: "",
+        publisher_id: "",
+        image: "",
+      });
+      console.log("Book added successfully", response.data);
+      window.alert("Book Added Successfully.");
     } catch (err) {
       console.error(err);
+      window.alert("Failed TO Add");
     }
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      title: "",
+      description: "",
+      author: "",
+      genre: "",
+      department: "",
+      count: "",
+      vendor: "",
+      vendor_id: "",
+      publisher: "",
+      publisher_id: "",
+      image: "",
+    });
+    window.alert("Form has been cancelled.");
   };
 
   return (
@@ -91,7 +127,7 @@ const Books = () => {
 
             <div className="col-span-full">
               <label
-                htmlFor="about"
+                htmlFor="description"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >
                 Description
@@ -282,6 +318,7 @@ const Books = () => {
         <div className="mt-6 flex items-center justify-end gap-x-6 pb-4">
           <button
             type="button"
+            onClick={handleCancel}
             className="text-sm font-semibold leading-6 text-gray-900 dark:text-red-600"
           >
             Cancel
@@ -296,6 +333,6 @@ const Books = () => {
       </div>
     </form>
   );
-}
+};
 
 export default Books;
