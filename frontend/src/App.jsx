@@ -7,7 +7,7 @@ import './App.css';
 import Books from './pages/Book';
  import Home from './pages/Home';
 import Darkmode from './pages/Darkmode';
-
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
  
  
@@ -15,41 +15,38 @@ import Darkmode from './pages/Darkmode';
 function App() {
   const [selected, setSelected] = useState('Home');
 
-  
-
   return (
-    <div className='flex  bg-slate-200 dark:bg-black'>
-      <Navbar selected={selected} setSelected={setSelected}/>
-      <MainContent selected={selected}/>
-    </div>
+    <Router>
+      <div className='flex bg-slate-200 dark:bg-black'>
+        <Navbar selected={selected} setSelected={setSelected} />
+        <MainContent />
+      </div>
+    </Router>
   );
 }
 
-function MainContent({ selected }) {
+function MainContent() {
+  const location = useLocation();
+
   return (
     <TransitionGroup className="main-content">
       <CSSTransition
-        key={selected}
-        timeout={300} // Duration of the transition in milliseconds
-        classNames="page" // Class name prefix for transition styles
+        key={location.key}
+        classNames="page"
+        timeout={300}
       >
-    <div className="flex-1 p-2 page dark:bg-black">
-      {/* Render different components based on the selected menu */}
-      {selected === 'Books' && <Books />}
-      {selected === 'Home' && <Home />}
-      {selected === 'Account' && <Account />}
-      {selected === 'Status' && <Status />}
-    </div>
-  </CSSTransition>
-  </TransitionGroup>
+        <div className="flex-1 p-2 page dark:bg-black">
+          <Routes location={location}>
+            <Route path="/books" element={<Books />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/status" element={<Status />} />
+          </Routes>
+        </div>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
-
-
-<>
-<Books></Books>
-<Home></Home> 
-</>
 
 
 
