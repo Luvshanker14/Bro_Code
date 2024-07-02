@@ -1,14 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Dashboard";
 import AccountIcon from "@mui/icons-material/Person";
 import BooksIcon from "@mui/icons-material/AutoStories";
 import Cookies from 'js-cookie';
 
 function Navbar({ selected, setSelected }) {
+  const navigate = useNavigate();
   const menuItems = [
-    { name: "Home", icon: HomeIcon },
-    { name: "Books", icon: BooksIcon },
-    { name: "Account", icon: AccountIcon },
+    { name: "Home", icon: HomeIcon, path: "/" },
+    { name: "Books", icon: BooksIcon, path: "/books" },
+    { name: "Account", icon: AccountIcon, path: "/account" },
   ];
 
   function handleLogout(event)
@@ -38,8 +40,10 @@ function Navbar({ selected, setSelected }) {
                   key={item.name}
                   name={item.name}
                   icon={item.icon}
+                  path={item.path}
                   selected={selected}
                   setSelected={setSelected}
+                  navigate={navigate}
                 />
               ))}
             </div>
@@ -66,23 +70,23 @@ function Navbar({ selected, setSelected }) {
   );
 }
 
-function MenuItem({ name, icon: Icon, selected, setSelected }) {
+function MenuItem({ name, icon: Icon, path, selected, setSelected, navigate }) {
   const isSelected = selected === name;
 
   return (
     <div className="py-4">
       <a
-        href="#"
-        onClick={() => setSelected(name)}
+        onClick={() => {
+          setSelected(name);
+          navigate(path);
+        }}
         className={`group relative flex justify-center rounded px-2 py-1.5 ${
           isSelected
-            ? "bg-blue-100 dark:bg-neutral-900 text-blue-700 transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-slate-200"
+            ? "bg-blue-100 dark:bg-neutral-900 text-blue-700 transition ease-in-out delay-30 -translate-y-0.5 scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-slate-200"
             : "text-gray-500 hover:bg-gray-300 dark:hover:bg-neutral-700 hover:text-slate-700 dark:hover:text-slate-50"
         }`}
       >
-        <Icon
-          className={`size-5 opacity-100 ${isSelected ? "fill-black" : ""}`}
-        />
+        <Icon className={`size-5 opacity-100 ${isSelected ? "fill-black" : ""}`} />
         <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 dark:bg-slate-300 px-2 py-1.5 text-sm font-semibold text-white dark:text-black group-hover:visible">
           {name}
         </span>
