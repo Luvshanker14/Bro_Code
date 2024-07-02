@@ -64,7 +64,7 @@ function Status() {
             </tr>
           </thead>
           <tbody>
-            {borrowedBooks.map((book, index) => (
+            {borrowedBooks.slice().reverse().map((book, index) => (
               <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
                 <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
                 <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
