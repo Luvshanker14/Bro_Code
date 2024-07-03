@@ -19,23 +19,23 @@ function Home() {
   }, []);
 
   const Article = ({ title, author, imageUrl }) => (
-    <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4 hover:cursor-pointer box">
+    <div className="p-6 max-w-sm mx-auto bg-white dark:bg-neutral-700 rounded-xl shadow-lg flex items-center space-x-4 hover:cursor-pointer box">
       <div className="shrink-0">
         <img className="h-12 w-12" src={imageUrl} alt={title} />
       </div>
       <div>
-        <div className="text-xl font-medium text-black">{title}</div>
-        <p className="text-slate-500">Author: {author}</p>
+        <div className="text-xl font-medium text-black dark:text-blue-500">{title}</div>
+        <p className="text-slate-500 dark:text-slate-100">Author: {author}</p>
       </div>
     </div>
   );
 
   return (
-    <div className=" py-8 pl-4 bg-white dark:bg-neutral-900 rounded-sm">
+    <div className=" py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="flex flex-wrap items-center mb-8">
         <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
           <h1 className="text-3xl font-bold mb-4 text-blue-500">Welcome to the library</h1>
-          <p className="mb-4 text-gray-600">Explore our vast collection of books</p>
+          <p className="mb-4 text-gray-600 dark:text-slate-100">Explore our vast collection of books</p>
         </div>
         <div className="w-full md:w-1/2 lg:w-2/5 px-2">
           <img className="w-1/2" src={image} alt="Logo" />
@@ -47,7 +47,7 @@ function Home() {
         {books.slice(4, 8).map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <img className="w-full mb-3" src={image} alt={book.title} />
-            <p className="font-semibold text-center text-gray-600">{book.title}</p>
+            <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
           </div>
         ))}
       </div>
@@ -62,11 +62,11 @@ function Home() {
       </div>
 
       <h2 className="text-2xl font-bold mb-2 text-blue-500">Subscribe to Newsletter</h2>
-      <p className="text-gray-400 mb-4">Receive the latest updates and offers directly to your inbox!</p>
+      <p className="text-gray-400 dark:text-slate-300 mb-4">Receive the latest updates and offers directly to your inbox!</p>
       <div className="flex items-center mb-2">
         <input
           type="email"
-          className="px-4 py-2 rounded-md w-5/12 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 rounded-md w-5/12 border bg-white dark:bg-neutral-700 dark:text-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
         />
       </div>
@@ -74,15 +74,15 @@ function Home() {
 
       <h2 className="text-2xl font-bold mb-4 text-blue-500">Library Statistics</h2>
       <div className="flex flex-wrap items-center mb-8">
-        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-600">
+        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-600 dark:text-slate-300">
           <p>Total Books: 500+</p>
           <p>Total Active Members: 200+</p>
         </div>
       </div>
 
-      <div class="flex flex-col items-center w-full max-w-screen-md p-6 pb-6 bg-white rounded-lg sm:p-8">
-        <h2 class="text-xl font-bold text-gray-600">Monthly Visitors</h2>
-        <span class="text-sm font-semibold text-gray-500">2024</span>
+      <div class="flex flex-col items-center w-full max-w-screen-md p-6 pb-6 bg-white dark:bg-neutral-700 rounded-lg sm:p-8">
+        <h2 class="text-xl font-bold text-gray-600 dark:text-slate-100">Monthly Visitors</h2>
+        <span class="text-sm font-semibold text-gray-500 dark:text-slate-300">2024</span>
         <div class="flex items-end flex-grow w-full mt-2 space-x-2 sm:space-x-3">
           <div class="relative flex flex-col items-center flex-grow pb-5 group">
             <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">65</span>

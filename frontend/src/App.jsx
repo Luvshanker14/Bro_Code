@@ -17,7 +17,7 @@ function App() {
 
   return (
     <Router>
-      <div className='flex bg-slate-200 dark:bg-black'>
+      <div className='flex w-full min-h-screen bg-slate-200 dark:bg-black'>
         <Navbar selected={selected} setSelected={setSelected} />
         <MainContent />
       </div>

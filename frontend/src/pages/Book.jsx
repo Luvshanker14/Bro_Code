@@ -146,7 +146,7 @@ function Books() {
   };
 
   return (
-    <div className="rounded-sm bg-white dark:bg-neutral-900">
+    <div className="rounded-sm px-4 bg-white dark:bg-neutral-900">
       <div className="flex items-center justify-between p-3">
         <div className="relative w-3/4 sm:w-1/2 p-2">
           <input
