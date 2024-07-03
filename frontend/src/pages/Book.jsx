@@ -61,9 +61,19 @@ function Books() {
     setBooks(updatedBooks);
 
     // Toggle favorite state in favoriteBooks context
-    if (favoriteBooks.some(book => book._id === bookId)) {
+    if (favoriteBooks.some(book => book._id === bookId)) 
+      {
+      setAlertMessage("Book removed from liked books.");
+      setAlertType("error");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
       removeFavoriteBook(bookId);
-    } else {
+    } 
+    else {
+      setAlertMessage("Book added to liked books.");
+      setAlertType("success");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
       const selectedBook = books.find(book => book._id === bookId);
       if (selectedBook) {
         addFavoriteBook(selectedBook);
