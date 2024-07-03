@@ -127,7 +127,7 @@ function Status() {
           height={250}
         />
 
-        <div className="w-3/4 pr-4">
+        <div className="w-3/4 pr-4 mb-10">
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">My Favorite Books</h2>
           <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
