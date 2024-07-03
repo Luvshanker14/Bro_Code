@@ -3,7 +3,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
+import { useFavoriteBooks } from "../FavoriteBooksContext";
 function Status() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const userCookie = Cookies.get('userId');
@@ -45,10 +45,7 @@ function Status() {
   //   { title: "Book 1", author: "Author 1", Status: "Pending", Actions: "Cancel Request" },
   //   { title: "Book 2", author: "Author 2", Status: "Pending", Actions: "Cancel Request" },
   // ];
-  const favoriteBooks = [
-    { title: "Book 3", author: "Author 3" },
-    { title: "Book 4", author: "Author 4" },
-  ];
+  const { favoriteBooks } = useFavoriteBooks();
 
   return (
     <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">

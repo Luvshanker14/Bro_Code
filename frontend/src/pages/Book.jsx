@@ -7,7 +7,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
+import { useFavoriteBooks } from "../FavoriteBooksContext";
 function Books() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,9 +18,10 @@ function Books() {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("");
   const booksPerPage = 20;
-
+  const { addFavoriteBook, removeFavoriteBook } = useFavoriteBooks();
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
+  const { favoriteBooks } = useFavoriteBooks();
 
   useEffect(() => {
     const getBooks = async () => {
@@ -44,6 +45,20 @@ function Books() {
       book._id === bookId ? { ...book, isFavorite: !book.isFavorite } : book
     );
     setBooks(updatedBooks);
+
+    const selectedBook = books.find(book => book._id === bookId);
+
+    console.log(selectedBook)
+
+    console.log(favoriteBooks)
+    console.log(favoriteBooks.includes(selectedBook))
+    if (favoriteBooks.includes(selectedBook)) {
+      removeFavoriteBook(bookId);
+      
+       // Add to favorite books context
+    } else {
+      addFavoriteBook(selectedBook); // Remove from favorite books context
+    }
   };
 
   useEffect(() => {

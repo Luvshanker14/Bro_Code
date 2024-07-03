@@ -60,7 +60,7 @@ useEffect(() => {
     <div className={`wrapper ${isActive ? 'active-popup' : ''}`}>
       <div className="icon-close" onClick={onClose}>&times;</div>
       <div className="form-box login">
-        <h2>Login as User</h2>
+        <h2 style={{color:"white",fontFamily:"sans-serif",fontSize:"32px"}}>Login as User</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-box">
             <input type="text" required 
