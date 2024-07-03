@@ -42,7 +42,7 @@ const RegisterForm = ({ isActive, onClose }) => {
     <div className={`wrapper ${isActive ? 'active-popup' : ''}`}>
       <div className="icon-close" onClick={onClose}>&times;</div>
       <div className="form-box login">
-        <h2>New User Register</h2>
+        <h2 style={{color:"white",fontFamily:"sans-serif",fontSize:"32px"}}>New User Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-box">
             <input 
