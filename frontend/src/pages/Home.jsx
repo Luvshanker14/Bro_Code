@@ -1,22 +1,72 @@
-import { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/Close';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import image from '../assets/react.svg'; // Adjust the path as needed
 import booksData from '../assets/UpdatedDatasetSOI.json';
-import './home.css'
+import './home.css';
+import { useFavoriteBooks } from "../FavoriteBooksContext";
 
 function Home() {
   const [books, setBooks] = useState([]);
   const [articles, setArticles] = useState([]);
+  const { favoriteBooks } = useFavoriteBooks();
 
   useEffect(() => {
     // Assuming booksData is an array of book objects
     const books = booksData;
-    const articles = books.slice(0, 3); // Use the first two books as articles
+    const articles = books.slice(0, 3); // Use the first three books as articles
     setBooks(books);
     setArticles(articles);
   }, []);
+
+  // Function to get a random selection of items from an array
+  const getRandomItems = (array, numItems) => {
+    const shuffled = array.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, numItems);
+  };
+
+  // Function to find the department with the maximum count in favoriteBooks
+  const getMostFrequentDepartment = () => {
+    if (favoriteBooks.length === 0) {
+      // If favoriteBooks is empty, return null
+      return null;
+    }
+
+    const departmentCounts = favoriteBooks.reduce((acc, book) => {
+      const department = book.department;
+      if (acc[department]) {
+        acc[department]++;
+      } else {
+        acc[department] = 1;
+      }
+      return acc;
+    }, {});
+
+    let maxCount = 0;
+    let mostFrequentDepartment = null;
+
+    for (const department in departmentCounts) {
+      if (departmentCounts[department] > maxCount) {
+        maxCount = departmentCounts[department];
+        mostFrequentDepartment = department;
+      }
+    }
+
+    return mostFrequentDepartment;
+  };
+
+  // Get the most frequent department from favoriteBooks
+  const mostFrequentDepartment = getMostFrequentDepartment();
+
+  // Filter books to get only those from the most frequent department if favoriteBooks is not empty
+  let recommendedBooks = [];
+  if (mostFrequentDepartment) {
+    recommendedBooks = getRandomItems(books.filter(book => book.department === mostFrequentDepartment),4);
+  } else {
+    // If favoriteBooks is empty, get a random selection of up to 4 books from all books
+    recommendedBooks = getRandomItems(books, 4);
+  }
 
   const Article = ({ title, author, imageUrl }) => (
     <div className="p-6 max-w-sm mx-auto bg-white dark:bg-neutral-700 rounded-xl shadow-lg flex items-center space-x-4 hover:cursor-pointer box">
@@ -31,7 +81,7 @@ function Home() {
   );
 
   return (
-    <div className=" py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
+    <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="flex flex-wrap items-center mb-8">
         <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
           <h1 className="text-3xl font-bold mb-4 text-blue-500">Welcome to the library</h1>
@@ -42,9 +92,18 @@ function Home() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-8 text-blue-500">Featured Books</h2>
+      {/* <h2 className="text-2xl font-bold mb-8 text-blue-500">Featured Books</h2>
       <div className="flex flex-wrap mb-8">
         {books.slice(4, 8).map((book, index) => (
+          <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+            <img className="w-full mb-3" src={image} alt={book.title} />
+            <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
+          </div>
+        ))}
+      </div> */}
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">Recommended Books</h2>
+      <div className="flex flex-wrap mb-8">
+        {recommendedBooks.map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <img className="w-full mb-3" src={image} alt={book.title} />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
@@ -80,96 +139,8 @@ function Home() {
         </div>
       </div>
 
-      <div class="flex flex-col items-center w-full max-w-screen-md p-6 pb-6 bg-white dark:bg-neutral-700 rounded-lg sm:p-8">
-        <h2 class="text-xl font-bold text-gray-600 dark:text-slate-100">Monthly Visitors</h2>
-        <span class="text-sm font-semibold text-gray-500 dark:text-slate-300">2024</span>
-        <div class="flex items-end flex-grow w-full mt-2 space-x-2 sm:space-x-3">
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">65</span>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-16 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Jan</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">69</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Feb</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">70</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Mar</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">71</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-6 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Apr</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">70</span>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">May</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">73</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Jun</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">76</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-16 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-20 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Jul</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">72</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-10 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-24 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Aug</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">78</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full bg-indigo-400 h-28"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Sep</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">78</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-32 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Oct</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">80</span>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-40 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Nov</span>
-          </div>
-          <div class="relative flex flex-col items-center flex-grow pb-5 group">
-            <span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">100</span>
-            <div class="relative flex justify-center w-full h-12 bg-indigo-200"></div>
-            <div class="relative flex justify-center w-full h-8 bg-indigo-300"></div>
-            <div class="relative flex justify-center w-full h-40 bg-indigo-400"></div>
-            <span class="absolute bottom-0 text-xs font-bold">Dec</span>
-          </div>
-        </div>
-      </div>
+      
+
       <div className="flex justify-center space-x-4 mt-8">
         <InstagramIcon className="hover:text-pink-500 text-2xl" />
         <XIcon className="hover:text-black text-2xl" />
@@ -178,8 +149,6 @@ function Home() {
     </div>
   );
 }
-
-
 function HomeIcon(props) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none" viewBox="0 0 19 19" {...props}>

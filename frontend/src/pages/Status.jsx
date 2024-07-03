@@ -48,9 +48,9 @@ function Status() {
   const { favoriteBooks } = useFavoriteBooks();
 
   return (
-    <div className="px-4 bg-blue-600 dark:bg-neutral-900 rounded-md">
+    <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="mb-10 ">
-        <h2 className="text-3xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
+        <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
         <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
           <thead>
             <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
