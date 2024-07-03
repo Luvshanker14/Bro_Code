@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 import SearchIcon from "@mui/icons-material/Search";
 import Time from "./Home_components/Time";
 import { PieChart } from "@mui/x-charts/PieChart";
 import Cookies from 'js-cookie';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [books, setBooks] = useState([]); // State for storing books data
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getBooks = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/books');
+        setBooks(res.data);
+      } catch (error) {
+        console.log('Error', error);
+      }
+    };
+    getBooks();
+  }, []);
 
   const adminCookie = Cookies.get('adminId');
   const admin=JSON.parse(adminCookie);
   const name=admin.adminName;
+
+  const handleAddBook = () => {
+    navigate('/books'); 
+  };
 
   return (
     <div className="flex h-full w-full">
@@ -183,93 +202,19 @@ function Home() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            B-10201-30
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Ancestor Trouble
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Maud Newton
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">30</td>
-                        </tr>
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            B-35201-31
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Life Is Everywhere
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Lucy Ives
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">23</td>
-                        </tr>
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            C-24510-45
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Life Of Pie
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">XXXXX</td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">15</td>
-                        </tr>
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            G-95501-31
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Stroller
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Amanda Parrish
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">90</td>
-                        </tr>
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            G-95501-31
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Stroller
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Amanda Parrish
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">90</td>
-                        </tr>
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            G-95501-31
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Stroller
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Amanda Parrish
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">90</td>
-                        </tr>
-                        <tr className="text-left">
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            R-773521-67
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            The Secret Syllabus
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                            Terence C. Burnham
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">06</td>
-                        </tr>
+                        {books.slice(0,4).map((book, index) => (
+                      <tr key={index}>
+                        <td className="px-4 py-3 dark:text-white">{book._id}</td>
+                        <td className="px-4 py-3 dark:text-white">{book.title}</td>
+                        <td className="px-4 py-3 dark:text-white">{book.author}</td>
+                        <td className="px-4 py-3 dark:text-white">{book.count}</td>
+                      </tr>
+                    ))}
                       </tbody>
                     </table>
                   </div>
                   <div className="flex justify-between">
-                    <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                    <button onClick={handleAddBook} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
                       Add New Book
                     </button>
                     <a href="#" className="text-pink-500 mt-6">

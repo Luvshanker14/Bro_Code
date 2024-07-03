@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useFavoriteBooks } from "../FavoriteBooksContext";
+
 function Books() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,13 +28,19 @@ function Books() {
     const getBooks = async () => {
       try {
         const res = await axios.get('http://localhost:3000/books');
-        setBooks(res.data);
+        // Map through books and check if each is in favoriteBooks
+        const booksWithFavorites = res.data.map(book => ({
+          ...book,
+          isFavorite: favoriteBooks.some(favorite => favorite._id === book._id)
+        }));
+        setBooks(booksWithFavorites);
       } catch (error) {
         console.log('Error', error);
       }
     };
     getBooks();
-  }, []);
+  }, [favoriteBooks]); // Update books when favoriteBooks changes
+
 
   function handleLogout() {
     Cookies.remove('userId', { path: '/' });
@@ -41,25 +48,29 @@ function Books() {
   }
 
   const handleFavoriteClick = (bookId) => {
-    const updatedBooks = books.map(book =>
-      book._id === bookId ? { ...book, isFavorite: !book.isFavorite } : book
-    );
+    const updatedBooks = books.map(book => {
+      if (book._id === bookId) {
+        return {
+          ...book,
+          isFavorite: !book.isFavorite  // Toggle isFavorite
+        };
+      }
+      return book;
+    });
+
     setBooks(updatedBooks);
 
-    const selectedBook = books.find(book => book._id === bookId);
-
-    console.log(selectedBook)
-
-    console.log(favoriteBooks)
-    console.log(favoriteBooks.includes(selectedBook))
-    if (favoriteBooks.includes(selectedBook)) {
+    // Toggle favorite state in favoriteBooks context
+    if (favoriteBooks.some(book => book._id === bookId)) {
       removeFavoriteBook(bookId);
-      
-       // Add to favorite books context
     } else {
-      addFavoriteBook(selectedBook); // Remove from favorite books context
-    }
+      const selectedBook = books.find(book => book._id === bookId);
+      if (selectedBook) {
+        addFavoriteBook(selectedBook);
+      }
+    }
   };
+
 
   useEffect(() => {
     setCurrentPage(1);
