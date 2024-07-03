@@ -22,16 +22,16 @@ function Navbar({ selected, setSelected }) {
   }
 
   return (
-    <div className="flex flex-col justify-between w-16 h-screen border-t-8 border-b-8 border-l-4 rounded-lg dark:border-black border-slate-200 bg-white dark:bg-neutral-900 sticky top-0 left-0 bg-[rgba(173,216,230,0.6)] border-2 border-r-[rgba(30,28,28,0.18)]">
+    <div className="flex flex-col justify-between w-16 sm:h-screen lg:h-screen md:h-screen xl:h-screen border-t-8 border-b-8 border-l-4 rounded-md dark:border-black border-slate-200 bg-white dark:bg-neutral-900 sticky top-0 left-0">
       <div>
         <div className="inline-flex justify-center items-center w-16 h-16 pt-4 pb-4">
           <button onClick={() => navigate("/")}>
-            <span className="grid items-center pr-1 w-11 h-10 text-xs bg-transparent text-gray-600 rounded-md">
+            <span className="grid items-center pr-1 w-11 h-10 text-xs bg-transparent text-black dark:text-white rounded-md">
               <img src="iitdh_logo.png" alt="Logo" />
             </span>
           </button>
         </div>
-        <div className="border-t border-white">
+        <div className="border-t dark:border-white border-black">
           <div className="px-2">
             <div className="py-4">
               {menuItems.map((item) => (
