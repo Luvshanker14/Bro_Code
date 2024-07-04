@@ -1,5 +1,6 @@
 // controllers/bookRequestController.js
 const BookRequest = require('../models/BookRequest');
+const Book = require('../models/Book');
 
 exports.borrowBook = async (req, res) => {
     const { userId, bookId } = req.body;
@@ -26,6 +27,7 @@ exports.borrowBook = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 exports.getBookRequests = async (req, res) => {
     try {
         const bookRequests = await BookRequest.find();
@@ -47,5 +49,29 @@ exports.deleteBookRequest = async (req, res, next) => {
     } catch (error) {
         console.error('Error deleting book request:', error);
         res.status(500).json({ message: 'Failed to delete book request' });
+    }
+};
+
+exports.approveBookRequest = async (req, res) => {
+    try {
+        const bookRequest = await BookRequest.findById(req.params.id);
+        
+        if (!bookRequest) {
+            return res.status(404).json({ message: 'Book request not found' });
+        }
+
+        bookRequest.status = 'approved';
+
+        const book = await Book.findById(bookRequest.bookId);
+        if (book) {
+            book.count -= 1; // Assuming 'count' is the field representing the number of available books
+            await book.save();
+        }
+
+        await bookRequest.save();
+        res.status(200).json({ message: 'Book request approved successfully' });
+    } catch (error) {
+        console.error('Error approving book request:', error);
+        res.status(500).json({ message: 'Failed to approve book request' });
     }
 };

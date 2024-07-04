@@ -10,6 +10,7 @@ function Navbar({ selected, setSelected }) {
   const menuItems = [
     { name: "Home", icon: HomeIcon, path: "/" },
     { name: "Books", icon: BooksIcon, path: "/books" },
+    {name: "Status", icon: StatusIcon, path: "/status"},
     { name: "Account", icon: AccountIcon, path: "/account" },
   ];
 
