@@ -64,7 +64,7 @@ exports.approveBookRequest = async (req, res) => {
 
         const book = await Book.findById(bookRequest.bookId);
         if (book) {
-            book.count -= 1; // Assuming 'count' is the field representing the number of available books
+            book.count -= 1;
             await book.save();
         }
 
