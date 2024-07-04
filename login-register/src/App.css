@@ -178,6 +178,8 @@
   height: 50px;
   margin: 30px 0;
   border-bottom: 2px solid white;
+  display: flex;
+  align-items: center;
 }
 
 .input-box input {
@@ -399,9 +401,9 @@
     display: none;
   }
 
-  .icon {
+  /* .icon {
     display: none;
-  }
+  } */
 }
 .btnLogin-popup {
   margin-right: 10px; /* Adjust as needed */

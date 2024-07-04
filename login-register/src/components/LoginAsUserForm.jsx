@@ -1,12 +1,14 @@
 import React, { useEffect,useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const LoginAsUserForm = ({ isActive, onClose }) => {
 
     const [email, setCollegeEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,10 +57,13 @@ useEffect(() => {
       loginUser();
     }
   }, [submitted,  email, password]);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     <div className={`wrapper ${isActive ? 'active-popup' : ''}`}>
-      <div className="icon-close" onClick={onClose}>&times;</div>
+      <div className="icon-close" onClick={onClose}><p style={{fontSize:"40px"}}>&times;</p></div>
       <div className="form-box login">
         <h2 style={{color:"white",fontFamily:"sans-serif",fontSize:"32px"}}>Login as User</h2>
         <form onSubmit={handleSubmit}>
@@ -70,11 +75,16 @@ useEffect(() => {
             <i className="icon"></i>
           </div>
           <div className="input-box">
-            <input type="password" required
+            <input type={passwordVisible ? 'text' : 'password'} 
+            required
             value={password} 
             onChange={(e) => setPassword(e.target.value)}  />
             <label>Password</label>
-            <i className="icon"></i>
+            <i
+              className={`bi ${passwordVisible ? 'bi-eye' : 'bi-eye-slash'}`}
+              style={{ color: 'white', cursor: 'pointer' }}
+              onClick={togglePasswordVisibility}
+            ></i>
           </div>
           <button type="submit" className="btn">Login</button>
         </form>
