@@ -5,5 +5,5 @@ const bookRequestController = require('../controllers/bookRequestController');
 
 router.post('/borrow', bookRequestController.borrowBook);
 router.get('/', bookRequestController.getBookRequests);
-
+router.delete('/delete/:id', bookRequestController.deleteBookRequest);
 module.exports = router;
