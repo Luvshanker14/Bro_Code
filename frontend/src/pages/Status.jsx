@@ -1,11 +1,14 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useFavoriteBooks } from "../FavoriteBooksContext";
+
 function Status() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [bookRequestIdToDelete, setBookRequestIdToDelete] = useState('');
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
 
@@ -22,6 +25,7 @@ function Status() {
         const borrowedBooksData = bookRequests.map(request => {
           const book = books.find(book => book._id === request.bookId);
           return {
+            _id: request._id,
             title: book.title,
             author: book.author,
             status: request.status,
@@ -37,14 +41,30 @@ function Status() {
     fetchBorrowedBooks();
   }, [user.userId]);
 
+  const handleCancelRequest = (id) => {
+    setBookRequestIdToDelete(id);
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:3000/bookRequests/delete/${bookRequestIdToDelete}`);
+      setBorrowedBooks(prevBooks => prevBooks.filter(book => book._id !== bookRequestIdToDelete));
+      setShowModal(false);
+    } catch (error) {
+      console.log('Error deleting request', error);
+    }
+  };
+
+  const handleCancelModal = () => {
+    setShowModal(false);
+  };
+
   const borrowingHistory = [
     { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
     { title: "Book 2", author: "Author 2", dueDate: "2022-01-01" },
   ];
-  // const borrowedBooks = [
-  //   { title: "Book 1", author: "Author 1", Status: "Pending", Actions: "Cancel Request" },
-  //   { title: "Book 2", author: "Author 2", Status: "Pending", Actions: "Cancel Request" },
-  // ];
+  
   const { favoriteBooks } = useFavoriteBooks();
 
   return (
@@ -66,12 +86,55 @@ function Status() {
                 <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
                 <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
                 <td className="p-4 text-center text-yellow-500">{book.status}</td>
-                <td className="p-4 text-center text-red-600 cursor-pointer">{book.actions}</td>
+                <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => handleCancelRequest(book._id)}>{book.actions}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Custom Modal for Confirmation */}
+      {showModal && (
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div className="inline-block align-bottom bg-white dark:bg-neutral-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="bg-white dark:bg-neutral-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">Cancel Request</h3>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Are you sure you want to cancel this book request?
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 dark:bg-neutral-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                  onClick={handleConfirmDelete}
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                  Confirm
+                </button>
+                <button
+                  onClick={handleCancelModal}
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-neutral-600 shadow-sm px-4 py-2 bg-white dark:bg-neutral-900 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex mb-10">
         <div className="w-3/5 pr-4">
@@ -110,7 +173,6 @@ function Status() {
       </div>
 
       <div className="flex mb-10">
-
         <BarChart
           xAxis={[
             {
@@ -146,7 +208,6 @@ function Status() {
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   );

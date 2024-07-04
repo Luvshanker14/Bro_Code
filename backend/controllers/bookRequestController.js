@@ -34,3 +34,18 @@ exports.getBookRequests = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+exports.deleteBookRequest = async (req, res, next) => {
+    try {
+        const deletedRequest = await BookRequest.findByIdAndDelete(req.params.id);
+        
+        if (!deletedRequest) {
+            return res.status(404).json({ message: 'Book request not found' });
+        }
+        
+        res.status(200).json({ message: 'Book request deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting book request:', error);
+        res.status(500).json({ message: 'Failed to delete book request' });
+    }
+};
