@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Introduction to Algorithms",
+    "description": "Comprehensive guide to algorithms with detailed explanations.",
+    "author": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
+    "genre": "Algorithms",
+    "department": "Computer Science",
+    "count": 9,
+    "vendor": "Indian Book Depot",
+    "vendor_id": 1003,
+    "publisher": "Lpringer Nature",
+    "publisher_id": 234567,
+    "onlineUrl":"https://archive.org/details/introduction-to-algorithms-third-edition-2009/page/357/mode/1up"
+  },
+  {
+    "title": "Artificial Intelligence: A Modern Approach",
+    "description": "Fundamental concepts and techniques in AI, covering a wide range of topics.",
+    "author": "Stuart Russell, Peter Norvig",
+    "genre": "Artificial Intelligence",
+    "department": "Computer Science",
+    "count": 12,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "KarperMollins Publishers",
+    "publisher_id": 345678
+  },
+  {
+    "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "description": "Principles and best practices for writing clean, maintainable code.",
+    "author": "Robert C. Martin",
+    "genre": "Software Engineering",
+    "department": "Computer Science",
+    "count": 13,
+    "vendor": "Indian Book Depot",
+    "vendor_id": 1003,
+    "publisher": "Mengage Learning",
+    "publisher_id": 901234
+  },
+  {
+    "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+    "description": "Classic book on design patterns for software development.",
+    "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+    "genre": "Software Engineering",
+    "department": "Computer Science",
+    "count": 8,
+    "vendor": "Amazon India",
+    "vendor_id": 1006,
+    "publisher": "Lpringer Nature",
+    "publisher_id": 234567
+  },
+  {
+    "title": "The Pragmatic Programmer: Your Journey to Mastery",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Andrew Hunt, David Thomas",
+    "genre": "Software Engineering",
+    "department": "Computer Science",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456
+  }]
