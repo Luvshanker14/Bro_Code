@@ -29,6 +29,10 @@
 1. **Clone the Repository**
     ```sh
     git clone https://github.com/Luvshanker14/Bro_Code.git
+    ```
+
+    Make sure you are in the `Bro_Code` directory:
+    ```sh
     cd Bro_Code
     ```
 
