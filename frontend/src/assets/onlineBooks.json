@@ -22,7 +22,8 @@
     "vendor": "Kitab Mahal",
     "vendor_id": 1004,
     "publisher": "KarperMollins Publishers",
-    "publisher_id": 345678
+    "publisher_id": 345678,
+    "onlineUrl":"https://people.engr.tamu.edu/guni/csce421/files/AI_Russell_Norvig.pdf"
   },
   {
     "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
@@ -34,7 +35,8 @@
     "vendor": "Indian Book Depot",
     "vendor_id": 1003,
     "publisher": "Mengage Learning",
-    "publisher_id": 901234
+    "publisher_id": 901234,
+    "onlineUrl":"https://ptgmedia.pearsoncmg.com/images/9780132350884/samplepages/9780132350884.pdf"
   },
   {
     "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
@@ -59,4 +61,44 @@
     "vendor_id": 1004,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456
-  }]
+  },
+  {
+    "title": "Deeplearning: An Approach for Event Monitoring System",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Kummari Vikas, Thipparthi Rajabrahmam",
+    "genre": "Software Engineering",
+    "department": "Computer Science",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456,
+    "Url": "https://ptgmedia.pearsoncmg.com/images/9780132350884/samplepages/9780132350884.pdf"
+  },
+  {
+    "title": "Aspects and Processes Used in the 3D-Printing",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Vinod G. Gokhare,Dr D.N.Raut",
+    "genre": "Software Engineering",
+    "department": "Mechanical Engineering",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456,
+    "Url": "https://www.ijert.org/research/a-review-paper-on-3d-printing-aspects-and-various-processes-used-in-the-3d-printing-IJERTV6IS060409.pdf"
+  },
+  {
+    "title": "Quantum Physics Education Research over the Last Two Decades: A Bibliometric Analysis",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Singh C, Robinett R",
+    "genre": "Software Engineering",
+    "department": "Mechanical Engineering",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456,
+    "Url": "https://files.eric.ed.gov/fulltext/EJ1321253.pdf"
+  }
+]

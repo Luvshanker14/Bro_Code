@@ -23,7 +23,7 @@ function Home() {
     const onlineBooks = webBook.filter(book => book.onlineUrl);
      setOnlineBooks(onlineBooks);
 
-    const articles = books.slice(0, 3); // Use the first three books as articles
+    const articles =  webBook.filter(book => book.Url);// Use the first three books as articles
     setBooks(books);
     setArticles(articles);
   }, []);
@@ -91,14 +91,15 @@ function Home() {
     recommendedBooks2 = getRandomItems(availableBooks, 4);
   }
 
-  const Article = ({ title, author, imageUrl }) => (
+  const Article = ({ title, author, Url }) => (
     <div className="p-6 max-w-sm mx-auto bg-white dark:bg-neutral-700 rounded-xl shadow-lg flex items-center space-x-4 hover:cursor-pointer box">
       <div className="shrink-0">
-        <img className="h-12 w-12" src={imageUrl} alt={title} />
+        <img className="h-12 w-12" src={image} alt={title} />
       </div>
       <div>
         <div className="text-xl font-medium text-black dark:text-blue-500">{title}</div>
         <p className="text-slate-500 dark:text-slate-100">Author: {author}</p>
+        <a href={Url} target="_blank" rel="noopener noreferrer" className="text-blue-500 block hover:underline">Read Online</a>
       </div>
     </div>
   );
@@ -144,11 +145,11 @@ function Home() {
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Popular Articles</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">Popular Research Articles</h2>
       <div className="flex flex-wrap mb-8">
         {articles.map((article, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-            <Article title={article.title} author={article.author} imageUrl={image} />
+            <Article title={article.title} author={article.author} Url={article.Url} />
           </div>
         ))}
       </div>
