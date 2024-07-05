@@ -11,6 +11,7 @@ function Status() {
   const [bookRequestIdToDelete, setBookRequestIdToDelete] = useState('');
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
+  const [favoriteBook,setFavoriteBooks]=useState([]);
   const [departments, setDepartments] = useState([]);
 
   
@@ -44,6 +45,24 @@ function Status() {
     fetchBorrowedBooks();
   }, [user.userId]);
 
+
+
+  useEffect(() => {
+    const fetchFavoriteBooks = async () => {
+  try {
+    const favoriteBooksRes = await axios.post(`http://localhost:3000/books/getFavouriteBook`, {
+      userId: user.userId
+    });
+    setFavoriteBooks(favoriteBooksRes.data);
+  } catch (error) {
+    console.log('Error fetching favorite books', error);
+  }
+};
+fetchFavoriteBooks();
+  }, [user]);
+  
+
+
   const handleCancelRequest = (id) => {
     setBookRequestIdToDelete(id);
     setShowModal(true);
@@ -68,7 +87,7 @@ function Status() {
     { title: "Book 2", author: "Author 2", dueDate: "2022-01-01" },
   ];
   
-  const { favoriteBooks } = useFavoriteBooks();
+  //const { favoriteBooks } = useFavoriteBooks();
 
   return (
     <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">
@@ -203,7 +222,7 @@ function Status() {
               </tr>
             </thead>
             <tbody>
-              {favoriteBooks.map((book, index) => (
+              {favoriteBook.map((book, index) => (
                 <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
                   <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
                   <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>

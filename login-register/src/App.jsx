@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-        <a href="#" className="logo">Logo</a>
+        <a href="#" className="logo">S0I 2024</a>
         <nav className="navbar">
           <a href="#">Home</a>
           <a href="#">About</a>
