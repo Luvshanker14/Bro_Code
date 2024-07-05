@@ -19,8 +19,8 @@ function App() {
         <nav className="navbar">
           <a href="#">Home</a>
           <a href="#">About</a>
-          <button className="btnLogin-popup" onClick={() => setActiveForm('admin')}>LoginAsAdmin</button>
-          <button className="btnLogin-popup" onClick={() => setActiveForm('user')}>LoginAsUser</button>
+          <button className="btnLogin-popup" onClick={() => setActiveForm('admin')}>Admin Login</button>
+          <button className="btnLogin-popup" onClick={() => setActiveForm('user')}>User Login</button>
           <button className="btnLogin-popup" onClick={() => setActiveForm('register')}>Register</button>
         </nav>
       </header>
