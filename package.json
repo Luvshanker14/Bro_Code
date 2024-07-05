@@ -7,10 +7,10 @@
     "concurrently": "^8.2.2"
   },
 "scripts": {
-    "frontend1": "cd frontend && npm run dev",
-    "frontend2": "cd admin_frontend && npm run dev",
-    "frontend3": "cd login-register && npm run dev",
-    "backend": "cd backend && npm start",
+    "frontend1": "cd frontend && npm i && npm run dev -- --port 5173",
+    "frontend2": "cd admin_frontend && npm i && npm run dev",
+    "frontend3": "cd login-register && npm i && npm run dev",
+    "backend": "cd backend && npm i && npm start",
     "lms": "concurrently \"npm run frontend1\" \"npm run frontend2\" \"npm run frontend3\" \"npm run backend\""
   },
   "keywords": [],
