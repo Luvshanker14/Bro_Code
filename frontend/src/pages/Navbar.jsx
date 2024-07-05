@@ -21,11 +21,18 @@ function Navbar({ selected, setSelected }) {
     Cookies.remove('userId', { path: '/' });
   }
 
+  
+  function handleLogoClick() {
+    setSelected("Home");
+    navigate("/");
+  }
+
+  
   return (
     <div className="flex flex-col justify-between w-16 sm:h-screen lg:h-screen md:h-screen xl:h-screen border-t-8 border-b-8 border-l-4 rounded-md dark:border-black border-slate-200 bg-white dark:bg-neutral-900 sticky top-0 left-0">
       <div>
         <div className="inline-flex justify-center items-center w-16 h-16 pt-4 pb-4">
-          <button onClick={() => navigate("/")}>
+          <button onClick={handleLogoClick}>
             <span className="grid items-center pr-1 w-11 h-10 text-xs bg-transparent text-black dark:text-white rounded-md">
               <img src="iitdh_logo.png" alt="Logo" />
             </span>
