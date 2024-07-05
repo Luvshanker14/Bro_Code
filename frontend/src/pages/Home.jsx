@@ -42,30 +42,42 @@ function Home() {
       }
       return acc;
     }, {});
+    const sortedDepartments = Object.entries(departmentCounts)
+      .sort(([, countA], [, countB]) => countB - countA)
+      .map(([department]) => department);
 
-    let maxCount = 0;
-    let mostFrequentDepartment = null;
+    return sortedDepartments.slice(0, 2);
 
-    for (const department in departmentCounts) {
-      if (departmentCounts[department] > maxCount) {
-        maxCount = departmentCounts[department];
-        mostFrequentDepartment = department;
-      }
-    }
-
-    return mostFrequentDepartment;
+    // return mostFrequentDepartment;
   };
 
   // Get the most frequent department from favoriteBooks
-  const mostFrequentDepartment = getMostFrequentDepartment();
-
+  const sortedDepartments=getMostFrequentDepartment()
+  let mostFrequentDepartment=null
+  let mostFrequentDepartment2=null
+  if(sortedDepartments!==null)
+  {
+  console.log(sortedDepartments)
+   mostFrequentDepartment = sortedDepartments[0];
+  mostFrequentDepartment2 = sortedDepartments[1];
+  }
   // Filter books to get only those from the most frequent department if favoriteBooks is not empty
   let recommendedBooks = [];
+  let recommendedBooks2 = [];
   if (mostFrequentDepartment) {
     recommendedBooks = getRandomItems(books.filter(book => book.department === mostFrequentDepartment),4);
+    if(mostFrequentDepartment2)
+    {
+      recommendedBooks2 = getRandomItems(books.filter(book => book.department === mostFrequentDepartment2),4);
+    }
+    else{
+      recommendedBooks2 = getRandomItems(books.filter(book => book.department !== mostFrequentDepartment),4);
+    }
   } else {
     // If favoriteBooks is empty, get a random selection of up to 4 books from all books
     recommendedBooks = getRandomItems(books, 4);
+    const availableBooks = books.filter(book => !recommendedBooks.includes(book));
+    recommendedBooks2 = getRandomItems(availableBooks, 4);
   }
 
   const Article = ({ title, author, imageUrl }) => (
@@ -91,19 +103,15 @@ function Home() {
           <img className="w-1/2" src={image} alt="Logo" />
         </div>
       </div>
-
-      {/* <h2 className="text-2xl font-bold mb-8 text-blue-500">Featured Books</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">Recommended Books</h2>
       <div className="flex flex-wrap mb-8">
-        {books.slice(4, 8).map((book, index) => (
+        {recommendedBooks.map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <img className="w-full mb-3" src={image} alt={book.title} />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
           </div>
         ))}
-      </div> */}
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Recommended Books</h2>
-      <div className="flex flex-wrap mb-8">
-        {recommendedBooks.map((book, index) => (
+        {recommendedBooks2.map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <img className="w-full mb-3" src={image} alt={book.title} />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
