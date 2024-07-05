@@ -47,7 +47,45 @@ function Books() {
     window.location.href = 'http://localhost:5175';
   }
 
-  const handleFavoriteClick = (bookId) => {
+  // const handleFavoriteClick = (bookId) => {
+  //   const updatedBooks = books.map(book => {
+  //     if (book._id === bookId) {
+  //       return {
+  //         ...book,
+  //         isFavorite: !book.isFavorite  // Toggle isFavorite
+  //       };
+  //     }
+  //     return book;
+  //   });
+
+  //   setBooks(updatedBooks);
+
+
+
+  //   // Toggle favorite state in favoriteBooks context
+  //   if (favoriteBooks.some(book => book._id === bookId)) 
+  //     {
+  //     setAlertMessage("Book removed from liked books.");
+  //     setAlertType("error");
+  //     setShowAlert(true);
+  //     setTimeout(() => setShowAlert(false), 3000);
+  //     removeFavoriteBook(bookId);
+  //   } 
+  //   else {
+  //     setAlertMessage("Book added to liked books.");
+  //     setAlertType("success");
+  //     setShowAlert(true);
+  //     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+  //     const selectedBook = books.find(book => book._id === bookId);
+  //     if (selectedBook) {
+  //       addFavoriteBook(selectedBook);
+  //     }
+  //   }
+  // };
+
+
+
+  const handleFavoriteClick = async (bookId) => {
     const updatedBooks = books.map(book => {
       if (book._id === bookId) {
         return {
@@ -57,19 +95,24 @@ function Books() {
       }
       return book;
     });
-
+  
     setBooks(updatedBooks);
-
+  
     // Toggle favorite state in favoriteBooks context
-    if (favoriteBooks.some(book => book._id === bookId)) 
-      {
+    if (favoriteBooks.some(book => book._id === bookId)) {
       setAlertMessage("Book removed from liked books.");
       setAlertType("error");
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000);
       removeFavoriteBook(bookId);
-    } 
-    else {
+  
+      
+      try {
+        await axios.post('http://localhost:3000/books/removeFavouriteBook', { bookId, userId: user.userId });
+      } catch (error) {
+        console.error('Error removing book from cart:', error);
+      }
+    } else {
       setAlertMessage("Book added to liked books.");
       setAlertType("success");
       setShowAlert(true);
@@ -77,9 +120,17 @@ function Books() {
       const selectedBook = books.find(book => book._id === bookId);
       if (selectedBook) {
         addFavoriteBook(selectedBook);
+  
+        // Add the book to the cart
+        try {
+          await axios.post('http://localhost:3000/books/addFavouriteBook', { bookId, userId: user.userId });
+        } catch (error) {
+          console.error('Error adding book to cart:', error);
+        }
       }
     }
   };
+  
 
 
   useEffect(() => {

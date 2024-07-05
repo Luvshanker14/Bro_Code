@@ -3,6 +3,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const Book = require("../models/Book");
 const fs = require("fs");
+const User = require('../models/userModel'); // Adjust the path as necessary
+
 
 const uploadsDir = path.join(__dirname, "../uploads");
 
@@ -60,5 +62,73 @@ exports.getBooks = async (req, res) => {
     res.status(200).json(books);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getFavouriteBook = async (req, res) => {
+  try {
+    const {userId} = req.body;
+
+   console.log(userId);
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    
+    const favoriteBooks = await Book.find({ _id: { $in: user.cart } });
+
+    res.status(200).json(favoriteBooks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while fetching the favorite books", error: error.message });
+  }
+};
+
+
+
+
+exports.addBookToCart = async (req, res) => {
+  try {
+    const { userId, bookId } = req.body;
+
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    
+    user.cart.push(bookId);
+
+    
+    await user.save();
+
+    res.status(200).json({ message: "Book added to cart successfully", cart: user.cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while adding the book to the cart", error: error.message });
+  }
+};
+
+exports.removeBookFromCart = async (req, res) => {
+  try {
+    const { userId, bookId } = req.body;
+
+  
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    
+    user.cart = user.cart.filter(id => id.toString() !== bookId);
+
+    await user.save();
+
+    res.status(200).json({ message: "Book removed from cart successfully", cart: user.cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while removing the book from the cart", error: error.message });
   }
 };
