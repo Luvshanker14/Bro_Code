@@ -82,6 +82,24 @@ const userCtrl={
     }
 
   }
+  ,favorite:async (req, res) => {
+    const { userId } = req.body;
+    const { favoriteBooks } = req.body;
+  
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      user.cart.push(...favoriteBooks) ;
+      await user.save();
+      console.log(favoriteBooks)
+      res.status(200).send('Favorite books updated successfully');
+    } catch (error) {
+      res.status(500).send('Error updating favorite books');
+    }
+  }
 
   
 }

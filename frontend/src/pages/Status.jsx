@@ -11,6 +11,9 @@ function Status() {
   const [bookRequestIdToDelete, setBookRequestIdToDelete] = useState('');
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
+  const [departments, setDepartments] = useState([]);
+
+  
 
   useEffect(() => {
     const fetchBorrowedBooks = async () => {
@@ -21,7 +24,7 @@ function Status() {
         const bookIds = bookRequests.map(request => request.bookId);
         const booksRes = await axios.get('http://localhost:3000/books');
         const books = booksRes.data;
-
+        
         const borrowedBooksData = bookRequests.map(request => {
           const book = books.find(book => book._id === request.bookId);
           return {
@@ -177,16 +180,17 @@ function Status() {
           xAxis={[
             {
               scaleType: "band",
-              data: ["group A", "group B", "group C"],
+              data: ["CS","ME","EE","CE","CIE","EP"],
             },
           ]}
           series={[
-            { data: [4, 3, 5] },
-            { data: [1, 6, 3] },
-            { data: [2, 5, 6] },
+            { data: [4, 3, 5 ,3] },
+            { data: [1, 6, 3 ,2] },
+            { data: [2, 5, 6, 1] },
+            { data: [1, 3, 5, 3] },
           ]}
-          width={400}
-          height={250}
+          width={600}
+          height={350}
         />
 
         <div className="w-3/4 pr-4 mb-10">
