@@ -6,19 +6,30 @@ import image from '../assets/react.svg'; // Adjust the path as needed
 import booksData from '../assets/UpdatedDatasetSOI.json';
 import './home.css';
 import { useFavoriteBooks } from "../FavoriteBooksContext";
+import webBook from '../assets/onlineBooks.json';
 
 function Home() {
   const [books, setBooks] = useState([]);
   const [articles, setArticles] = useState([]);
   const { favoriteBooks } = useFavoriteBooks();
+  const [onlineBooks,setOnlineBooks]=useState([]);
+
+  
 
   useEffect(() => {
     // Assuming booksData is an array of book objects
     const books = booksData;
+
+    const onlineBooks = webBook.filter(book => book.onlineUrl);
+     setOnlineBooks(onlineBooks);
+
     const articles = books.slice(0, 3); // Use the first three books as articles
     setBooks(books);
     setArticles(articles);
   }, []);
+
+
+
 
   // Function to get a random selection of items from an array
   const getRandomItems = (array, numItems) => {
@@ -92,6 +103,20 @@ function Home() {
     </div>
   );
 
+
+  const OnlineBook = ({ title, onlineUrl }) => (
+    <div className="p-6 max-w-sm mx-auto bg-white dark:bg-neutral-700 rounded-xl shadow-lg flex items-center space-x-4 hover:cursor-pointer box">
+      <div className="shrink-0">
+        <img className="h-12 w-12" src={image} alt={title} />
+      </div>
+      <div>
+        <div className="text-xl font-medium text-black dark:text-blue-500">{title}</div>
+        <a href={onlineUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 block hover:underline">Read Online</a>
+      </div>
+    </div>
+  );
+
+
   return (
     <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="flex flex-wrap items-center mb-8">
@@ -107,13 +132,13 @@ function Home() {
       <div className="flex flex-wrap mb-8">
         {recommendedBooks.map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-            <img className="w-full mb-3" src={image} alt={book.title} />
+            <img className="w-full mb-3" src={book.image||image} alt={book.title} />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
           </div>
         ))}
         {recommendedBooks2.map((book, index) => (
           <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-            <img className="w-full mb-3" src={image} alt={book.title} />
+            <img className="w-full mb-3" src={book.image||image} alt={book.title} />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">{book.title}</p>
           </div>
         ))}
@@ -127,6 +152,17 @@ function Home() {
           </div>
         ))}
       </div>
+
+
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">Read Books Online</h2>
+      <div className="flex flex-wrap mb-8">
+        {onlineBooks.map((book, index) => (
+          <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
+            <OnlineBook title={book.title} onlineUrl={book.onlineUrl} />
+          </div>
+        ))}
+      </div>
+
 
       <h2 className="text-2xl font-bold mb-2 text-blue-500">Subscribe to Newsletter</h2>
       <p className="text-gray-400 dark:text-slate-300 mb-4">Receive the latest updates and offers directly to your inbox!</p>
