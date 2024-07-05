@@ -1,0 +1,19 @@
+{
+  "name": "bro_code",
+  "version": "1.0.0",
+  "description": "**Summer of Innovation 2024**",
+  "main": "index.js",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+"scripts": {
+    "frontend1": "cd frontend && npm run dev",
+    "frontend2": "cd admin_frontend && npm run dev",
+    "frontend3": "cd login-register && npm run dev",
+    "backend": "cd backend && npm start",
+    "lms": "concurrently \"npm run frontend1\" \"npm run frontend2\" \"npm run frontend3\" \"npm run backend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
