@@ -11,6 +11,11 @@
   - Search for books.
   - Borrow books.
   - Mark books as favorite.
+  - Read books online.
+  - Get personalized book recommendations.
+- **Admin Features**:
+  - Add a new book to the system.
+  - Manage book borrowing requests (approve/reject).
 - **Responsive Design**: Accessible on various devices.
 - **Dark Mode**: Switch between light and dark themes for better readability.
 
@@ -24,44 +29,16 @@
 1. **Clone the Repository**
     ```sh
     git clone https://github.com/Luvshanker14/Bro_Code.git
+    cd Bro_Code
     ```
 
-2. **Backend Setup**
+2. **Backend and Frontend Setup**
     ```sh
-    cd backend
-    npm install
-    nodemon server.js
+    npm run lms
     ```
+    This command starts the backend server and frontend development servers for both user and admin portals concurrently.
 
-3. **Frontend Setup**
-    Open a new terminal and navigate to the frontend directory:
-    ```sh
-    cd frontend
-    npm install
-    npm run dev
-    ```
-    **Note**: Do not open the React app by clicking the link provided in the terminal.
-
-4. **Admin Frontend Setup**
-    Open another new terminal and navigate to the admin frontend directory:
-    ```sh
-    cd admin_frontend
-    npm install
-    npm run dev
-    ```
-    **Note**: Do not open the React app by clicking the link provided in the terminal.
-
-5. **Login/Register Frontend Setup**
-    Open yet another new terminal and navigate to the login-register directory:
-    ```sh
-    cd login-register
-    npm install
-    npm run dev
-    ```
-
-6. **Accessing the Application**
-    - Click the link provided in the terminal after running the login-register frontend setup.
+3. **Accessing the Application**
+    - After running `npm run lms`, follow the link provided in the terminal (e.g., `http://localhost:5175`).
     - If you are a new user, register as a user.
-    - Otherwise, log in as an existing user and start using the application.
-
-
+    - Log in as an existing user or administrator to start using the application.
