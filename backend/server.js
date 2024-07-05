@@ -11,6 +11,7 @@ const dotenv = require('dotenv');
 const userRoute = require('./routes/userRouter');
 const adminRoute=require('./routes/adminRoute');
 const imageRoute=require('./routes/imageRoutes');
+const mailRoute = require('./routes/mailRoute')
 const path = require('path');
 dotenv.config();
 
@@ -40,6 +41,7 @@ app.use('/bookRequests', bookRequestRoutes);
 app.use('/admin',adminRoute);
 app.use('/image',imageRoute);
 app.use('/uploads', express.static('uploads'));
+app.use("/mail", mailRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
