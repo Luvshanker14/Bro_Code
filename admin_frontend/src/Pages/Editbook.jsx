@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -33,13 +32,15 @@ function EditBook() {
       (book) =>
         (selectedDepartment === "All" ||
           book.department === selectedDepartment) &&
-        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+        book.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book._id?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.department?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.genre?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
 
-  const adminCookie = Cookies.get("adminId");
-  const admin = JSON.parse(adminCookie);
-  const name = admin.adminName;
+
 
   const handleEditButton = (bookId) => {
     navigate(`/editpage/${bookId}`);

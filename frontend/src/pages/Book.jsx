@@ -142,9 +142,14 @@ function Books() {
       (book) =>
         (selectedDepartment === "All" ||
           book.department === selectedDepartment) &&
-        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+        book.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book._id?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.department?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.genre?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
+
 
   const handleBorrowClick = async (bookId) => {
     try {
