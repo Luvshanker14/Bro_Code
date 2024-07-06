@@ -7,6 +7,7 @@ import booksData from '../assets/UpdatedDatasetSOI.json';
 import './home.css';
 import { useFavoriteBooks } from "../FavoriteBooksContext";
 import webBook from '../assets/onlineBooks.json';
+import library from '../assets/library.svg';
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -126,7 +127,7 @@ function Home() {
           <p className="mb-4 text-gray-600 dark:text-slate-100">Explore our vast collection of books</p>
         </div>
         <div className="w-full md:w-1/2 lg:w-2/5 px-2">
-          <img className="w-1/2" src={image} alt="Logo" />
+          <img className="w-full" src={library} alt="Logo" />
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-4 text-blue-500">Recommended Books</h2>
