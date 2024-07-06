@@ -3,7 +3,6 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useFavoriteBooks } from "../FavoriteBooksContext";
 
 function Status() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
@@ -11,21 +10,19 @@ function Status() {
   const [bookRequestIdToDelete, setBookRequestIdToDelete] = useState('');
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
-  const [favoriteBook,setFavoriteBooks]=useState([]);
-  const [departments, setDepartments] = useState([]);
-
-  
+  const [favoriteBooks, setFavoriteBooks] = useState([]);
+  const [borrowingHistory, setBorrowingHistory] = useState([]);
 
   useEffect(() => {
     const fetchBorrowedBooks = async () => {
       try {
         const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
-        const bookRequests = bookRequestsRes.data.filter(request => request.userId === user.userId);
+        const bookRequests = bookRequestsRes.data.filter(request => request.userId === user.userId && request.status !== 'approved');
 
         const bookIds = bookRequests.map(request => request.bookId);
         const booksRes = await axios.get('http://localhost:3000/books');
         const books = booksRes.data;
-        
+
         const borrowedBooksData = bookRequests.map(request => {
           const book = books.find(book => book._id === request.bookId);
           return {
@@ -45,23 +42,46 @@ function Status() {
     fetchBorrowedBooks();
   }, [user.userId]);
 
-
-
   useEffect(() => {
     const fetchFavoriteBooks = async () => {
-  try {
-    const favoriteBooksRes = await axios.post(`http://localhost:3000/books/getFavouriteBook`, {
-      userId: user.userId
-    });
-    setFavoriteBooks(favoriteBooksRes.data);
-  } catch (error) {
-    console.log('Error fetching favorite books', error);
-  }
-};
-fetchFavoriteBooks();
-  }, [user]);
-  
+      try {
+        const favoriteBooksRes = await axios.post(`http://localhost:3000/books/getFavouriteBook`, {
+          userId: user.userId
+        });
+        setFavoriteBooks(favoriteBooksRes.data);
+      } catch (error) {
+        console.log('Error fetching favorite books', error);
+      }
+    };
+    fetchFavoriteBooks();
+  }, [user.userId]);
 
+  useEffect(() => {
+    const fetchApprovedRequests = async () => {
+      try {
+        const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
+        const approvedRequests = bookRequestsRes.data.filter(request => request.userId === user.userId && request.status === "approved");
+
+        const bookIds = approvedRequests.map(request => request.bookId);
+        const booksRes = await axios.get('http://localhost:3000/books');
+        const books = booksRes.data;
+
+        const borrowingHistoryData = approvedRequests.map(request => {
+          const book = books.find(book => book._id === request.bookId);
+          return {
+            title: book.title,
+            author: book.author,
+            dueDate: "2022-01-01"
+          };
+        });
+
+        setBorrowingHistory(borrowingHistoryData);
+      } catch (error) {
+        console.log('Error fetching approved requests', error);
+      }
+    };
+    fetchApprovedRequests();
+  }, [user.userId]);
 
   const handleCancelRequest = (id) => {
     setBookRequestIdToDelete(id);
@@ -82,16 +102,9 @@ fetchFavoriteBooks();
     setShowModal(false);
   };
 
-  const borrowingHistory = [
-    { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
-    { title: "Book 2", author: "Author 2", dueDate: "2022-01-01" },
-  ];
-  
-  //const { favoriteBooks } = useFavoriteBooks();
-
   return (
     <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">
-      <div className="mb-10 ">
+      <div className="mb-10">
         <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
         <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
           <thead>
@@ -160,7 +173,7 @@ fetchFavoriteBooks();
 
       <div className="flex mb-10">
         <div className="w-3/5 pr-4">
-          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowed Books</h2>
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowing History</h2>
           <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
             <thead>
               <tr className="bg-gray-200 dark:bg-neutral-600">
@@ -179,7 +192,7 @@ fetchFavoriteBooks();
               ))}
             </tbody>
           </table>
-        </div> 
+        </div>
         <PieChart
           series={[
             {
@@ -199,12 +212,12 @@ fetchFavoriteBooks();
           xAxis={[
             {
               scaleType: "band",
-              data: ["CS","ME","EE","CE","CIE","EP"],
+              data: ["CS", "ME", "EE", "CE"],
             },
           ]}
           series={[
-            { data: [4, 3, 5 ,3] },
-            { data: [1, 6, 3 ,2] },
+            { data: [4, 3, 5, 3] },
+            { data: [1, 6, 3, 2] },
             { data: [2, 5, 6, 1] },
             { data: [1, 3, 5, 3] },
           ]}
@@ -222,7 +235,7 @@ fetchFavoriteBooks();
               </tr>
             </thead>
             <tbody>
-              {favoriteBook.map((book, index) => (
+              {favoriteBooks.map((book, index) => (
                 <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
                   <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
                   <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
