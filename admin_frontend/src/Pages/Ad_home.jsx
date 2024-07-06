@@ -1,47 +1,63 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 import SearchIcon from "@mui/icons-material/Search";
 import Time from "./Home_components/Time";
 import { PieChart } from "@mui/x-charts/PieChart";
-import Cookies from 'js-cookie';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [books, setBooks] = useState([]); // State for storing books data
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/books');
+        const res = await axios.get("http://localhost:3000/books");
         setBooks(res.data);
       } catch (error) {
-        console.log('Error', error);
+        console.log("Error", error);
       }
     };
     getBooks();
   }, []);
 
-  const adminCookie = Cookies.get('adminId');
-  const admin=JSON.parse(adminCookie);
-  const name=admin.adminName;
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/user");
+        setUser(res.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    getUser();
+  }, []);
+
+  const adminCookie = Cookies.get("adminId");
+  const admin = JSON.parse(adminCookie);
+  const name = admin.adminName;
 
   const handleAddBook = () => {
-    navigate('/books'); 
+    navigate("/books");
   };
-
 
   const handleShowall = () => {
     navigate("/editBook");
-};
+  };
 
+  
+  const handleShowallUser = () => {
+    navigate("/userlist");
+  };
 
   return (
-    <div className="flex h-full w-full">
-      <section className="flex bg-white rounded-md text-gray-900 dark:bg-neutral-900 body-font h-full w-full pl-5">
+    <div className="  flex h-full w-full">
+      <section className="flex  bg-white rounded-md text-gray-900 dark:bg-neutral-900 body-font h-full w-full pl-5">
         <div className="container px-5 py-6 mx-auto">
           <div className="flex flex-row justify-between items-center w-full mb-10">
             <div>
@@ -85,7 +101,9 @@ function Home() {
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   2.7K
                 </h2>
-                <p className="leading-relaxed dark:text-white">Total Visitors</p>
+                <p className="leading-relaxed dark:text-white">
+                  Total Visitors
+                </p>
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
@@ -106,7 +124,9 @@ function Home() {
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   1.3K
                 </h2>
-                <p className="leading-relaxed dark:text-white">Borrowed Books</p>
+                <p className="leading-relaxed dark:text-white">
+                  Borrowed Books
+                </p>
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
@@ -145,12 +165,14 @@ function Home() {
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   46
                 </h2>
-                <p className="leading-relaxed dark:text-white">Received Books</p>
+                <p className="leading-relaxed dark:text-white">
+                  Received Books
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col pr-9 lg:flex-row w-full pt-6">
+          <div className="flex flex-col pr-9 xl:flex-row w-full pt-16">
             <div className="flex flex-col items-center space-y-4">
               <h3 className="text-lg font-semibold text-center dark:text-white">
                 Number of Books
@@ -187,47 +209,60 @@ function Home() {
 
             <div className="flex flex-wrap w-full pl-8">
               <div className="w-full">
-                <div className="border-2 dark:border-black rounded-md shadow-md dark:shadow-black p-4">
-                  <h3 className="text-lg font-semibold mb-4 dark:text-white">Books List</h3>
+                <div className="border-2 dark:border-black rounded-md shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black p-4">
+                  <h3 className="text-lg font-semibold mb-4 dark:text-white">
+                    Books List
+                  </h3>
                   <div className="overflow-x-auto ">
-                    <table className="min-w-full bg-white dark:bg-neutral-800 border dark:border-slate-400 rounded-md">
-                      <thead className="bg-gray-100 dark:bg-neutral-600">
-                        <tr className="text-left">
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                            Book ID
-                          </th>
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                            Name
-                          </th>
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                            Author
-                          </th>
-                          <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                            Quantity
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
-                        {books.slice(0,4).map((book, index) => (
-                      <tr key={index}>
-                        <td className="px-4 py-3 dark:text-white break-words text-xs md:text-sm">{book._id}</td>
-                        <td className="px-4 py-3 dark:text-white text-sm md:text-base">{book.title}</td>
-                        <td className="px-4 py-3 dark:text-white text-sm md:text-base">{book.author}</td>
-                        <td className="px-4 py-3 dark:text-white text-sm md:text-base">{book.count}</td>
-                      </tr>
-                    ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="flex justify-between">
-                    <button onClick={handleAddBook} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-                      Add New Book
-                    </button>
-                    <button onClick={handleShowall}>
-                    <a className="text-pink-500 mt-6">
-                      Show All
-                    </a>
-                    </button>
+                    <div className="max-h-96 overflow-y-auto">
+                      <table className="min-w-full bg-white dark:bg-neutral-900 rounded-md">
+                        <thead className="bg-gray-100 dark:bg-neutral-800 ">
+                          <tr className="text-left">
+                            <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                              Book ID
+                            </th>
+                            <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                              Name
+                            </th>
+                            <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                              Author
+                            </th>
+                            <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                              Quantity
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
+                          {books.map((book, index) => (
+                            <tr key={index}>
+                              <td className="px-4 py-3 dark:text-slate-100 break-words text-xs md:text-sm">
+                                {book._id}
+                              </td>
+                              <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                                {book.title}
+                              </td>
+                              <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                                {book.author}
+                              </td>
+                              <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                                {book.count}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="flex justify-between">
+                      <button
+                        onClick={handleAddBook}
+                        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+                      >
+                        Add New Book
+                      </button>
+                      <button onClick={handleShowall}>
+                        <a className="text-pink-500 mt-6">Show All</a>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -236,104 +271,71 @@ function Home() {
 
           <div className="flex pt-6 justify-between flex-col lg:flex-row">
             <div className="w-full">
-              <div className="border-2 dark:border-black rounded-md shadow-md p-4 dark:shadow-black">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">User List</h3>
+              <div className="border-2 dark:border-black bg-neutral-100 dark:bg-neutral-800 rounded-md shadow-md p-4 dark:shadow-black">
+                <h3 className="text-lg font-semibold mb-4 dark:text-white">
+                  User List
+                </h3>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full bg-white border dark:border-slate-400 dark:bg-neutral-800 rounded-md">
-                    <thead className="bg-gray-100 dark:bg-neutral-600">
-                      <tr className="text-left">
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                          User ID
-                        </th>
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                          Name
-                        </th>
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                          Total Books Issued
-                        </th>
-                        <th className="px-6 py-3 text-sm font-semibold text-gray-600 dark:text-white">
-                          Branch
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
-                      <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          U-10201-30
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Alice Johnson
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">5</td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Literature
-                        </td>
-                      </tr>
-                      <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          U-35201-31
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Bob Smith
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">3</td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">History</td>
-                      </tr>
-                      <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          U-24510-45
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Carol White
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">7</td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Social Science
-                        </td>
-                      </tr>
-                      <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          U-95501-31
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          David Brown
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">4</td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Psychology
-                        </td>
-                      </tr>
-                      <tr className="text-left">
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          U-773521-67
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Eva Green
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">6</td>
-                        <td className="px-6 py-4 whitespace-nowrap dark:text-slate-100">
-                          Philosophy
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div className="max-h-96 overflow-y-auto">
+                    <table className="min-w-full bg-white dark:bg-neutral-900 rounded-md">
+                      <thead className="bg-gray-100 dark:bg-neutral-800">
+                        <tr className="text-left">
+                          <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                            User ID
+                          </th>
+                          <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                            Name
+                          </th>
+                          <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                            Email
+                          </th>
+                          {/* <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                            Branch
+                          </th> */}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
+                        {user.map((user, index) => (
+                          <tr key={index}>
+                            <td className="px-4 py-3 dark:text-slate-100  text-xs md:text-sm">
+                              {user._id}
+                            </td>
+                            <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                              {user.name}
+                            </td>
+                             <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                              {user.email}
+                            </td>
+                           {/* <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                              {user.count}
+                            </td> */}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
                 <div className="flex justify-between">
                   <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
                     Add New User
                   </button>
-                  <a href="#" className="text-pink-500 mt-6">
+                  <button 
+                  onClick={handleShowallUser}
+                  >
+                  <a className="text-pink-500 mt-6">
                     Show All
                   </a>
+                  </button>
                 </div>
               </div>
             </div>
+
             <div className="ml-4 pt-6 flex-shrink-0 flex items-center">
               <PieChart
                 series={[
                   {
                     data: [
-                      { id: 0, value: 10, label: "Returned", },
+                      { id: 0, value: 10, label: "Returned" },
                       { id: 1, value: 3, label: "Not Returned" },
                     ],
                   },
