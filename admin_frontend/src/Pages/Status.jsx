@@ -89,58 +89,54 @@ function Status() {
   };
 
   return (
-    <div className="p-4 bg-white rounded-md h-screen">
-      <h1 className="text-2xl mb-4 font-bold text-gray-800 text-center dark:text-white">Book Requests</h1>
-      <div className="max-h-screen overflow-auto">
-        <table className="w-full border-collapse table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
-          <thead>
-            <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
-              <th className="p-4 text-center text-slate-600 dark:text-white">UserId</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Name</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Request Date</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Count</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Status</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
+    <div className="min-h-screen rounded-md bg-white dark:bg-neutral-900 items-center justify-center p-3 ">
+      <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">
+            Book Request
+          </h2>
+      <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+        <thead>
+          <tr className="bg-gray-300 dark:bg-neutral-600 rounded-md">
+            <th className="p-4 text-center text-black dark:text-white">UserId</th>
+            <th className="p-4 text-center text-black dark:text-white">Name</th>
+            <th className="p-4 text-center text-black dark:text-white">Book Title</th>
+            <th className="p-4 text-center text-black dark:text-white">Request Date</th>
+            <th className="p-4 text-center text-black dark:text-white">Status</th>
+            <th className="p-4 text-center text-black dark:text-white">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookRequests.slice().reverse().map((request, index) => (
+            <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+              <td className="p-4 text-center text-black dark:text-slate-100">
+                {users[request.userId] ? `${users[request.userId]._id}` : 'anonymous user'}
+              </td>
+              <td className="p-4 text-center text-black dark:text-slate-100">
+                {users[request.userId] ? `${users[request.userId].name}` : 'anonymous user'}
+              </td>
+              <td className="p-4 text-center text-black dark:text-slate-100">
+                {books[request.bookId] ? books[request.bookId].title : 'Unknown'}
+              </td>
+              <td className="p-4 text-center text-black dark:text-slate-100">
+                {timeAgo(request.requestDate)}
+              </td>
+              <td className={`p-4 text-center ${request.status === 'approved' ? 'text-green-500' : 'text-yellow-500'}`}>
+                {request.status}
+              </td>
+              <td className="p-4 text-center cursor-pointer">
+                {request.status === 'pending' && (
+                  <button
+                    type="button"
+                    onClick={() => handleApprove(request._id)}
+                    className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                  >
+                    Approve
+                  </button>
+                )}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {bookRequests.slice().reverse().map((request, index) => (
-              <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">
-                  {users[request.userId] ? `${users[request.userId]._id}` : 'anonymous user'}
-                </td>
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">
-                  {users[request.userId] ? `${users[request.userId].name}` : 'anonymous user'}
-                </td>
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">
-                  {books[request.bookId] ? books[request.bookId].title : 'Unknown'}
-                </td>
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">
-                  {timeAgo(request.requestDate)}
-                </td>
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">
-                  {books[request.bookId] ? books[request.bookId].count : 'Unknown'}
-                </td>
-                <td className={`p-4 text-center ${request.status === 'approved' ? 'text-green-500' : 'text-yellow-500'}`}>
-                  {request.status}
-                </td>
-                <td className="p-4 text-center cursor-pointer">
-                  {request.status === 'pending' && (
-                    <button
-                      type="button"
-                      onClick={() => handleApprove(request._id)}
-                      className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                    >
-                      Approve
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
