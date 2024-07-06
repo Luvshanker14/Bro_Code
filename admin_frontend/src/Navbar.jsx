@@ -39,7 +39,7 @@ function Navbar({ selected, setSelected }) {
           </span>
           </button>
         </div>
-        <div className=" border-t border-white">
+        <div className=" border-t dark:border-white border-black">
           <div className="px-2">
             <div className="py-4">
               {menuItems.map((item) => (

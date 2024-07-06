@@ -1,15 +1,18 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar.jsx";
 import Account from "./Pages/Ad_account.jsx";
 import Home from "./Pages/Ad_home.jsx";
 import Books from "./Pages/Books.jsx";
 import Status from "./Pages/Status.jsx";
+import EditBook from "./Pages/Editbook.jsx";
+import EditPage from "./Pages/Editpage.jsx";
+
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-function App(){
-    const [selected, setSelected] = useState('Home');
+function App() {
+  const [selected, setSelected] = useState('Home');
 
   return (
     <Router>
@@ -19,9 +22,7 @@ function App(){
       </div>
     </Router>
   );
-      
 }
-
 
 function MainContent() {
   const location = useLocation();
@@ -39,13 +40,13 @@ function MainContent() {
             <Route path="/" element={<Home />} />
             <Route path="/status" element={<Status />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/editBook" element={<EditBook />} /> 
+            <Route path="/editPage/:bookId" element={<EditPage />} />
           </Routes>
         </div>
       </CSSTransition>
     </TransitionGroup>
   );
 }
-
-
 
 export default App;

@@ -33,6 +33,12 @@ function Home() {
     navigate('/books'); 
   };
 
+
+  const handleShowall = () => {
+    navigate("/editBook");
+};
+
+
   return (
     <div className="flex h-full w-full">
       <section className="flex bg-white rounded-md text-gray-900 dark:bg-neutral-900 body-font h-full w-full pl-5">
@@ -50,7 +56,7 @@ function Home() {
                   <input
                     type="text"
                     placeholder="Start Books"
-                    className="search-bar border-2 border-gray-300 p-3 rounded-md w-80 sm:w-96 focus:outline-none focus:border-black dark:text-white dark:bg-neutral-800"
+                    className="search-bar border-2 border-gray-300 dark:border-black p-3 rounded-md w-80 sm:w-96 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -139,7 +145,7 @@ function Home() {
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   46
                 </h2>
-                <p className="leading-relaxed dark:text-white">Reserved Books</p>
+                <p className="leading-relaxed dark:text-white">Received Books</p>
               </div>
             </div>
           </div>
@@ -183,7 +189,7 @@ function Home() {
               <div className="w-full">
                 <div className="border-2 dark:border-black rounded-md shadow-md dark:shadow-black p-4">
                   <h3 className="text-lg font-semibold mb-4 dark:text-white">Books List</h3>
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto ">
                     <table className="min-w-full bg-white dark:bg-neutral-800 border dark:border-slate-400 rounded-md">
                       <thead className="bg-gray-100 dark:bg-neutral-600">
                         <tr className="text-left">
@@ -204,10 +210,10 @@ function Home() {
                       <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
                         {books.slice(0,4).map((book, index) => (
                       <tr key={index}>
-                        <td className="px-4 py-3 dark:text-white">{book._id}</td>
-                        <td className="px-4 py-3 dark:text-white">{book.title}</td>
-                        <td className="px-4 py-3 dark:text-white">{book.author}</td>
-                        <td className="px-4 py-3 dark:text-white">{book.count}</td>
+                        <td className="px-4 py-3 dark:text-white break-words text-xs md:text-sm">{book._id}</td>
+                        <td className="px-4 py-3 dark:text-white text-sm md:text-base">{book.title}</td>
+                        <td className="px-4 py-3 dark:text-white text-sm md:text-base">{book.author}</td>
+                        <td className="px-4 py-3 dark:text-white text-sm md:text-base">{book.count}</td>
                       </tr>
                     ))}
                       </tbody>
@@ -217,9 +223,11 @@ function Home() {
                     <button onClick={handleAddBook} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
                       Add New Book
                     </button>
-                    <a href="#" className="text-pink-500 mt-6">
+                    <button onClick={handleShowall}>
+                    <a className="text-pink-500 mt-6">
                       Show All
                     </a>
+                    </button>
                   </div>
                 </div>
               </div>
