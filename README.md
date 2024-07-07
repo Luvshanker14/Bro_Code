@@ -20,6 +20,7 @@
 - **Dark Mode**: Switch between light and dark themes for better readability.
 
 
+
 ## How to Use
 
 ### Prerequisites
@@ -32,7 +33,7 @@
     git clone https://github.com/Luvshanker14/Bro_Code.git
     ```
 
-    Navigate to the project directory:
+    **Ensure you are in the `Bro_Code` directory**. If not, change directory to `Bro_Code`:
     ```sh
     cd Bro_Code
     ```
@@ -44,8 +45,9 @@
     ```
 
 3. **Accessing the Application**
-    - After running `npm run lms`, ensure the following ports are free on your machine: **5173**, **5174**, **5175**, and **3000**.
+    - **Before running** `npm run lms`, ensure the following ports are free on your machine: **5173**, **5174**, **5175**, and **3000**.
     - Click on the link provided in the terminal to access the application: [http://localhost:5175](http://localhost:5175).
     - If you are a new user, register using the registration form.
-    - Log in as a user  to start using the features of the LMS.
+    - Log in as a user to start using the features of the LMS.
+
 
