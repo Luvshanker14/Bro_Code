@@ -8,7 +8,9 @@ const nodemailer = require("nodemailer");
 // send mail
 exports.send = async (req,res) => {
 
-    const email = req.body.email;
+    const { email, title } = req.body;
+    // console.log('Received email:', email);
+    // console.log('Received bookTitle:', title);
   
 
     try {
@@ -24,8 +26,8 @@ exports.send = async (req,res) => {
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
-            subject: "Sending Email With React And Nodejs",
-            html: '<h1>Congratulation</h1> <h1> You successfully sent Email </h2>'
+            subject: "Book Request Approved !!",
+            html: `<h1>Congratulation</h1> <p>Your request for the book titled <strong>${title}</strong> has been approved.</p>`
         };
 
         transporter.sendMail(mailOptions, (error, info) => {

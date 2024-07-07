@@ -154,7 +154,7 @@ function Home() {
 
   return (
     <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
-      <div className="flex flex-wrap items-center mb-8">
+      <div className="flex flex-wrap items-center mb-8 ">
         <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
           <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
             Hello, {profile.name}
@@ -166,8 +166,8 @@ function Home() {
             Explore our vast collection of books
           </p>
         </div>
-        <div className="w-full  px-2">
-          <img className="bg-cover bg-fixed" src={library} alt="Logo" />
+        <div className="w-full ">
+          <img className="bg-contain " src={library} alt="Logo" />
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-4 text-blue-500">

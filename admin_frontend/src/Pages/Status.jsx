@@ -53,10 +53,11 @@ function Status() {
     fetchUsers();
   }, []);
 
-  const handleApprove = async (id) => {
+  const handleApprove = async (id, email, title) => {
     try {
       await axios.put(`http://localhost:3000/bookRequests/approve/${id}`);
       setBookRequests(prevRequests => prevRequests.filter(request => request._id !== id));
+      await axios.post('http://localhost:3000/mail/send', { email, title });
     } catch (error) {
       console.log('Error approving request', error);
     }
@@ -91,8 +92,8 @@ function Status() {
   return (
     <div className="min-h-screen rounded-md bg-white dark:bg-neutral-900 items-center justify-center p-3 ">
       <h2 className="text-3xl font-semibold mb-4 border-b pb-2 dark:text-white">
-            Book Request
-          </h2>
+        Book Request
+      </h2>
       <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
         <thead>
           <tr className="bg-gray-300 dark:bg-neutral-600 rounded-md">
@@ -126,7 +127,7 @@ function Status() {
                 {request.status === 'pending' && (
                   <button
                     type="button"
-                    onClick={() => handleApprove(request._id)}
+                    onClick={() => handleApprove(request._id, users[request.userId]?.email, books[request.bookId]?.title)}
                     className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
                   >
                     Approve

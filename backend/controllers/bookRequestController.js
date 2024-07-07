@@ -1,6 +1,7 @@
 // controllers/bookRequestController.js
 const BookRequest = require('../models/BookRequest');
 const Book = require('../models/Book');
+const User = require('../models/userModel');
 
 exports.borrowBook = async (req, res) => {
     const { userId, bookId } = req.body;
@@ -30,12 +31,20 @@ exports.borrowBook = async (req, res) => {
 
 exports.getBookRequests = async (req, res) => {
     try {
-        const bookRequests = await BookRequest.find();
-        res.status(200).json(bookRequests);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+      const bookRequests = await BookRequest.find().populate('userId', 'email name'); // Assuming userId references the User model
+      res.status(200).json(bookRequests);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-};
+  };
+//   exports.getBookRequests = async (req, res) => {
+//     try {
+//         const bookRequests = await BookRequest.find();
+//         res.status(200).json(bookRequests);
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// };
 
 exports.deleteBookRequest = async (req, res, next) => {
     try {
