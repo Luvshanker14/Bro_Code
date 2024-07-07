@@ -19,6 +19,10 @@
 - **Responsive Design**: Accessible on various devices.
 - **Dark Mode**: Switch between light and dark themes for better readability.
 
+Certainly! Here's an updated section on how to use the Library Management System (LMS) with clear instructions on accessing the application and ensuring port availability:
+
+---
+
 ## How to Use
 
 ### Prerequisites
@@ -31,18 +35,20 @@
     git clone https://github.com/Luvshanker14/Bro_Code.git
     ```
 
-    Make sure you are in the `Bro_Code` directory:
+    Navigate to the project directory:
     ```sh
     cd Bro_Code
     ```
 
 2. **Backend and Frontend Setup**
+    Start the backend server and frontend development servers for both user and admin portals concurrently:
     ```sh
     npm run lms
     ```
-    This command starts the backend server and frontend development servers for both user and admin portals concurrently.
 
 3. **Accessing the Application**
-    - After running `npm run lms`, follow the link provided in the terminal (e.g., `http://localhost:5175`).
-    - If you are a new user, register as a user.
-    - Log in as an existing user or administrator to start using the application.
+    - After running `npm run lms`, ensure the following ports are free on your machine: **5173**, **5174**, **5175**, and **3000**.
+    - Click on the link provided in the terminal to access the application: [http://localhost:5175](http://localhost:5175).
+    - If you are a new user, register using the registration form.
+    - Log in as a user  to start using the features of the LMS.
+
