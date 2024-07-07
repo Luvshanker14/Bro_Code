@@ -19,9 +19,6 @@
 - **Responsive Design**: Accessible on various devices.
 - **Dark Mode**: Switch between light and dark themes for better readability.
 
-Certainly! Here's an updated section on how to use the Library Management System (LMS) with clear instructions on accessing the application and ensuring port availability:
-
----
 
 ## How to Use
 
