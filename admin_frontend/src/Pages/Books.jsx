@@ -120,7 +120,7 @@ const Books = () => {
                     placeholder="Title"
                     required
                     autoComplete="given-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -141,7 +141,7 @@ const Books = () => {
                     placeholder="Author"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -161,7 +161,7 @@ const Books = () => {
                     onChange={handleChange}
                     placeholder="Description"
                     required
-                    className="block w-full rounded-md dark:bg-neutral-700 border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md dark:bg-neutral-700 bg-neutral-200 border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   ></textarea>
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
@@ -183,7 +183,7 @@ const Books = () => {
                     onChange={handleChange}
                     placeholder="Department"
                     required
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-2 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-2 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option>Computer Science</option>
                     <option>Mechanical Engineering</option>
@@ -214,7 +214,7 @@ const Books = () => {
                     placeholder="Publisher"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -235,7 +235,7 @@ const Books = () => {
                     placeholder="Publisher ID"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -256,7 +256,7 @@ const Books = () => {
                     placeholder="Vendor"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -277,7 +277,7 @@ const Books = () => {
                     placeholder="Vendor ID"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -298,7 +298,7 @@ const Books = () => {
                     placeholder="Genre"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full dark:bg-neutral-700 bg-neutral-200 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -319,7 +319,7 @@ const Books = () => {
                     placeholder="Count"
                     required
                     autoComplete="family-name"
-                    className="block w-full dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full bg-neutral-200 dark:bg-neutral-700 rounded-md border-0 pl-2 py-1.5 text-gray-900 dark:text-slate-50 shadow-sm dark:shadow-black ring-1 ring-inset ring-gray-300 dark:ring-black placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -348,7 +348,7 @@ const Books = () => {
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
                       <label
                         htmlFor="image"
-                        className="relative cursor-pointer rounded-md dark:bg-neutral-700 bg-white font-semibold text-indigo-600 dark:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                        className="relative cursor-pointer rounded-md bg-neutral-200 dark:bg-neutral-700 font-semibold text-indigo-600 dark:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input

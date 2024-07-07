@@ -86,8 +86,8 @@ function MenuItem({ name, icon: Icon, path, selected, setSelected, navigate }) {
         }}
         className={`group relative flex justify-center rounded px-2 py-1.5 ${
           isSelected
-            ? "bg-blue-100 dark:bg-neutral-900 text-blue-700 transition ease-in-out delay-30 -translate-y-0.5 scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-slate-200"
-            : "text-gray-500 hover:bg-gray-300 dark:hover:bg-neutral-700 hover:text-slate-700 dark:hover:text-slate-50"
+            ? "bg-blue-100 dark:bg-neutral-900 text-blue-700 transition ease-in-out delay-30 -translate-y-0.5 scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-black"
+            : "text-gray-500 hover:bg-gray-300 dark:hover:bg-neutral-700 hover:text-slate-700 dark:hover:text-slate-50 ease-in-out"
         }`}
       >
         <Icon className={`size-5 opacity-100 ${isSelected ? "fill-black" : ""}`} />
