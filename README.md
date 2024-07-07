@@ -45,7 +45,7 @@
     ```
 
 3. **Accessing the Application**
-    - **Before running** `npm run lms`, ensure the following ports are free on your machine: **5173**, **5174**, **5175**, and **4000**.
+    - **Before running** `npm run lms`, ensure the following ports are free on your machine: **5173**, **5174**, **5175**, and **3000**.
     - Click on the link provided in the terminal to access the application: [http://localhost:5175](http://localhost:5175).
     - If you are a new user, register using the registration form.
     - Log in as a user to start using the features of the LMS.
