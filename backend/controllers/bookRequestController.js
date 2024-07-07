@@ -84,3 +84,34 @@ exports.approveBookRequest = async (req, res) => {
         res.status(500).json({ message: 'Failed to approve book request' });
     }
 };
+
+exports.returnBook = async (req, res) => {
+    try {
+        // Find the book request and ensure it exists
+        const bookRequest = await BookRequest.findOne({_id: req.params.id});
+        if (!bookRequest) {
+            return res.status(404).json({ message: 'Book request not found' });
+        }
+
+        // Ensure the book is currently borrowed
+        if (bookRequest.status !== 'approved') {
+            return res.status(400).json({ message: 'Book is not borrowed' });
+        }
+
+        // Update the book count
+        const book = await Book.findById(bookRequest.bookId);
+        if (book) {
+            book.count += 1;
+            await book.save();
+        }
+
+        // Remove the book request
+        await BookRequest.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({ message: 'Book returned successfully' });
+    } catch (error) {
+        console.error('Error returning book:', error);
+        res.status(500).json({ message: 'Failed to return book' });
+    }
+};
+

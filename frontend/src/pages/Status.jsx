@@ -8,6 +8,7 @@ function Status() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [bookRequestIdToDelete, setBookRequestIdToDelete] = useState('');
+  const [actionType, setActionType] = useState('');
   const userCookie = Cookies.get('userId');
   const user = JSON.parse(userCookie);
   const [favoriteBooks, setFavoriteBooks] = useState([]);
@@ -69,6 +70,7 @@ function Status() {
         const borrowingHistoryData = approvedRequests.map(request => {
           const book = books.find(book => book._id === request.bookId);
           return {
+            _id: request._id,
             title: book.title,
             author: book.author,
             dueDate: "2022-01-01"
@@ -85,16 +87,33 @@ function Status() {
 
   const handleCancelRequest = (id) => {
     setBookRequestIdToDelete(id);
+    setActionType('cancel');
+    setShowModal(true);
+  };
+
+  const handleReturnBook = (id) => {
+    setBookRequestIdToDelete(id);
+    setActionType('return');
     setShowModal(true);
   };
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/bookRequests/delete/${bookRequestIdToDelete}`);
-      setBorrowedBooks(prevBooks => prevBooks.filter(book => book._id !== bookRequestIdToDelete));
+      if (actionType === 'cancel') {
+        await axios.delete(`http://localhost:3000/bookRequests/delete/${bookRequestIdToDelete}`);
+        setBorrowedBooks(prevBooks => prevBooks.filter(book => book._id !== bookRequestIdToDelete));
+      } else if (actionType === 'return') {
+        const response = await axios.delete(`http://localhost:3000/bookRequests/return/${bookRequestIdToDelete}`);
+        if (response.status === 200) {
+          setBorrowingHistory(prevHistory => prevHistory.filter(book => book._id !== bookRequestIdToDelete));
+          console.log('Book returned successfully');
+        } else {
+          console.error('Failed to return book:', response.data.message);
+        }
+      }
       setShowModal(false);
     } catch (error) {
-      console.log('Error deleting request', error);
+      console.log('Error handling request', error);
     }
   };
 
@@ -102,30 +121,49 @@ function Status() {
     setShowModal(false);
   };
 
+  const removeFavoriteBook = async (bookId) => {
+    try {
+      await axios.post("http://localhost:3000/books/removeFavouriteBook", {
+        bookId,
+        userId: user.userId,
+      });
+      setFavoriteBooks(favoriteBooks.filter(book => book._id !== bookId));
+      setAlertMessage("Book removed from liked books.");
+      setAlertType("error");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+    } catch (error) {
+      console.error("Error removing book from favorites:", error);
+    }
+  };
+
   return (
     <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="mb-10">
         <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
-        <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
-          <thead>
-            <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
-              <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Status</th>
-              <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {borrowedBooks.slice().reverse().map((book, index) => (
-              <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
-                <td className="p-4 text-center text-yellow-500">{book.status}</td>
-                <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => handleCancelRequest(book._id)}>{book.actions}</td>
+        <div className="max-h-96 overflow-y-auto">
+          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+            <thead>
+              <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
+                <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Status</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {borrowedBooks.slice().reverse().map((book, index) => (
+                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-center text-yellow-500">{book.status}</td>
+                  <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => handleCancelRequest(book._id)}>{book.actions}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
       {/* Custom Modal for Confirmation */}
@@ -145,10 +183,12 @@ function Status() {
                     </svg>
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">Cancel Request</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-slate-100">
+                      {actionType === 'cancel' ? 'Cancel Book Request' : 'Return Book'}
+                    </h3>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Are you sure you want to cancel this book request?
+                      <p className="text-sm text-gray-500 dark:text-slate-100">
+                        {actionType === 'cancel' ? 'Are you sure you want to cancel this book request? This action cannot be undone.' : 'Are you sure you want to return this book? This action cannot be undone.'}
                       </p>
                     </div>
                   </div>
@@ -156,13 +196,17 @@ function Status() {
               </div>
               <div className="bg-gray-50 dark:bg-neutral-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={handleConfirmDelete}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                >
                   Confirm
                 </button>
                 <button
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:w-auto sm:text-sm"
                   onClick={handleCancelModal}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-neutral-600 shadow-sm px-4 py-2 bg-white dark:bg-neutral-900 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                >
                   Cancel
                 </button>
               </div>
@@ -171,28 +215,33 @@ function Status() {
         </div>
       )}
 
-      <div className="flex mb-10">
-        <div className="w-3/5 pr-4">
-          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowing History</h2>
-          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
-            <thead>
-              <tr className="bg-gray-200 dark:bg-neutral-600">
-                <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Due Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {borrowingHistory.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
-                  <td className="p-4 text-center text-red-600">{book.dueDate}</td>
+      <div className="mb-10 flex flex-row items-center">
+        <div className="w-full">
+          <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowing History</h2>
+          <div className="max-h-96 overflow-y-auto">
+            <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+              <thead>
+                <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
+                  <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
+                  <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
+                  <th className="p-4 text-center text-slate-600 dark:text-white">Due Date</th>
+                  <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {borrowingHistory.slice().reverse().map((book, index) => (
+                  <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                    <td className="p-4 text-center text-yellow-500">{book.dueDate}</td>
+                    <td className="p-4 text-center text-blue-600 cursor-pointer" onClick={() => handleReturnBook(book._id)}>Return</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
+
         <PieChart
           series={[
             {
@@ -207,7 +256,7 @@ function Status() {
         />
       </div>
 
-      <div className="flex mb-10">
+      <div className="flex flex-row items-center mb-10">
         <BarChart
           xAxis={[
             {
@@ -224,7 +273,6 @@ function Status() {
           width={600}
           height={350}
         />
-
         <div className="w-3/4 pr-4 mb-10">
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">My Favorite Books</h2>
           <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
@@ -232,6 +280,7 @@ function Status() {
               <tr className="bg-gray-200 dark:bg-neutral-600">
                 <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
                 <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
+                <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -239,6 +288,9 @@ function Status() {
                 <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
                   <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
                   <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                  <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => removeFavoriteBook(book._id)}>
+                    Remove
+                  </td>
                 </tr>
               ))}
             </tbody>
