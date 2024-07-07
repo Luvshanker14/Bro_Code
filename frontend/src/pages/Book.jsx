@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import image from "../assets/react.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
-import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
+import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { useFavoriteBooks } from "../FavoriteBooksContext";
 
 function Books() {
@@ -20,31 +20,32 @@ function Books() {
   const [alertType, setAlertType] = useState("");
   const booksPerPage = 20;
   const { addFavoriteBook, removeFavoriteBook } = useFavoriteBooks();
-  const userCookie = Cookies.get('userId');
+  const userCookie = Cookies.get("userId");
   const user = JSON.parse(userCookie);
   const { favoriteBooks } = useFavoriteBooks();
 
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/books');
+        const res = await axios.get("http://localhost:3000/books");
         // Map through books and check if each is in favoriteBooks
-        const booksWithFavorites = res.data.map(book => ({
+        const booksWithFavorites = res.data.map((book) => ({
           ...book,
-          isFavorite: favoriteBooks.some(favorite => favorite._id === book._id)
+          isFavorite: favoriteBooks.some(
+            (favorite) => favorite._id === book._id
+          ),
         }));
         setBooks(booksWithFavorites);
       } catch (error) {
-        console.log('Error', error);
+        console.log("Error", error);
       }
     };
     getBooks();
   }, [favoriteBooks]); // Update books when favoriteBooks changes
 
-
   function handleLogout() {
-    Cookies.remove('userId', { path: '/' });
-    window.location.href = 'http://localhost:5175';
+    Cookies.remove("userId", { path: "/" });
+    window.location.href = "http://localhost:5175";
   }
 
   // const handleFavoriteClick = (bookId) => {
@@ -60,17 +61,15 @@ function Books() {
 
   //   setBooks(updatedBooks);
 
-
-
   //   // Toggle favorite state in favoriteBooks context
-  //   if (favoriteBooks.some(book => book._id === bookId)) 
+  //   if (favoriteBooks.some(book => book._id === bookId))
   //     {
   //     setAlertMessage("Book removed from liked books.");
   //     setAlertType("error");
   //     setShowAlert(true);
   //     setTimeout(() => setShowAlert(false), 3000);
   //     removeFavoriteBook(bookId);
-  //   } 
+  //   }
   //   else {
   //     setAlertMessage("Book added to liked books.");
   //     setAlertType("success");
@@ -83,55 +82,56 @@ function Books() {
   //   }
   // };
 
-
-
   const handleFavoriteClick = async (bookId) => {
-    const updatedBooks = books.map(book => {
+    const updatedBooks = books.map((book) => {
       if (book._id === bookId) {
         return {
           ...book,
-          isFavorite: !book.isFavorite  // Toggle isFavorite
+          isFavorite: !book.isFavorite, // Toggle isFavorite
         };
       }
       return book;
     });
-  
+
     setBooks(updatedBooks);
-  
+
     // Toggle favorite state in favoriteBooks context
-    if (favoriteBooks.some(book => book._id === bookId)) {
+    if (favoriteBooks.some((book) => book._id === bookId)) {
       setAlertMessage("Book removed from liked books.");
       setAlertType("error");
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000);
       removeFavoriteBook(bookId);
-  
-      
+
       try {
-        await axios.post('http://localhost:3000/books/removeFavouriteBook', { bookId, userId: user.userId });
+        await axios.post("http://localhost:3000/books/removeFavouriteBook", {
+          bookId,
+          userId: user.userId,
+        });
       } catch (error) {
-        console.error('Error removing book from cart:', error);
+        console.error("Error removing book from cart:", error);
       }
     } else {
       setAlertMessage("Book added to liked books.");
       setAlertType("success");
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
-      const selectedBook = books.find(book => book._id === bookId);
+      const selectedBook = books.find((book) => book._id === bookId);
       if (selectedBook) {
         addFavoriteBook(selectedBook);
-  
+
         // Add the book to the cart
         try {
-          await axios.post('http://localhost:3000/books/addFavouriteBook', { bookId, userId: user.userId });
+          await axios.post("http://localhost:3000/books/addFavouriteBook", {
+            bookId,
+            userId: user.userId,
+          });
         } catch (error) {
-          console.error('Error adding book to cart:', error);
+          console.error("Error adding book to cart:", error);
         }
       }
     }
   };
-  
-
 
   useEffect(() => {
     setCurrentPage(1);
@@ -141,32 +141,34 @@ function Books() {
     return books.filter(
       (book) =>
         (selectedDepartment === "All" ||
-          book.department === selectedDepartment) 
-          &&
+          book.department === selectedDepartment) &&
         (book.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.author?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book._id?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.department?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.genre?.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+          book.author?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book._id?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.department?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.genre?.toLowerCase().includes(searchQuery.toLowerCase()))
     );
   };
 
-
   const handleBorrowClick = async (bookId) => {
     try {
-      const res = await axios.post('http://localhost:3000/bookRequests/borrow', {
-        userId: user.userId,
-        bookId: bookId
-      });
-      console.log('Book borrowed successfully', res.data);
+      const res = await axios.post(
+        "http://localhost:3000/bookRequests/borrow",
+        {
+          userId: user.userId,
+          bookId: bookId,
+        }
+      );
+      console.log("Book borrowed successfully", res.data);
       setAlertMessage("Book borrowed successfully.");
       setAlertType("success");
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        setAlertMessage("Duplicate request. You have already requested this book.");
+        setAlertMessage(
+          "Duplicate request. You have already requested this book."
+        );
         setAlertType("error");
       } else {
         setAlertMessage("Error borrowing book.");
@@ -174,7 +176,7 @@ function Books() {
       }
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000);
-      console.log('Error borrowing book', error);
+      console.log("Error borrowing book", error);
     }
   };
 
@@ -220,7 +222,7 @@ function Books() {
           <input
             type="text"
             placeholder="Start Searching..."
-            className="search-bar text-black dark:text-white dark:bg-neutral-800"
+            className="search-bar border-2 border-gray-300 dark:border-black p-3 rounded-md w-1/2 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -245,7 +247,7 @@ function Books() {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52"
           >
             <li>
-              <a className="justify-between" >Account</a>
+              <a className="justify-between">Account</a>
             </li>
             <li>
               <a>Settings</a>
@@ -269,10 +271,11 @@ function Books() {
         ].map((department) => (
           <span
             key={department}
-            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 dark:bg-neutral-800 rounded-sm text-black dark:text-white text-sm cursor-pointer leading-4 ${selectedDepartment === department
-              ? "selected bg-neutral-300 text-black transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-white"
-              : " "
-              }`}
+            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 dark:bg-neutral-800 rounded-sm text-black dark:text-white text-sm cursor-pointer leading-4 ${
+              selectedDepartment === department
+                ? "selected bg-neutral-300 text-black transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-black"
+                : " "
+            }`}
             onClick={() => setSelectedDepartment(department)}
           >
             {department}
@@ -280,24 +283,28 @@ function Books() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline ">
         {currentBooks.map((book) => (
-          <div key={book._id} className="p-4 rounded-md">
+          <div key={book._id} className="p-4 rounded-md ">
             <button
               type="button"
-              className="w-full object-cover"
+              className="w-full"
               onClick={() => handleBookClick(book)}
             >
-              <img
-                src={`http://localhost:3000/uploads/${book.image}`}
-                onError={(e) => {
-                  e.target.src = image; //if book database does not have image show react svg
-                }}
-                alt={book.title}
-                className="w-full object-cover  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
-              />
+              <div className=" flex container w-40 h-48 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] ">
+                <img
+                  src={`http://localhost:3000/uploads/${book.image}`}
+                  onError={(e) => {
+                    e.target.src = image; //if book database does not have image show react svg
+                  }}
+                  alt={book.title}
+                  className="w-full rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
+                />
+              </div>
 
-              <h3 className="text-center mt-2 text-sm truncate text-black dark:text-white">{book.title}</h3>
+              <h3 className="text-left mt-2 text-sm truncate text-black dark:text-white">
+                {book.title}
+              </h3>
             </button>
             <div className="flex items-center">
               <button
@@ -309,8 +316,9 @@ function Books() {
                 Borrow
               </button>
               <FavoriteIcon
-                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? "text-red-500" : "text-gray-400"
-                  }`}
+                className={`ml-3 mt-2 cursor-pointer ${
+                  book.isFavorite ? "text-red-500" : "text-gray-400"
+                }`}
                 onClick={() => handleFavoriteClick(book._id)}
                 style={{ transition: "color 0.3s" }}
               />
@@ -345,8 +353,8 @@ function Books() {
             </li>
             <li>
               <span className="inline-flex items-center space-x-1 rounded-md bg-white px-4 py-2 text-gray-500">
-                Page{" "}
-                <b className="mx-1">{currentPage}</b> of <b className="ml-1">{totalPages}</b>
+                Page <b className="mx-1">{currentPage}</b> of{" "}
+                <b className="ml-1">{totalPages}</b>
               </span>
             </li>
             <li>
@@ -376,7 +384,7 @@ function Books() {
 
       {selectedBook && (
         <div className="fixed inset-0 z-5 flex items-center justify-center backdrop-blur-md">
-          <div className="bg-slate-100 dark:bg-neutral-800 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row">
+          <div className=" bg-neutral-200 dark:bg-neutral-800 p-4 w-3/4 h-3/4 rounded-md relative flex flex-col lg:flex-row shadow-[0_0_30px_theme('colors.black')] dark:shadow-[0_0_30px_theme('colors.blue.500')] ">
             <button
               className="absolute text-3xl top-1 right-3 text-gray-600 hover:text-black dark:text-white dark:hover:text-black"
               onClick={handleCloseModal}
@@ -396,23 +404,33 @@ function Books() {
                 {selectedBook.title}
               </h2>
               <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Author:</span>{" "}
+                <span className="text-black dark:text-slate-400 font-medium">
+                  Author:
+                </span>{" "}
                 {selectedBook.author}
               </p>
               <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Description:</span>{" "}
+                <span className="text-black dark:text-slate-400 font-medium">
+                  Description:
+                </span>{" "}
                 {selectedBook.description}
               </p>
               <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Department:</span>{" "}
+                <span className="text-black dark:text-slate-400 font-medium">
+                  Department:
+                </span>{" "}
                 {selectedBook.department}
               </p>
               <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Genre:</span>{" "}
+                <span className="text-black dark:text-slate-400 font-medium">
+                  Genre:
+                </span>{" "}
                 {selectedBook.genre}
               </p>
               <p className="text-left mt-2 text-md lg:text-xl text-black dark:text-white">
-                <span className="text-black dark:text-slate-400 font-medium">Publisher:</span>{" "}
+                <span className="text-black dark:text-slate-400 font-medium">
+                  Publisher:
+                </span>{" "}
                 {selectedBook.publisher}
               </p>
               <div className="w-1/2 pt-12">
@@ -425,11 +443,10 @@ function Books() {
                   Borrow
                 </button>
                 <FavoriteIcon
-                  className={`ml-2 0 mb-1 cursor-pointer ${selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
-                    }`}
-                  onClick={() =>
-                    handleFavoriteClick(selectedBook._id)
-                  }
+                  className={`ml-2 0 mb-1 cursor-pointer ${
+                    selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
+                  }`}
+                  onClick={() => handleFavoriteClick(selectedBook._id)}
                   style={{ transition: "color 0.3s" }}
                 />
               </div>
@@ -440,16 +457,13 @@ function Books() {
 
       {showAlert && (
         <div
-          className={`fixed top-5 right-5 p-4 z-10 rounded-md flex items-center space-x-2 ${alertType === "success"
-            ? "bg-green-500 text-white"
-            : "bg-red-500 text-white"
-            }`}
+          className={`fixed top-5 right-5 p-4 z-10 rounded-md flex items-center space-x-2 ${
+            alertType === "success"
+              ? "bg-green-500 text-white"
+              : "bg-red-500 text-white"
+          }`}
         >
-          {alertType === "success" ? (
-            <CheckCircleIcon />
-          ) : (
-            <ErrorIcon />
-          )}
+          {alertType === "success" ? <CheckCircleIcon /> : <ErrorIcon />}
           <span>{alertMessage}</span>
           <button onClick={() => setShowAlert(false)}>
             <CloseIcon />

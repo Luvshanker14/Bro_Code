@@ -32,7 +32,8 @@ function Userlist() {
       (user) =>
         (selectedUser === "All" || user.type === selectedUser) &&
         (user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          user.email?.toLowerCase().includes(searchQuery.toLowerCase()))
+          user.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          user._id?.toLowerCase().includes(searchQuery.toLowerCase()))
     );
   };
   return (
