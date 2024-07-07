@@ -6,7 +6,7 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-"scripts": {
+  "scripts": {
     "frontend1": "cd frontend && npm i && npm run dev -- --port 5173",
     "frontend2": "cd admin_frontend && npm i && npm run dev",
     "frontend3": "cd login-register && npm i && npm run dev",
@@ -15,5 +15,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react-slick": "^0.30.2",
+    "slick-carousel": "^1.8.1"
+  }
 }
