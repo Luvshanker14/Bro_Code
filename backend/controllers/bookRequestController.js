@@ -31,7 +31,7 @@ exports.borrowBook = async (req, res) => {
 
 exports.getBookRequests = async (req, res) => {
     try {
-      const bookRequests = await BookRequest.find().populate('userId', 'email name'); // Assuming userId references the User model
+      const bookRequests = await BookRequest.find().populate('userId', 'email name'); 
       res.status(200).json(bookRequests);
     } catch (error) {
       res.status(500).json({ message: error.message });
