@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
+import styled from 'styled-components';
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/Close";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -112,7 +113,44 @@ function Home() {
     );
     recommendedBooks2 = getRandomItems(availableBooks, 4);
   }
-
+  const CustomPrevArrow = ({ className, onClick }) => (
+    <div className={className} onClick={onClick}>
+      &#8249;
+    </div>
+  );
+  
+  const StyledPrevArrow = styled(CustomPrevArrow)`
+    background-color: #000;
+    border-radius: 50%;
+    color: black;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-left: 10px;
+  `;
+  const CustomNextArrow = ({ className, onClick }) => (
+    <div className={className} onClick={onClick}>
+      &#8249;
+    </div>
+  );
+  
+  const StyledNextArrow = styled(CustomNextArrow)`
+    background-color: #000;
+    border-radius: 50%;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-right: 0px;
+  `;
   const OnlineBooksSlider = ({ books }) => {
     const sliderSettings = {
       dots: true,
@@ -120,6 +158,9 @@ function Home() {
       speed: 500,
       slidesToShow: 3,
       slidesToScroll: 1,
+      autoplay: true,
+      prevArrow: <StyledPrevArrow />,
+      nextArrow: <StyledNextArrow />,
       responsive: [
         {
           breakpoint: 1024,
@@ -174,6 +215,9 @@ function Home() {
       speed: 500,
       slidesToShow: 3,
       slidesToScroll: 1,
+      autoplay: true,
+      prevArrow: <StyledPrevArrow />,
+      nextArrow: <StyledNextArrow />,
       responsive: [
         {
           breakpoint: 1024,
@@ -223,7 +267,7 @@ function Home() {
     );
   };
   const Ytbook= ({ title, youtubeUrl }) => (
-    <div className="p-6 max-w-sm mx-auto border-1 rounded-xl shadow-[0_0_30px_theme('colors.slate.400')] bg-neutral-100 dark:bg-neutral-800 dark:shadow-[0_0_30px_theme('colors.black')] dark:border-black flex flex-col items-center space-y-4 hover:cursor-pointer box">
+    <div className="p-6 max-w-sm mx-auto border-1 rounded-xl shadow-[0_0_30px_theme('colors.slate.400')] bg-neutral-100 dark:bg-neutral-800 dark:shadow-[0_0_30px_theme('colors.black')] dark:border-black flex flex-col items-center space-y-4 hover:cursor-pointer box2">
       <iframe
         width="100%"
         height="150"
@@ -291,14 +335,14 @@ function Home() {
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
         Read Books Online
       </h2>
-      <div className="mb-8">
+      <div className="mb-8 yes">
         <OnlineBooksSlider books={onlineBooks} />
       </div>
 
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
         Popular Research Articles
       </h2>
-      <div className="mb-8">
+      <div className="mb-8 yes">
         <ArticlesSlider articles={articles} />
       </div>
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
