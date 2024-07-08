@@ -44,44 +44,42 @@ function Status() {
   }, [user.userId]);
 
   useEffect(() => {
-    const fetchFavoriteBooks = async () => {
-      try {
-        const favoriteBooksRes = await axios.post(`http://localhost:3000/books/getFavouriteBook`, {
-          userId: user.userId
-        });
-        setFavoriteBooks(favoriteBooksRes.data);
-      } catch (error) {
-        console.log('Error fetching favorite books', error);
-      }
-    };
-    fetchFavoriteBooks();
-  }, [user.userId]);
-
-  useEffect(() => {
     const fetchApprovedRequests = async () => {
       try {
+        // Fetch all book requests
         const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
+        
+        // Filter to get only approved requests for the current user
         const approvedRequests = bookRequestsRes.data.filter(request => request.userId === user.userId && request.status === "approved");
 
-        const bookIds = approvedRequests.map(request => request.bookId);
+        // Fetch all books
         const booksRes = await axios.get('http://localhost:3000/books');
         const books = booksRes.data;
 
+        // Map approved requests to borrowing history data
         const borrowingHistoryData = approvedRequests.map(request => {
           const book = books.find(book => book._id === request.bookId);
+
+          // Calculate due date by adding 30 days to the request date
+          const requestDate = new Date(request.requestDate);
+          const dueDate = new Date(requestDate);
+          dueDate.setDate(dueDate.getDate() + 30);
+          console.log(requestDate);
+
           return {
             _id: request._id,
             title: book.title,
             author: book.author,
-            dueDate: "2022-01-01"
+            dueDate: dueDate.toLocaleDateString() // Format due date as a readable string
           };
         });
 
         setBorrowingHistory(borrowingHistoryData);
       } catch (error) {
-        console.log('Error fetching approved requests', error);
+        console.error('Error fetching approved requests:', error);
       }
     };
+
     fetchApprovedRequests();
   }, [user.userId]);
 
@@ -138,7 +136,7 @@ function Status() {
   };
 
   return (
-    <div className="pl-4 bg-white dark:bg-neutral-900 rounded-md">
+    <div className="pl-4 min-h-screen bg-white dark:bg-neutral-900 rounded-md">
       <div className="mb-10">
         <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
         <div className="max-h-96 overflow-y-auto">

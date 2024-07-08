@@ -283,7 +283,7 @@ function Books() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline ">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline xl:pl-14">
         {currentBooks.map((book) => (
           <div key={book._id} className="p-4 rounded-md ">
             <button
@@ -291,22 +291,22 @@ function Books() {
               className="w-full"
               onClick={() => handleBookClick(book)}
             >
-              <div className=" flex container w-40 h-48 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] ">
+              <div className=" flex  w-40 h-48 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] ">
                 <img
                   src={`http://localhost:3000/uploads/${book.image}`}
                   onError={(e) => {
                     e.target.src = image; //if book database does not have image show react svg
                   }}
                   alt={book.title}
-                  className="w-full rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
+                  className="w-full rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 "
                 />
               </div>
 
-              <h3 className="text-left mt-2 text-sm truncate text-black dark:text-white">
+              <h3 className="text-left mt-2 text-sm xl:pr-14 truncate text-black dark:text-white">
                 {book.title}
               </h3>
             </button>
-            <div className="flex items-center">
+            <div className="flex items-center w-full">
               <button
                 type="button"
                 className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400  focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"

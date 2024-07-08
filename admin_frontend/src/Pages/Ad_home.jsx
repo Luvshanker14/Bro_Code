@@ -316,9 +316,6 @@ function Home() {
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-                    Add New User
-                  </button>
                   <button 
                   onClick={handleShowallUser}
                   >
