@@ -301,6 +301,7 @@ function Home() {
   const [articles, setArticles] = useState([]);
   const { favoriteBooks } = useFavoriteBooks();
   const [onlineBooks, setOnlineBooks] = useState([]);
+  const [ytBooks, setytBooks] = useState([]);
 
   useEffect(() => {
     // Assuming booksData is an array of book objects
@@ -309,9 +310,11 @@ function Home() {
     const onlineBooks = webBook.filter((book) => book.onlineUrl);
     setOnlineBooks(onlineBooks);
 
-    const articles = webBook.filter((book) => book.Url); // Use the first three books as articles
+    const articles = webBook.filter((book) => book.Url);
+    const ytplaylist = webBook.filter((book) => book.YtUrl); 
     setBooks(books);
     setArticles(articles);
+    setytBooks(ytplaylist);
   }, []);
 
   const userCookie = Cookies.get("userId");
@@ -445,6 +448,7 @@ function Home() {
       </Slider>
     );
   };
+  
 
   const ArticlesSlider = ({ articles }) => {
     const sliderSettings = {
@@ -501,6 +505,24 @@ function Home() {
       </Slider>
     );
   };
+  const Ytbook= ({ title, youtubeUrl }) => (
+    <div className="p-6 max-w-sm mx-auto border-1 rounded-xl shadow-[0_0_30px_theme('colors.slate.400')] bg-neutral-100 dark:bg-neutral-800 dark:shadow-[0_0_30px_theme('colors.black')] dark:border-black flex flex-col items-center space-y-4 hover:cursor-pointer box">
+      <iframe
+        width="100%"
+        height="150"
+        src={youtubeUrl}
+        title={title}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+      <div className="text-center">
+        <div className="text-xl font-medium text-black dark:text-blue-500">
+          {title}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
@@ -562,6 +584,16 @@ function Home() {
       <div className="mb-8">
         <ArticlesSlider articles={articles} />
       </div>
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">
+        Watch Courses on Youtube
+      </h2>
+      <div className="flex flex-wrap mb-8">
+         {ytBooks.map((book, index) => (
+           <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
+             <Ytbook title={book.title} youtubeUrl={book.YtUrl} />
+          </div>
+         ))}
+       </div>
       <h2 className="text-2xl font-bold mb-2 text-blue-500">
         Subscribe to Newsletter
       </h2>

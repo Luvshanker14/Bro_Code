@@ -48,7 +48,8 @@
     "vendor": "Amazon India",
     "vendor_id": 1006,
     "publisher": "Lpringer Nature",
-    "publisher_id": 234567
+    "publisher_id": 234567,
+    "onlineUrl":"https://www.grch.com.ar/docs/unlu.poo/Gamma-DesignPatternsIntro.pdf"
   },
   {
     "title": "The Pragmatic Programmer: Your Journey to Mastery",
@@ -100,5 +101,44 @@
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
     "Url": "https://files.eric.ed.gov/fulltext/EJ1321253.pdf"
+  },
+  {
+    "title": "Engineering Mechanics",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Singh C, Robinett R",
+    "genre": "Software Engineering",
+    "department": "Mechanical Engineering",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456,
+    "YtUrl": "https://www.youtube.com/embed/4cSXKduGxcs?si=vOoGBl4uT3t6-1f0"
+  },
+  {
+    "title": "Separation Process Principle",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Singh C, Robinett R",
+    "genre": "Software Engineering",
+    "department": "Mechanical Engineering",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456,
+    "YtUrl": "https://www.youtube.com/embed/PsTHlSpr9us?si=YjdOxECIkfk_hcoV"
+  },
+  {
+    "title": "Quantum Mechanics",
+    "description": "Practical advice for becoming a better programmer.",
+    "author": "Singh C, Robinett R",
+    "genre": "Software Engineering",
+    "department": "Mechanical Engineering",
+    "count": 10,
+    "vendor": "Kitab Mahal",
+    "vendor_id": 1004,
+    "publisher": "JarperCollins Publishers",
+    "publisher_id": 123456,
+    "YtUrl": "https://www.youtube.com/embed/2Eqe7jPv-Bw?si=rWDVKRt9UFI3Oh3i"
   }
 ]
