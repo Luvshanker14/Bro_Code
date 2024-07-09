@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import styled from 'styled-components';
+import styled from "styled-components";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/Close";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -15,6 +15,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import libraryint1 from "../assets/libint.jpg";
 import libraryint2 from "../assets/libint2.jpg";
+import Darkmode from "./Darkmode";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -22,6 +24,7 @@ function Home() {
   const { favoriteBooks } = useFavoriteBooks();
   const [onlineBooks, setOnlineBooks] = useState([]);
   const [ytBooks, setytBooks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Assuming booksData is an array of book objects
@@ -31,7 +34,7 @@ function Home() {
     setOnlineBooks(onlineBooks);
 
     const articles = webBook.filter((book) => book.Url);
-    const ytplaylist = webBook.filter((book) => book.YtUrl); 
+    const ytplaylist = webBook.filter((book) => book.YtUrl);
     setBooks(books);
     setArticles(articles);
     setytBooks(ytplaylist);
@@ -49,6 +52,17 @@ function Home() {
   const profile = {
     name: user.userName,
   };
+
+  function handleAccountButton() {
+    navigate("/account")
+
+  }
+  function handleLogoutButton(event) {
+    event.preventDefault();
+    window.location.href = 'http://localhost:5175';
+    Cookies.remove('userId', { path: '/' });
+  }
+
 
   // Function to get a random selection of items from an array
   const getRandomItems = (array, numItems) => {
@@ -123,7 +137,7 @@ function Home() {
       slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: true,
-      arrows:false,
+      arrows: false,
       responsive: [
         {
           breakpoint: 1024,
@@ -145,8 +159,8 @@ function Home() {
     return (
       <Slider {...sliderSettings}>
         {books.map((book, index) => (
-          <div key={index} className="p-2">
-            <div className="p-6 max-w-sm mx-auto border-1 rounded-xl shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-md dark:border-black flex items-center space-x-4 hover:cursor-pointer box">
+          <div key={index} className="p-2 py-5">
+            <div className="p-6 max-w-sm mx-auto border-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 shadow-[0_0_15px_theme('colors.slate.400')]  dark:shadow-[0_0_15px_theme('colors.black')] dark:border-black flex items-center space-x-4 hover:cursor-pointer box">
               <div className="shrink-0">
                 <img className="h-12 w-12" src={image} alt={book.title} />
               </div>
@@ -169,7 +183,6 @@ function Home() {
       </Slider>
     );
   };
-  
 
   const ArticlesSlider = ({ articles }) => {
     const sliderSettings = {
@@ -179,7 +192,7 @@ function Home() {
       slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: true,
-      arrows:false,
+      arrows: false,
       responsive: [
         {
           breakpoint: 1024,
@@ -201,9 +214,9 @@ function Home() {
     return (
       <Slider {...sliderSettings}>
         {articles.map((article, index) => (
-          <div key={index} className="p-2">
-            <div className="p-6 max-w-sm mx-auto rounded-xl shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-md dark:border-black flex items-center space-x-4 hover:cursor-pointer box">
-              <div className="shrink-0">
+          <div key={index} className="p-2 py-5">
+            <div className="p-6 max-w-sm mx-auto rounded-xl  bg-neutral-100 dark:bg-neutral-800 shadow-[0_0_15px_theme('colors.slate.400')]  dark:shadow-[0_0_15px_theme('colors.black')] dark:border-black flex items-center space-x-4 hover:cursor-pointer box">
+              <div className="shrink-0 ">
                 <img className="h-12 w-12" src={image} alt={article.title} />
               </div>
               <div>
@@ -228,8 +241,8 @@ function Home() {
       </Slider>
     );
   };
-  const Ytbook= ({ title, youtubeUrl }) => (
-    <div className="p-6 max-w-sm mx-auto border-1 rounded-xl shadow-[0_0_30px_theme('colors.slate.400')] bg-neutral-100 dark:bg-neutral-800 dark:shadow-[0_0_30px_theme('colors.black')] dark:border-black flex flex-col items-center space-y-4 hover:cursor-pointer box2">
+  const Ytbook = ({ title, youtubeUrl }) => (
+    <div className="p-6 max-w-sm mx-auto border-1 rounded-xl shadow-[0_0_30px_theme('colors.slate.400')] bg-neutral-200 dark:bg-neutral-800 dark:shadow-[0_0_30px_theme('colors.black')] dark:border-black flex flex-col items-center space-y-4 hover:cursor-pointer box2">
       <iframe
         width="100%"
         height="150"
@@ -251,30 +264,68 @@ function Home() {
       dots: false,
       infinite: true,
       speed: 500,
-      pauseOnHover:false,
+      pauseOnHover: false,
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      swipeToSlide:true,
-      arrows:false,
+      swipeToSlide: true,
+      arrows: false,
     };
-  
-    const images = [library,libraryint1,libraryint2]; // Replace with your image paths
-  
+
+    const images = [library, libraryint1, libraryint2]; // Replace with your image paths
+
     return (
-      <center><Slider {...settings} style={{width:"90%"}}>
-        {images.map((img, index) => (
-          <div key={index}>
-            <img src={img} alt={`Slide ${index}`} style={{ width: "100%",height:"750px",borderRadius:"20px"}} />
-          </div>
-        ))}
-      </Slider></center>
+      <center>
+        <Slider {...settings} style={{ width: "90%" }}>
+          {images.map((img, index) => (
+            <div key={index}>
+              <img
+                src={img}
+                alt={`Slide ${index}`}
+                style={{ width: "100%", height: "750px", borderRadius: "20px" }}
+              />
+            </div>
+          ))}
+        </Slider>
+      </center>
     );
   };
 
   return (
     <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="flex flex-wrap items-center mb-8">
+        <div className="absolute top-4 right-4">
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="component"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow-[0_0_10px_theme('colors.slate.400')] dark:shadow-[0_0_10px_theme('colors.black')] menu menu-sm dropdown-content bg-white text-black dark:bg-neutral-800 dark:text-white rounded-box w-32"
+            >
+              <li onClick={handleAccountButton}>
+                <a className="justify-between">Account</a>
+              </li>
+              <li>
+                <a>
+                  <Darkmode />
+                </a>
+              </li>
+              <li onClick={handleLogoutButton}>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div className="w-full md:w-1/2 lg:w-3/5 mb-4 md:mb-0">
           <h1 className="sm:text-4xl text-4xl font-bold title-font mb-3 text-pink-600">
             Hello, {profile.name}
@@ -293,10 +344,10 @@ function Home() {
       </div>
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
         Recommended Books
-       </h2>
-       <div className="flex flex-wrap mb-8 ">
-         {recommendedBooks.map((book, index) => (
-          <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-10 mb-4 ">
+      </h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mb-8 ">
+        {recommendedBooks.map((book, index) => (
+          <div key={index} className="w-full px-10 mb-4 ">
             <img
               className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
               src={book.image || image}
@@ -308,7 +359,7 @@ function Home() {
           </div>
         ))}
         {recommendedBooks2.map((book, index) => (
-          <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-10 mb-4 ">
+          <div key={index} className="w-full px-10 mb-4 ">
             <img
               className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
               src={book.image || image}
@@ -337,12 +388,12 @@ function Home() {
         Watch Courses on Youtube
       </h2>
       <div className="flex flex-wrap mb-8">
-         {ytBooks.map((book, index) => (
-           <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-             <Ytbook title={book.title} youtubeUrl={book.YtUrl} />
+        {ytBooks.map((book, index) => (
+          <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
+            <Ytbook title={book.title} youtubeUrl={book.YtUrl} />
           </div>
-         ))}
-       </div>
+        ))}
+      </div>
       <h2 className="text-2xl font-bold mb-2 text-blue-500">
         Subscribe to Newsletter
       </h2>
@@ -352,7 +403,7 @@ function Home() {
       <div className="flex items-center mb-2">
         <input
           type="email"
-          className="search-bar border-2 border-gray-300 dark:border-black p-3 rounded-md w-90 sm:w-96 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
+          className="search-bar border-2 text-black bg-neutral-200 border-gray-300 dark:border-black p-3 rounded-md w-90 sm:w-96 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800 "
           placeholder="Enter your email"
         />
       </div>
@@ -364,7 +415,7 @@ function Home() {
         Library Statistics
       </h2>
       <div className="flex flex-wrap items-center mb-8">
-        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-600 dark:text-slate-300">
+        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-700 dark:text-slate-300">
           <p>Total Books: 500+</p>
           <p>Total Active Members: 200+</p>
         </div>
@@ -378,8 +429,6 @@ function Home() {
     </div>
   );
 }
-
-      
 
 function HomeIcon(props) {
   return (

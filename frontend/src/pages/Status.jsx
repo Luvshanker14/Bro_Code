@@ -153,29 +153,29 @@ function Status() {
   return (
     <div className="pl-4 min-h-screen bg-white dark:bg-neutral-900 rounded-md">
       <div className="mb-10">
-        <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
-        <div className="max-h-96 overflow-y-auto">
-          <table loading='lazy' className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+        <h2 className="text-3xl font-semibold mb-4 pt-4 border-b border-gray-500 pb-2 text-black dark:text-slate-100">Book Request</h2>
+        <div className="max-h-96 overflow-y-auto shadow-md dark:shadow-black">
+          <table loading='lazy' className="w-full table-auto bg-white dark:bg-neutral-800 rounded-md">
             <thead>
               <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
-                <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Status</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
+                <th className="p-4 text-center text-black dark:text-white">Book Title</th>
+                <th className="p-4 text-center text-black dark:text-white">Author</th>
+                <th className="p-4 text-center text-black dark:text-white">Status</th>
+                <th className="p-4 text-center text-black dark:text-white">Actions</th>
               </tr>
             </thead>
             <tbody>
   {borrowedBooks.length === 0 ? (
     <tr>
-      <td colSpan="4" className="p-4 text-center text-gray-600 dark:text-slate-100">
+      <td colSpan="4" className="p-4 text-center text-black dark:text-slate-100">
         No book requested
       </td>
     </tr>
   ) : (
     borrowedBooks.slice().reverse().map((book, index) => (
       <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-        <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-        <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+        <td className="p-4 text-center text-black dark:text-slate-100">{book.title}</td>
+        <td className="p-4 text-center text-black dark:text-slate-100">{book.author}</td>
         <td className="p-4 text-center text-yellow-500">{book.status}</td>
         <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => handleCancelRequest(book._id)}>{book.actions}</td>
       </tr>
@@ -238,29 +238,29 @@ function Status() {
 
       <div className="mb-10 flex flex-row items-center">
         <div className="w-full">
-          <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowing History</h2>
-          <div className="max-h-96 overflow-y-auto">
-            <table loading='lazy' className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+          <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 border-gray-500 text-black dark:text-slate-100">Borrowing History</h2>
+          <div className="max-h-96 overflow-y-auto shadow-md">
+            <table loading='lazy' className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black">
               <thead>
                 <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
-                  <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
-                  <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
-                  <th className="p-4 text-center text-slate-600 dark:text-white">Due Date</th>
-                  <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
+                  <th className="p-4 text-center text-black dark:text-white">Book Title</th>
+                  <th className="p-4 text-center text-black dark:text-white">Author</th>
+                  <th className="p-4 text-center text-black dark:text-white">Due Date</th>
+                  <th className="p-4 text-center text-black dark:text-white">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {borrowingHistory.length === 0 ? (
                   <tr>
-                    <td colSpan="4" className="p-4 text-center text-gray-600 dark:text-slate-100">
+                    <td colSpan="4" className="p-4 text-center text-black dark:text-slate-100">
                       No borrowing history
                     </td>
                   </tr>
                 ) : (
                   borrowingHistory.slice().reverse().map((book, index) => (
                     <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                      <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                      <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                      <td className="p-4 text-center text-black dark:text-slate-100">{book.title}</td>
+                      <td className="p-4 text-center text-black dark:text-slate-100">{book.author}</td>
                       <td className="p-4 text-center text-yellow-500">{book.dueDate}</td>
                       <td className="p-4 text-center text-blue-600 cursor-pointer" onClick={() => handleReturnBook(book._id)}>Return</td>
                     </tr>
@@ -303,27 +303,27 @@ function Status() {
           height={350}
         />
         <div className="w-3/4 pr-4 mb-10">
-          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 text-slate-800 dark:text-slate-100">My Favorite Books</h2>
+          <h2 className="text-2xl font-semibold mb-4 border-b pb-2 border-gray-500 text-black dark:text-slate-100">My Favorite Books</h2>
           <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded">
             <thead>
               <tr className="bg-gray-200 dark:bg-neutral-600">
-                <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Author</th>
-                <th className="p-4 text-center text-slate-600 dark:text-white">Actions</th>
+                <th className="p-4 text-center text-black dark:text-white">Book Title</th>
+                <th className="p-4 text-center text-black dark:text-white">Author</th>
+                <th className="p-4 text-center text-black dark:text-white">Actions</th>
               </tr>
             </thead>
             <tbody>
               {favoriteBooks.length === 0 ? (
                 <tr>
-                  <td colSpan="3" className="p-4 text-center text-gray-600 dark:text-slate-100">
+                  <td colSpan="3" className="p-4 text-center text-black dark:text-slate-100">
                     No favorite books
                   </td>
                 </tr>
               ) : (
                 favoriteBooks.map((book, index) => (
                   <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                    <td className="p-4 text-center text-black dark:text-slate-100">{book.title}</td>
+                    <td className="p-4 text-center text-black dark:text-slate-100">{book.author}</td>
                     <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => removeFavoriteBook(book._id)}>
                       Remove
                     </td>
