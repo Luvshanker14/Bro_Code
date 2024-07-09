@@ -43,10 +43,6 @@ function Books() {
     getBooks();
   }, [favoriteBooks]); // Update books when favoriteBooks changes
 
-  function handleLogout() {
-    Cookies.remove("userId", { path: "/" });
-    window.location.href = "http://localhost:5175";
-  }
 
   // const handleFavoriteClick = (bookId) => {
   //   const updatedBooks = books.map(book => {
@@ -228,35 +224,6 @@ function Books() {
           />
           <SearchIcon className="search-icon" />
         </div>
-
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">Account</a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a onClick={handleLogout}>Logout</a>
-            </li>
-          </ul>
-        </div>
       </div>
 
       <div className="flex flex-wrap ml-5 mb-6">
@@ -290,14 +257,14 @@ function Books() {
               className="w-full"
               onClick={() => handleBookClick(book)}
             >
-              <div className=" flex  w-40 h-48 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] ">
+              <div className=" flex  w-40 h-48  ">
                 <img
                   src={`http://localhost:3000/uploads/${book.image}`}
                   onError={(e) => {
                     e.target.src = image; //if book database does not have image show react svg
                   }}
                   alt={book.title}
-                  className="w-full rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 "
+                  className="w-full rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]"
                 />
               </div>
 
