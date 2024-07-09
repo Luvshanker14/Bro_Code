@@ -271,11 +271,10 @@ function Books() {
         ].map((department) => (
           <span
             key={department}
-            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 dark:bg-neutral-800 rounded-sm text-black dark:text-white text-sm cursor-pointer leading-4 ${
-              selectedDepartment === department
+            className={`inline-block px-3 py-1.5 mb-2 mr-2 bg-gray-100 dark:bg-neutral-800 rounded-sm text-black dark:text-white text-sm cursor-pointer leading-4 ${selectedDepartment === department
                 ? "selected bg-neutral-300 text-black transition ease-in-out delay-30 -translate-y-0.5  scale-10 duration-150 shadow-md shadow-slate-400 dark:shadow-black"
                 : " "
-            }`}
+              }`}
             onClick={() => setSelectedDepartment(department)}
           >
             {department}
@@ -283,7 +282,7 @@ function Books() {
         ))}
       </div>
 
-      <div loading = 'lazy' className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline xl:pl-14">
+      <div loading='lazy' className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline xl:pl-14">
         {currentBooks.map((book) => (
           <div key={book._id} className="p-4 rounded-md ">
             <button
@@ -309,16 +308,17 @@ function Books() {
             <div className="flex items-center w-full">
               <button
                 type="button"
-                className="borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400  focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"
+                className={`borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400 focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black ${book.count === 0 ? 'cursor-not-allowed opacity-50' : ''
+                  }`}
                 data-twe-ripple-init
-                onClick={() => handleBorrowClick(book._id)}
+                onClick={() => book.count > 0 && handleBorrowClick(book._id)}
+                disabled={book.count === 0}
               >
-                Borrow
+                {book.count === 0 ? 'Unavailable' : 'Borrow'}
               </button>
               <FavoriteIcon
-                className={`ml-3 mt-2 cursor-pointer ${
-                  book.isFavorite ? "text-red-500" : "text-gray-400"
-                }`}
+                className={`ml-3 mt-2 cursor-pointer ${book.isFavorite ? "text-red-500" : "text-gray-400"
+                  }`}
                 onClick={() => handleFavoriteClick(book._id)}
                 style={{ transition: "color 0.3s" }}
               />
@@ -443,9 +443,8 @@ function Books() {
                   Borrow
                 </button>
                 <FavoriteIcon
-                  className={`ml-2 0 mb-1 cursor-pointer ${
-                    selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
-                  }`}
+                  className={`ml-2 0 mb-1 cursor-pointer ${selectedBook.isFavorite ? "text-red-500" : "text-gray-400"
+                    }`}
                   onClick={() => handleFavoriteClick(selectedBook._id)}
                   style={{ transition: "color 0.3s" }}
                 />
@@ -457,11 +456,10 @@ function Books() {
 
       {showAlert && (
         <div
-          className={`fixed top-5 right-5 p-4 z-10 rounded-md flex items-center space-x-2 ${
-            alertType === "success"
+          className={`fixed top-5 right-5 p-4 z-10 rounded-md flex items-center space-x-2 ${alertType === "success"
               ? "bg-green-500 text-white"
               : "bg-red-500 text-white"
-          }`}
+            }`}
         >
           {alertType === "success" ? <CheckCircleIcon /> : <ErrorIcon />}
           <span>{alertMessage}</span>
