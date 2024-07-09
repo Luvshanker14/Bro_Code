@@ -48,7 +48,7 @@ function Status() {
       try {
         // Fetch all book requests
         const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
-        
+
         // Filter to get only approved requests for the current user
         const approvedRequests = bookRequestsRes.data.filter(request => request.userId === user.userId && request.status === "approved");
 
@@ -119,6 +119,21 @@ function Status() {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    const fetchFavoriteBooks = async () => {
+      try {
+        const favoriteBooksRes = await axios.post(`http://localhost:3000/books/getFavouriteBook`, {
+          userId: user.userId
+        });
+        setFavoriteBooks(favoriteBooksRes.data);
+      } catch (error) {
+        console.log('Error fetching favorite books', error);
+      }
+    };
+    fetchFavoriteBooks();
+  }, [user.userId]);
+
+
   const removeFavoriteBook = async (bookId) => {
     try {
       await axios.post("http://localhost:3000/books/removeFavouriteBook", {
@@ -140,7 +155,7 @@ function Status() {
       <div className="mb-10">
         <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Book Request</h2>
         <div className="max-h-96 overflow-y-auto">
-          <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+          <table loading='lazy' className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
             <thead>
               <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
                 <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
@@ -150,15 +165,23 @@ function Status() {
               </tr>
             </thead>
             <tbody>
-              {borrowedBooks.slice().reverse().map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
-                  <td className="p-4 text-center text-yellow-500">{book.status}</td>
-                  <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => handleCancelRequest(book._id)}>{book.actions}</td>
-                </tr>
-              ))}
-            </tbody>
+  {borrowedBooks.length === 0 ? (
+    <tr>
+      <td colSpan="4" className="p-4 text-center text-gray-600 dark:text-slate-100">
+        No book requested
+      </td>
+    </tr>
+  ) : (
+    borrowedBooks.slice().reverse().map((book, index) => (
+      <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+        <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+        <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+        <td className="p-4 text-center text-yellow-500">{book.status}</td>
+        <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => handleCancelRequest(book._id)}>{book.actions}</td>
+      </tr>
+    ))
+  )}
+</tbody>
           </table>
         </div>
 
@@ -217,7 +240,7 @@ function Status() {
         <div className="w-full">
           <h2 className="text-3xl font-semibold mb-4 pt-4 border-b pb-2 text-slate-800 dark:text-slate-100">Borrowing History</h2>
           <div className="max-h-96 overflow-y-auto">
-            <table className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
+            <table loading='lazy' className="w-full table-auto bg-white dark:bg-neutral-800 shadow-md dark:shadow-black rounded-md">
               <thead>
                 <tr className="bg-gray-200 dark:bg-neutral-600 rounded-md">
                   <th className="p-4 text-center text-slate-600 dark:text-white">Book Title</th>
@@ -227,14 +250,22 @@ function Status() {
                 </tr>
               </thead>
               <tbody>
-                {borrowingHistory.slice().reverse().map((book, index) => (
-                  <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
-                    <td className="p-4 text-center text-yellow-500">{book.dueDate}</td>
-                    <td className="p-4 text-center text-blue-600 cursor-pointer" onClick={() => handleReturnBook(book._id)}>Return</td>
+                {borrowingHistory.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="p-4 text-center text-gray-600 dark:text-slate-100">
+                      No borrowing history
+                    </td>
                   </tr>
-                ))}
+                ) : (
+                  borrowingHistory.slice().reverse().map((book, index) => (
+                    <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                      <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                      <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                      <td className="p-4 text-center text-yellow-500">{book.dueDate}</td>
+                      <td className="p-4 text-center text-blue-600 cursor-pointer" onClick={() => handleReturnBook(book._id)}>Return</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -282,15 +313,23 @@ function Status() {
               </tr>
             </thead>
             <tbody>
-              {favoriteBooks.map((book, index) => (
-                <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
-                  <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
-                  <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => removeFavoriteBook(book._id)}>
-                    Remove
+              {favoriteBooks.length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="p-4 text-center text-gray-600 dark:text-slate-100">
+                    No favorite books
                   </td>
                 </tr>
-              ))}
+              ) : (
+                favoriteBooks.map((book, index) => (
+                  <tr key={index} className="border-t hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.title}</td>
+                    <td className="p-4 text-center text-gray-600 dark:text-slate-100">{book.author}</td>
+                    <td className="p-4 text-center text-red-600 cursor-pointer" onClick={() => removeFavoriteBook(book._id)}>
+                      Remove
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

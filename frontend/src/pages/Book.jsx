@@ -283,7 +283,7 @@ function Books() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline xl:pl-14">
+      <div loading = 'lazy' className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-baseline xl:pl-14">
         {currentBooks.map((book) => (
           <div key={book._id} className="p-4 rounded-md ">
             <button
