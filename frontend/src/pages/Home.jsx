@@ -13,6 +13,8 @@ import webBook from "../assets/onlineBooks.json";
 import library from "../assets/library.jpg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import libraryint1 from "../assets/libint.jpg";
+import libraryint2 from "../assets/libint2.jpg";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -113,44 +115,6 @@ function Home() {
     );
     recommendedBooks2 = getRandomItems(availableBooks, 4);
   }
-  const CustomPrevArrow = ({ className, onClick }) => (
-    <div className={className} onClick={onClick}>
-      &#8249;
-    </div>
-  );
-  
-  const StyledPrevArrow = styled(CustomPrevArrow)`
-    background-color: #000;
-    border-radius: 50%;
-    color: black;
-    width: 40px;
-    height: 40px;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    margin-left: 10px;
-  `;
-  const CustomNextArrow = ({ className, onClick }) => (
-    <div className={className} onClick={onClick}>
-      &#8249;
-    </div>
-  );
-  
-  const StyledNextArrow = styled(CustomNextArrow)`
-    background-color: #000;
-    border-radius: 50%;
-    color: #fff;
-    width: 40px;
-    height: 40px;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    margin-right: 0px;
-  `;
   const OnlineBooksSlider = ({ books }) => {
     const sliderSettings = {
       dots: true,
@@ -159,8 +123,7 @@ function Home() {
       slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: true,
-      prevArrow: <StyledPrevArrow />,
-      nextArrow: <StyledNextArrow />,
+      arrows:false,
       responsive: [
         {
           breakpoint: 1024,
@@ -216,8 +179,7 @@ function Home() {
       slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: true,
-      prevArrow: <StyledPrevArrow />,
-      nextArrow: <StyledNextArrow />,
+      arrows:false,
       responsive: [
         {
           breakpoint: 1024,
@@ -284,6 +246,31 @@ function Home() {
       </div>
     </div>
   );
+  const LibraryCarousel = () => {
+    const settings = {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      pauseOnHover:false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      swipeToSlide:true,
+      arrows:false,
+    };
+  
+    const images = [library,libraryint1,libraryint2]; // Replace with your image paths
+  
+    return (
+      <center><Slider {...settings} style={{width:"90%"}}>
+        {images.map((img, index) => (
+          <div key={index}>
+            <img src={img} alt={`Slide ${index}`} style={{ width: "100%",height:"750px",borderRadius:"20px"}} />
+          </div>
+        ))}
+      </Slider></center>
+    );
+  };
 
   return (
     <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
@@ -300,7 +287,8 @@ function Home() {
           </p>
         </div>
         <div className="bg">
-          <center><img className="bg-contain" src={library} alt="Logo" /></center>
+          {/* <center><img className="bg-contain" src={library} alt="Logo" /></center> */}
+          <LibraryCarousel />
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
@@ -335,14 +323,14 @@ function Home() {
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
         Read Books Online
       </h2>
-      <div className="mb-8 yes">
+      <div className="mb-8">
         <OnlineBooksSlider books={onlineBooks} />
       </div>
 
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
         Popular Research Articles
       </h2>
-      <div className="mb-8 yes">
+      <div className="mb-8">
         <ArticlesSlider articles={articles} />
       </div>
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
