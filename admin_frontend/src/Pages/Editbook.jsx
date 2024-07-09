@@ -54,7 +54,7 @@ function EditBook() {
           <div className="relative">
             <input
               type="text"
-              placeholder="Start Books"
+              placeholder="Search Books"
               className="search-bar border-2 h-8 border-gray-300 dark:border-black p-3 rounded-md w-80 sm:w-96 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

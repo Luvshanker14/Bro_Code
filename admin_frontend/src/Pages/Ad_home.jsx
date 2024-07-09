@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 import SearchIcon from "@mui/icons-material/Search";
+import {
+  UserSvg,
+  BorrowSvg,
+  TotalBookSvg,
+  ReceivedSvg,
+} from "./Home_components/HomeSvg";
 import Time from "./Home_components/Time";
 import { PieChart } from "@mui/x-charts/PieChart";
 import Cookies from "js-cookie";
@@ -13,6 +19,9 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [books, setBooks] = useState([]); // State for storing books data
   const [user, setUser] = useState([]);
+  const [bookCount, setBookCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [borrowCount, setBorrowCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +29,7 @@ function Home() {
       try {
         const res = await axios.get("http://localhost:3000/books");
         setBooks(res.data);
+        setBookCount(res.data.length); // book count
       } catch (error) {
         console.log("Error", error);
       }
@@ -32,11 +42,25 @@ function Home() {
       try {
         const res = await axios.get("http://localhost:3000/user");
         setUser(res.data);
+        setUserCount(res.data.length); // user count
       } catch (error) {
         console.log("Error", error);
       }
     };
     getUser();
+  }, []);
+
+  useEffect(() => {
+    const getBorrow = async () => {
+      try {
+        const res = axios.get("http://localhost:3000/bookRequests");
+        setBorrowCount(res.data);
+        setBorrowCount((await res).data.length);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    getBorrow();
   }, []);
 
   const adminCookie = Cookies.get("adminId");
@@ -71,7 +95,7 @@ function Home() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Start Books"
+                    placeholder="Search"
                     className="search-bar border-2 border-gray-300 dark:border-black p-3 rounded-md w-80 sm:w-96 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -88,21 +112,9 @@ function Home() {
           <div className="flex flex-wrap -m-4 pt-12 lg:pt-0 text-left">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="text-indigo-500 w-10 h-8 mb-2 inline-block"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-                </svg>
+                <UserSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
-                  2.7K
+                  {userCount}
                 </h2>
                 <p className="leading-relaxed dark:text-white">
                   Total Visitors
@@ -111,21 +123,21 @@ function Home() {
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="text-indigo-500 w-10 h-8 mb-2 inline-block"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-                </svg>
+                <a className="text-indigo-500  ">
+                  {" "}
+                  <TotalBookSvg />
+                </a>
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
-                  1.3K
+                  {bookCount}
+                </h2>
+                <p className="leading-relaxed dark:text-white">Total Books</p>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+                <BorrowSvg />
+                <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
+                  {borrowCount}
                 </h2>
                 <p className="leading-relaxed dark:text-white">
                   Borrowed Books
@@ -134,37 +146,7 @@ function Home() {
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="text-indigo-500 w-10 h-8 mb-2 inline-block"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M3 18v-6a9 9 0 0118 0v6"></path>
-                  <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"></path>
-                </svg>
-                <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
-                  74
-                </h2>
-                <p className="leading-relaxed dark:text-white">Overdue Books</p>
-              </div>
-            </div>
-            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="text-indigo-500 w-10 h-8 mb-2 inline-block"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
+                <ReceivedSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   46
                 </h2>
@@ -235,7 +217,10 @@ function Home() {
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
+                        <tbody
+                          loading="lazy"
+                          className="divide-y divide-gray-200 dark:divide-slate-400"
+                        >
                           {books.map((book, index) => (
                             <tr key={index}>
                               <td className="px-4 py-3 dark:text-slate-100 break-words text-xs md:text-sm">
@@ -297,7 +282,10 @@ function Home() {
                           </th> */}
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-200 dark:divide-slate-400">
+                      <tbody
+                        loading="lazy"
+                        className="divide-y divide-gray-200 dark:divide-slate-400"
+                      >
                         {user.map((user, index) => (
                           <tr key={index}>
                             <td className="px-4 py-3 dark:text-slate-100  text-xs md:text-sm">
