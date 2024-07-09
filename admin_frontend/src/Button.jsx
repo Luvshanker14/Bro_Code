@@ -62,7 +62,6 @@ function Button() {
     <FormGroup>
       <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked />}
-        label="Switch Theme"
       />
     </FormGroup>
   );

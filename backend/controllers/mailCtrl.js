@@ -27,7 +27,7 @@ exports.send = async (req, res) => {
       html: `
         <h1>Approved !!</h1>
         <p>Your request for the book titled <strong>${title}</strong> has been approved.</p>
-        <p>Request Date: <span style="color: red;">${new Date(dueDate)}</span></p>
+        <p>Due Date: <span style="color: red;">${new Date(dueDate)}</span></p>
       `,
     };
 

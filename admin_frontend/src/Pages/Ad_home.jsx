@@ -7,6 +7,7 @@ import { PieChart } from "@mui/x-charts/PieChart";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Darkmode from "../Darkmode";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -50,7 +51,6 @@ function Home() {
     navigate("/editBook");
   };
 
-  
   const handleShowallUser = () => {
     navigate("/userlist");
   };
@@ -78,6 +78,9 @@ function Home() {
                   />
                   <SearchIcon className="absolute top-3 right-3 text-gray-500" />
                 </div>
+              </div>
+              <div className=" invisible">
+                <Darkmode />
               </div>
             </div>
           </div>
@@ -303,10 +306,10 @@ function Home() {
                             <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
                               {user.name}
                             </td>
-                             <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                            <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
                               {user.email}
                             </td>
-                           {/* <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                            {/* <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
                               {user.count}
                             </td> */}
                           </tr>
@@ -316,12 +319,8 @@ function Home() {
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <button 
-                  onClick={handleShowallUser}
-                  >
-                  <a className="text-pink-500 mt-6">
-                    Show All
-                  </a>
+                  <button onClick={handleShowallUser}>
+                    <a className="text-pink-500 mt-6">Show All</a>
                   </button>
                 </div>
               </div>
