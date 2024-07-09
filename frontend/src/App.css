@@ -20,4 +20,5 @@
   .main-content {
     position: -webkit-sticky;
     width: 100%;
+    overflow-x: hidden;
   }
