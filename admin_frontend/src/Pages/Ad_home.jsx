@@ -200,7 +200,7 @@ function Home() {
                   {pendingCount}
                 </h2>
                 <p className="leading-relaxed dark:text-white">
-                  Prnding Request
+                  Pending Request
                 </p>
               </div>
             </div>
