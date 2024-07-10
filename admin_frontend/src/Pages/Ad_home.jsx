@@ -14,6 +14,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Darkmode from "../Darkmode";
+import Copyright from "../../../frontend/src/pages/Copyright";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -111,7 +112,7 @@ function Home() {
 
           <div className="flex flex-wrap -m-4 pt-12 lg:pt-0 text-left">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105">
                 <UserSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   {userCount}
@@ -122,7 +123,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105">
                 <a className="text-indigo-500  ">
                   {" "}
                   <TotalBookSvg />
@@ -134,7 +135,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105">
                 <BorrowSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   {borrowCount}
@@ -145,7 +146,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105">
                 <ReceivedSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   46
@@ -319,8 +320,8 @@ function Home() {
                 series={[
                   {
                     data: [
-                      { id: 0, value: 10, label: "Returned" },
-                      { id: 1, value: 3, label: "Not Returned" },
+                      { id: 0, value: 10, },
+                      { id: 1, value: 3, },
                     ],
                   },
                 ]}
@@ -329,8 +330,12 @@ function Home() {
               />
             </div>
           </div>
+          <div className="text-center text-sm pt-3 text-slate-500">
+        <Copyright />
+      </div>
         </div>
       </section>
+     
     </div>
   );
 }
