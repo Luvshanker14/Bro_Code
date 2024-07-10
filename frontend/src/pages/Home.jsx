@@ -26,6 +26,15 @@ function Home() {
   const [onlineBooks, setOnlineBooks] = useState([]);
   const [ytBooks, setytBooks] = useState([]);
   const navigate = useNavigate();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  };
 
   useEffect(() => {
     // Assuming booksData is an array of book objects
@@ -295,7 +304,15 @@ function Home() {
   return (
     <div className="py-8 px-4 bg-white dark:bg-neutral-900 rounded-md">
       <div className="flex flex-wrap items-center mb-8">
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-4 right-4 space-x-5 flex items-center">
+          <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button" className="text-gray-500 inline-flex items-center justify-center dark:text-gray-400 hover:bg-gray-100 w-10 h-10 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" onClick={toggleDarkMode}>
+            <svg id="theme-toggle-dark-icon" className={`w-4 h-4 ${isDarkMode ? "hidden" : "block"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+              <path d="M17.8 13.75a1 1 0 0 0-.859-.5A7.488 7.488 0 0 1 10.52 2a1 1 0 0 0 0-.969A1.035 1.035 0 0 0 9.687.5h-.113a9.5 9.5 0 1 0 8.222 14.247 1 1 0 0 0 .004-.997Z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" className={`w-4 h-4 ${isDarkMode ? "block" : "hidden"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-11a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v2a1 1 0 0 0 1 1Zm0 12a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1ZM4.343 5.757a1 1 0 0 0 1.414-1.414L4.343 2.929a1 1 0 0 0-1.414 1.414l1.414 1.414Zm11.314 8.486a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM4 10a1 1 0 0 0-1-1H1a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1Zm15-1h-2a1 1 0 1 0 0 2h2a1 1 0 0 0 0-2ZM4.343 14.243l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a1 1 0 0 0-1.414-1.414ZM14.95 6.05a1 1 0 0 0 .707-.293l1.414-1.414a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 .707 1.707Z"></path>
+            </svg>
+          </button>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -318,7 +335,7 @@ function Home() {
               </li>
               <li>
                 <a>
-                  <Darkmode />
+                  Settings
                 </a>
               </li>
               <li onClick={handleLogoutButton}>
@@ -350,7 +367,7 @@ function Home() {
         {recommendedBooks.map((book, index) => (
           <div key={index} className="w-full px-10 mb-4 ">
             <img
-              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
+              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
               src={book.image || image}
               alt={book.title}
             />
@@ -362,7 +379,7 @@ function Home() {
         {recommendedBooks2.map((book, index) => (
           <div key={index} className="w-full px-10 mb-4 ">
             <img
-              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
+              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
               src={book.image || image}
               alt={book.title}
             />
