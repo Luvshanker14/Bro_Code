@@ -15,6 +15,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Darkmode from "../Darkmode";
 import { colors } from "@mui/material";
+import Copyright from "./Home_components/Copyright";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,6 +24,7 @@ function Home() {
   const [bookCount, setBookCount] = useState(0);
   const [userCount, setUserCount] = useState(0);
   const [borrowCount, setBorrowCount] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
   const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -63,13 +65,25 @@ function Home() {
   useEffect(() => {
     const getBorrow = async () => {
       try {
-        const res = axios.get("http://localhost:3000/bookRequests");
-        setBorrowCount(res.data);
-        setBorrowCount((await res).data.length);
+        const res = await axios.get("http://localhost:3000/bookRequests");
+        console.log(res.data); // Log the response to inspect its structure
+        if (Array.isArray(res.data)) {
+          const borrowCount = res.data.filter(
+            (request) => request.status === "approved"
+          );
+          const pendingCount = res.data.filter(
+            (request) => request.status === "pending"
+          );
+          setBorrowCount(borrowCount.length);
+          setPendingCount(pendingCount.length);
+        } else {
+          console.error("Unexpected response data format", res.data);
+        }
       } catch (error) {
-        console.log("Error", error);
+        console.log("Error fetching data", error);
       }
     };
+
     getBorrow();
   }, []);
 
@@ -112,11 +126,31 @@ function Home() {
                   />
                   <SearchIcon className="absolute top-3 right-3 text-gray-500" />
                 </div>
-                <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button" className="text-gray-500 inline-flex items-center justify-center dark:text-gray-400 hover:bg-gray-100 w-10 h-10 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" onClick={toggleDarkMode}>
-                  <svg id="theme-toggle-dark-icon" className={`w-4 h-4 ${isDarkMode ? "hidden" : "block"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <button
+                  id="theme-toggle"
+                  data-tooltip-target="tooltip-toggle"
+                  type="button"
+                  className="text-gray-500 inline-flex items-center justify-center dark:text-gray-400 hover:bg-gray-100 w-10 h-10 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+                  onClick={toggleDarkMode}
+                >
+                  <svg
+                    id="theme-toggle-dark-icon"
+                    className={`w-4 h-4 ${isDarkMode ? "hidden" : "block"}`}
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 18 20"
+                  >
                     <path d="M17.8 13.75a1 1 0 0 0-.859-.5A7.488 7.488 0 0 1 10.52 2a1 1 0 0 0 0-.969A1.035 1.035 0 0 0 9.687.5h-.113a9.5 9.5 0 1 0 8.222 14.247 1 1 0 0 0 .004-.997Z"></path>
                   </svg>
-                  <svg id="theme-toggle-light-icon" className={`w-4 h-4 ${isDarkMode ? "block" : "hidden"}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    id="theme-toggle-light-icon"
+                    className={`w-4 h-4 ${isDarkMode ? "block" : "hidden"}`}
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-11a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v2a1 1 0 0 0 1 1Zm0 12a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1ZM4.343 5.757a1 1 0 0 0 1.414-1.414L4.343 2.929a1 1 0 0 0-1.414 1.414l1.414 1.414Zm11.314 8.486a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM4 10a1 1 0 0 0-1-1H1a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1Zm15-1h-2a1 1 0 1 0 0 2h2a1 1 0 0 0 0-2ZM4.343 14.243l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a1 1 0 0 0-1.414-1.414ZM14.95 6.05a1 1 0 0 0 .707-.293l1.414-1.414a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 .707 1.707Z"></path>
                   </svg>
                 </button>
@@ -126,7 +160,7 @@ function Home() {
 
           <div className="flex flex-wrap -m-4 pt-12 lg:pt-0 text-left">
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105 hover:duration-500">
                 <UserSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   {userCount}
@@ -137,7 +171,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105 hover:duration-500">
                 <a className="text-indigo-500  ">
                   {" "}
                   <TotalBookSvg />
@@ -149,7 +183,7 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105 hover:duration-500">
                 <BorrowSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
                   {borrowCount}
@@ -160,13 +194,13 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black">
+              <div className="border-2 px-4 py-6 rounded-lg shadow-md bg-neutral-100 dark:bg-neutral-800 dark:shadow-black dark:border-black hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-105 hover:duration-500">
                 <ReceivedSvg />
                 <h2 className="title-font font-semibold text-4xl text-gray-900 dark:text-white">
-                  46
+                  {pendingCount}
                 </h2>
                 <p className="leading-relaxed dark:text-white">
-                  Received Books
+                  Prnding Request
                 </p>
               </div>
             </div>
@@ -343,6 +377,9 @@ function Home() {
                 height={300}
               />
             </div>
+          </div>
+          <div className="text-sm text-slate-500 text-center pt-3">
+            <Copyright />
           </div>
         </div>
       </section>
