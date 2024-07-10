@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Darkmode from "../Darkmode";
 import Cookies from "js-cookie";
 
 function Account() {
   // Placeholder data
-
   const adminCookie = Cookies.get("adminId");
   if (adminCookie) {
     const admin = JSON.parse(adminCookie);
@@ -14,80 +13,122 @@ function Account() {
   }
   const admin = JSON.parse(adminCookie);
 
-  const profile = {
+  const [profile, setProfile] = useState({
     name: admin.adminName,
     email: admin.adminEmail,
+    password: "",
+  });
+
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  function handleLogout() {
+  const handleUpdate = async () => {
+    console.log("Updating profile...", profile);
+    setIsUpdateSuccess(true);
+    setTimeout(() => {
+      setIsUpdateSuccess(false);
+    }, 3000);
+  };
+
+  const handleLogout = () => {
     Cookies.remove("adminId", { path: "/" });
-
     window.location.href = "http://localhost:5175";
-  }
-
-  const borrowedBooks = [
-    { title: "Book 1", author: "Author 1", dueDate: "2022-01-01" },
-    { title: "Book 2", author: "Author 2", dueDate: "2022-01-01" },
-  ];
-
-  const borrowingHistory = [
-    {
-      title: "Book 1",
-      author: "Author 1",
-      borrowedDate: "2021-01-01",
-      returnedDate: "2021-01-10",
-    },
-    {
-      title: "Book 2",
-      author: "Author 2",
-      borrowedDate: "2021-02-01",
-      returnedDate: "2021-02-10",
-    },
-  ];
-
-  const fines = [
-    { title: "Book 1", amount: "$5.00", dueDate: "2022-01-01" },
-    { title: "Book 2", amount: "$10.00", dueDate: "2022-01-01" },
-  ];
+  };
 
   return (
-    <div className="min-h-screen rounded-md bg-white dark:bg-neutral-900 flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl rounded-lg shadow-[0_0_30px_theme('colors.black')] dark:shadow-[0_0_30px_theme('colors.blue.500')] p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="col-span-1 flex flex-col items-center">
-            <div className="w-32 h-32 bg-gray-300 rounded-full mb-4 flex items-center justify-center">
-              <span className="text-2xl text-gray-500">+</span>
-            </div>
-            <button className="text-blue-500 hover:underline">
-              Click to upload a new profile picture
+    <div className="min-h-screen bg-gray-100 dark:bg-neutral-900 flex items-center justify-center p-6">
+      <div className="w-full max-w-6xl bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-8">
+        <h2 className="text-3xl text-center font-semibold mb-4 border-b border-gray-500 pb-2 dark:text-white">
+          Profile
+        </h2>
+        <div className="flex justify-center mb-4">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            alt="Profile Picture"
+            className="w-32 h-32 rounded-full"
+          />
+        </div>
+        <div className="space-y-4">
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-400"
+            >
+              Username
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Name"
+              value={profile.name}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-400"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={profile.email}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-400"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={profile.password}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+            />
+          </div>
+          <div className="flex flex-col">
+            <button
+              onClick={handleUpdate}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Update
             </button>
+            {isUpdateSuccess && (
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-4 px-4 py-3 bg-green-100 border border-green-400 text-green-700 rounded-lg shadow-lg">
+                <strong className="font-bold">Success!</strong>
+                <span className="block sm:inline"> Profile updated successfully!</span>
+              </div>
+            )}
           </div>
-          <div className="col-span-2">
-            <h2 className="text-3xl font-semibold mb-4 border-b border-gray-500 pb-2 dark:text-white">
-              Personal Information
-            </h2>
-            <div className="space-y-2">
-              <p className="dark:text-white">
-                <strong className="text-gray-700 dark:text-slate-400">
-                  Name:
-                </strong>{" "}
-                {profile.name}
-              </p>
-              <p className="dark:text-white">
-                <strong className="text-gray-700 dark:text-slate-400">
-                  Email:
-                </strong>{" "}
-                {profile.email}
-              </p>
-              {/* <p><strong className="text-gray-700">Phone Number:</strong> {profile.phone}</p>
-              <p><strong className="text-gray-700">Address:</strong> {profile.address}</p>
-              <p><strong className="text-gray-700">Date of Birth:</strong> {profile.dob}</p> */}
-            </div>
-          </div>
-          <Darkmode />
+        </div>
+        <div className="flex flex-col mt-4">
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={handleLogout}
+          >
+            Sign out
+          </button>
         </div>
       </div>
     </div>
   );
 }
+
 export default Account;
