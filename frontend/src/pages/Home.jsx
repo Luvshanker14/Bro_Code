@@ -349,7 +349,7 @@ function Home() {
         {recommendedBooks.map((book, index) => (
           <div key={index} className="w-full px-10 mb-4 ">
             <img
-              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
+              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
               src={book.image || image}
               alt={book.title}
             />
@@ -361,7 +361,7 @@ function Home() {
         {recommendedBooks2.map((book, index) => (
           <div key={index} className="w-full px-10 mb-4 ">
             <img
-              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150"
+              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
               src={book.image || image}
               alt={book.title}
             />
