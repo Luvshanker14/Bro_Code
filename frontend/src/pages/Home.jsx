@@ -17,6 +17,7 @@ import libraryint1 from "../assets/libint.jpg";
 import libraryint2 from "../assets/libint2.jpg";
 import Darkmode from "./Darkmode";
 import { useNavigate } from "react-router-dom";
+import Copyright from "./Copyright";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -282,7 +283,7 @@ function Home() {
               <img
                 src={img}
                 alt={`Slide ${index}`}
-                style={{ width: "100%", height: "750px", borderRadius: "20px" }}
+                style={{ width: "100%", height: "600px", borderRadius: "20px" }}
               />
             </div>
           ))}
@@ -421,10 +422,13 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex justify-center space-x-4 mt-8">
-        <InstagramIcon className="hover:text-pink-500 text-2xl" />
-        <XIcon className="hover:text-black text-2xl" />
-        <LinkedInIcon className="hover:text-blue-600 text-2xl" />
+      <div className="flex justify-center space-x-4 mt-8 ">
+        <InstagramIcon className="hover:text-pink-500 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
+        <XIcon className="hover:text-black text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
+        <LinkedInIcon className="hover:text-blue-600 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
+      </div>
+      <div className="text-center pt-3 text-sm ">
+      <Copyright />
       </div>
     </div>
   );
