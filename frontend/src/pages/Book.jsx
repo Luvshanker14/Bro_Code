@@ -44,39 +44,6 @@ function Books() {
   }, [favoriteBooks]); // Update books when favoriteBooks changes
 
 
-  // const handleFavoriteClick = (bookId) => {
-  //   const updatedBooks = books.map(book => {
-  //     if (book._id === bookId) {
-  //       return {
-  //         ...book,
-  //         isFavorite: !book.isFavorite  // Toggle isFavorite
-  //       };
-  //     }
-  //     return book;
-  //   });
-
-  //   setBooks(updatedBooks);
-
-  //   // Toggle favorite state in favoriteBooks context
-  //   if (favoriteBooks.some(book => book._id === bookId))
-  //     {
-  //     setAlertMessage("Book removed from liked books.");
-  //     setAlertType("error");
-  //     setShowAlert(true);
-  //     setTimeout(() => setShowAlert(false), 3000);
-  //     removeFavoriteBook(bookId);
-  //   }
-  //   else {
-  //     setAlertMessage("Book added to liked books.");
-  //     setAlertType("success");
-  //     setShowAlert(true);
-  //     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
-  //     const selectedBook = books.find(book => book._id === bookId);
-  //     if (selectedBook) {
-  //       addFavoriteBook(selectedBook);
-  //     }
-  //   }
-  // };
 
   const handleFavoriteClick = async (bookId) => {
     const updatedBooks = books.map((book) => {

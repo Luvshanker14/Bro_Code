@@ -40,7 +40,7 @@ function Account() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-neutral-900 flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-8">
+      <div className="w-full max-w-6xl bg-white dark:bg-neutral-800 rounded-lg shadow-[0_0_30px_theme('colors.black')] dark:shadow-[0_0_30px_theme('colors.blue.500')] p-8">
         <h2 className="text-3xl text-center font-semibold mb-4 border-b border-gray-500 pb-2 dark:text-white">
           Profile
         </h2>
@@ -55,7 +55,7 @@ function Account() {
           <div>
             <label
               htmlFor="name"
-              className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-400"
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
             >
               Username
             </label>
@@ -66,13 +66,13 @@ function Account() {
               placeholder="Name"
               value={profile.name}
               onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+              className="shadow-black appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-neutral-700 dark:border-gray-700 dark:text-white"
             />
           </div>
           <div>
             <label
               htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-400"
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
             >
               Email
             </label>
@@ -83,13 +83,13 @@ function Account() {
               placeholder="Email"
               value={profile.email}
               onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+              className="shadow-black appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-neutral-700 dark:border-gray-700 dark:text-white"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-400"
+              className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
             >
               Password
             </label>
@@ -100,7 +100,7 @@ function Account() {
               placeholder="Password"
               value={profile.password}
               onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+              className="shadow-black appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-neutral-700 dark:border-gray-700 dark:text-white"
             />
           </div>
           <div className="flex flex-col">
