@@ -14,7 +14,7 @@
     left: 0;
     width: 100%;
     padding: 20px 60px;
-    background: rebeccapurple;
+    /* background: rebeccapurple; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -63,19 +63,26 @@
 
 .section{
     min-height: 100vh;
-    background: url('https://r4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-b3abc35d0d699b056fa6b247589b18a8.jpg') no-repeat;
-    /* background: url('') no-repeat; */
+    /* background: url('https://r4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-b3abc35d0d699b056fa6b247589b18a8.jpg') no-repeat; */
+    background: url('https://wallpaperaccess.com/full/253442.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
 }
+.sec{
+    min-height: 100vh;
+    /* background: url('https://r4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-b3abc35d0d699b056fa6b247589b18a8.jpg') no-repeat; */
+    background: url('https://wallpaperaccess.com/full/253442.jpg') no-repeat;
+    background-size: cover;
+}
 .wrap{
     align-self: center;
     text-align: center;
     background: rgb(0, 0, 0);
-    opacity: 0.5;
+    opacity: 0.9;
     height:200px;
+    width: 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
