@@ -2,7 +2,7 @@ import React from 'react';
 
 const Welcome = () => {
     return (
-        <div className="wrap" id="welcome">
+        <div id="welcome">
             <h1 className="wraph">Welcome to the library</h1>
             <br />
             <h2>Opens at 9:00</h2>

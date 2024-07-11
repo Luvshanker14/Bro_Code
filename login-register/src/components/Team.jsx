@@ -5,7 +5,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 function Team() {
   return (
-    <section className="text-black body-font bg-neutral-950 min-h-screen">
+    <section className="text-black body-font bg-neutral-950 min-h-screen sec">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap w-full mb-20">
           <div className=" w-full mb-3 lg:mb-0">
