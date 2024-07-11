@@ -13,6 +13,7 @@ function Status() {
   const user = JSON.parse(userCookie);
   const [favoriteBooks, setFavoriteBooks] = useState([]);
   const [borrowingHistory, setBorrowingHistory] = useState([]);
+  const [departmentCounts, setDepartmentCounts] = useState({});
 
   useEffect(() => {
     const fetchBorrowedBooks = async () => {
@@ -82,6 +83,34 @@ function Status() {
 
     fetchApprovedRequests();
   }, [user.userId]);
+  const departmentShortForms = {
+    "Computer Science": "CS",
+    "Mechanical Engineering": "ME",
+    "Electrical Engineering": "EE",
+    "Civil Engineering": "CE",
+    "Chemical Engineering": "CBE",
+    "Engineering Physics": "EP"
+  };
+  
+  useEffect(() => {
+    const countBooksByDepartment = () => {
+      const favoriteCounts = {};
+
+      favoriteBooks.forEach(book => {
+        if (book.department) {
+          const shortForm = departmentShortForms[book.department] || book.department;
+          if (!favoriteCounts[shortForm]) {
+            favoriteCounts[shortForm] = 0;
+          }
+          favoriteCounts[shortForm]++;
+        }
+      });
+
+      setDepartmentCounts(favoriteCounts);
+    };
+
+    countBooksByDepartment();
+  }, [favoriteBooks]);
 
   const handleCancelRequest = (id) => {
     setBookRequestIdToDelete(id);
@@ -290,15 +319,19 @@ function Status() {
           xAxis={[
             {
               scaleType: "band",
-              data: ["CS", "ME", "EE", "CE"],
+              // data: ["CS", "ME", "EE", "CE"],
+              data: Object.keys(departmentCounts),
             },
           ]}
           series={[
-            { data: [4, 3, 5, 3] },
-            { data: [1, 6, 3, 2] },
-            { data: [2, 5, 6, 1] },
-            { data: [1, 3, 5, 3] },
+            { data: Object.values(departmentCounts)}
+            // { data: [4, 3, 5, 3] },
+            // { data: [1, 6, 3, 2] },
+            // { data: [2, 5, 6, 1] },
+            // { data: [1, 3, 5, 3] },
           ]}
+          // xAxis={[]}
+          // series={[{ data: Object.values(departmentCounts), label: 'Favorite Books' }]}
           width={600}
           height={350}
         />
