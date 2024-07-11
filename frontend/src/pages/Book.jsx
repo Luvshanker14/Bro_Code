@@ -179,13 +179,13 @@ function Books() {
   };
 
   return (
-    <div className="rounded-sm px-4 bg-white dark:bg-neutral-900">
+    <div className="rounded-sm px-4 min-h-screen bg-white dark:bg-neutral-900">
       <div className="flex items-center justify-between p-3">
         <div className="relative w-3/4 sm:w-1/2 p-2">
           <input
             type="text"
             placeholder="Start Searching..."
-            className="search-bar border-2 border-gray-300 dark:border-black p-3 rounded-md w-1/2 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
+            className="search-bar border-2 text-black border-gray-300 dark:border-black p-3 rounded-md w-1/2 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -261,14 +261,14 @@ function Books() {
         ))}
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center pb-3">
         <nav aria-label="Pagination">
           <ul className="inline-flex items-center space-x-1 rounded-md text-sm">
             <li>
               <button
                 onClick={goToPrevPage}
                 disabled={currentPage === 1}
-                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50"
+                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-gray-500 dark:text-white hover:bg-gray-50 dark:hover:bg-neutral-700"
               >
                 <svg
                   className="h-5 w-5"
@@ -286,7 +286,7 @@ function Books() {
               </button>
             </li>
             <li>
-              <span className="inline-flex items-center space-x-1 rounded-md bg-white px-4 py-2 text-gray-500">
+              <span className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-gray-500 dark:text-white ">
                 Page <b className="mx-1">{currentPage}</b> of{" "}
                 <b className="ml-1">{totalPages}</b>
               </span>
@@ -295,7 +295,7 @@ function Books() {
               <button
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages}
-                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50"
+                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-gray-500 dark:text-white hover:bg-gray-50 dark:hover:bg-neutral-700"
               >
                 <svg
                   className="h-5 w-5"

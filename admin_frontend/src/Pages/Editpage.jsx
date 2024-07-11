@@ -110,7 +110,7 @@ function EditPage() {
         <div className="min-h-screen space-y-12 pt-7 bg-white dark:bg-neutral-900 px-6 rounded-md">
           <div className="border-b border-gray-900 dark:border-white pb-12">
             <h2 className="text-center font-bold text-2xl text-black dark:text-white">
-              Add Book To Our Database
+              Edit Book
             </h2>
           </div>
 
@@ -378,7 +378,7 @@ function EditPage() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="mt-6 pb-6 flex items-center justify-end gap-x-6">
             <button
               type="button"
               onClick={handleCancel}

@@ -28,7 +28,7 @@ function TotalBookSvg() {
       width="40px"
       version="1.1"
       viewBox="0 0 209.811 209.811"
-      xml:space="preserve"
+      xmlSpace="preserve"
     >
       <g>
         <path
