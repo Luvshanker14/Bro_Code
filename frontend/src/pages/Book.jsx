@@ -268,7 +268,7 @@ function Books() {
               <button
                 onClick={goToPrevPage}
                 disabled={currentPage === 1}
-                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-gray-500 dark:text-white hover:bg-gray-50 dark:hover:bg-neutral-700"
+                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-black dark:text-white hover:bg-gray-50 dark:hover:bg-neutral-700"
               >
                 <svg
                   className="h-5 w-5"
@@ -286,7 +286,7 @@ function Books() {
               </button>
             </li>
             <li>
-              <span className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-gray-500 dark:text-white ">
+              <span className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-black dark:text-white ">
                 Page <b className="mx-1">{currentPage}</b> of{" "}
                 <b className="ml-1">{totalPages}</b>
               </span>
@@ -295,7 +295,7 @@ function Books() {
               <button
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages}
-                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-gray-500 dark:text-white hover:bg-gray-50 dark:hover:bg-neutral-700"
+                className="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-2 font-medium text-black dark:text-white hover:bg-gray-50 dark:hover:bg-neutral-700"
               >
                 <svg
                   className="h-5 w-5"
