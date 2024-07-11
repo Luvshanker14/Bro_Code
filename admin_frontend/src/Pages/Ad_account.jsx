@@ -103,7 +103,9 @@ function Account() {
               className="shadow-black appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-neutral-700 dark:border-gray-700 dark:text-white"
             />
           </div>
-          <div className="flex flex-col">
+          </div>
+          <div className="flex flex-row mt-5">
+          <div className="mr-auto" style={{alignSelf:"flex-start"}}>
             <button
               onClick={handleUpdate}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -117,8 +119,7 @@ function Account() {
               </div>
             )}
           </div>
-        </div>
-        <div className="flex flex-col mt-4">
+          <div style={{alignSelf:"flex-end"}}>
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={handleLogout}
@@ -126,6 +127,8 @@ function Account() {
             Sign out
           </button>
         </div>
+        </div>
+        
       </div>
     </div>
   );
