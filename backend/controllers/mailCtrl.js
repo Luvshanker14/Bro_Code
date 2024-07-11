@@ -2,11 +2,12 @@ const nodemailer = require("nodemailer");
 const schedule = require("node-schedule");
 
 exports.send = async (req, res) => {
-  const { email, title, requestDate } = req.body;
+  const { email, title, requestDate, name } = req.body;
 
-  console.log(email);
-  console.log(title);
-  console.log(requestDate);
+  // console.log(email);
+  // console.log(title);
+  // console.log(requestDate);
+  // console.log(name);
 
   try {
     const transporter = nodemailer.createTransport({
@@ -26,6 +27,7 @@ exports.send = async (req, res) => {
       subject: "Book Request Approved",
       html: `
         <h1>Approved !!</h1>
+        <p>Dear ${name},</p>
         <p>Your request for the book titled <strong>${title}</strong> has been approved.</p>
         <p>Due Date: <span style="color: red;">${new Date(dueDate)}</span></p>
       `,
@@ -49,6 +51,7 @@ exports.send = async (req, res) => {
             subject: "Reminder: Book Request Due",
             html: `
               <h1>Reminder!!</h1>
+              <p>Dear ${name},</p>
               <p>This is a reminder that your request for the book titled <strong>${title}</strong> is due today.</p>
               <p>Due Date: <span style="color: red;">${new Date(dueDate)}</span></p>
             `,
