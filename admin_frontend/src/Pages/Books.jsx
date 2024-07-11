@@ -367,7 +367,7 @@ const Books = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="mt-6 pb-6 flex items-center justify-end gap-x-6">
             <button
               type="button"
               onClick={handleCancel}
