@@ -331,7 +331,7 @@ function Books() {
                 e.target.src = image; //if book database does not have image show react svg
               }}
               alt={selectedBook.title}
-              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4"
+              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4 border-2 border-black"
             />
             <div className="mt-4 lg:pb-40 lg:pl-14 flex flex-col justify-center">
               <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black dark:text-white">

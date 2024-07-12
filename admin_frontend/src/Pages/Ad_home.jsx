@@ -87,6 +87,9 @@ function Home() {
     getBorrow();
   }, []);
 
+  const borrow = {borrowCount};
+  const approve = {pendingCount};
+
   const adminCookie = Cookies.get("adminId");
   const admin = JSON.parse(adminCookie);
   const name = admin.adminName;
@@ -355,7 +358,7 @@ function Home() {
                     </table>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-end pt-2 ">
                   <button onClick={handleShowallUser}>
                     <a className="text-pink-500 mt-6">Show All</a>
                   </button>
