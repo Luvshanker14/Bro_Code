@@ -231,7 +231,7 @@ function Books() {
                     e.target.src = image; //if book database does not have image show react svg
                   }}
                   alt={book.title}
-                  className="w-full rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]"
+                  className="w-full border-2 border-black dark:border-neutral-200 p-1 rounded-sm object-fill hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_30px_theme('colors.black')] dark:bg-black bg-white"
                 />
               </div>
 
@@ -239,7 +239,7 @@ function Books() {
                 {book.title}
               </h3>
             </button>
-            <div className="flex items-center w-full">
+            <div className="flex items-center w-52">
               <button
                 type="button"
                 className={`borrow-button transition duration-150 ease-in-out hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800 focus:bg-neutral-400 focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black ${book.count === 0 ? 'cursor-not-allowed opacity-50' : ''
@@ -331,7 +331,7 @@ function Books() {
                 e.target.src = image; //if book database does not have image show react svg
               }}
               alt={selectedBook.title}
-              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4 border-2 border-black"
+              className="size-1/3 lg:w-1/3 h-auto mx-auto lg:mx-0 lg:mr-4 border-2 border-black p-1 dark:border-neutral-200 rounded-sm dark:bg-black bg-white"
             />
             <div className="mt-4 lg:pb-40 lg:pl-14 flex flex-col justify-center">
               <h2 className="text-center lg:text-left font-semibold lg:font-bold text-xl lg:text-3xl text-black dark:text-white">
@@ -367,7 +367,7 @@ function Books() {
                 </span>{" "}
                 {selectedBook.publisher}
               </p>
-              <div className="w-1/2 pt-12">
+              <div className="w-60 pt-12">
                 <button
                   type="button"
                   className="borrow-button transition duration-150 ease-in-out dark:border-black hover:border-neutral-800 dark:hover:border-neutral-400 hover:bg-neutral-200 hover:text-black focus:border-neutral-800  focus:bg-neutral-400 focus:text-black focus:ring-0 active:border-neutral-900 active:text-black motion-reduce:transition-none dark:text-slate-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-100 dark:focus:text-black"

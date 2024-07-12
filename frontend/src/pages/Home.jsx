@@ -385,15 +385,15 @@ function Home() {
       <h2 className="text-2xl font-bold mb-4 text-blue-500">
         Recommended Books
       </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mb-8 ">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mb-8 pt-6 items-baseline ">
         {recommendedBooks.map((book, index) => (
           <div key={index} className="w-full px-10 mb-4 ">
             <img
-              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
+              className="w-full h-40 lg:h-80 mb-3 object-fill shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_30px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-2 border-black dark:border-neutral-200 rounded-sm p-1 dark:bg-black bg-white"
               src={`http://localhost:3000/uploads/${book.image}`}
               alt={book.title}
             />
-            <p className="font-semibold text-center text-gray-600 dark:text-slate-50">
+            <p className="font-semibold text-center text-black dark:text-slate-50">
               {book.title}
             </p>
           </div>
@@ -401,11 +401,11 @@ function Home() {
         {recommendedBooks2.map((book, index) => (
           <div key={index} className="w-full px-10 mb-4 ">
             <img
-              className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
+              className="w-full h-40 lg:h-80 mb-3 object-fill shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_30px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-2 border-black dark:border-neutral-200 rounded-sm p-1 dark:bg-black bg-white"
               src={`http://localhost:3000/uploads/${book.image}`}
               alt={book.title}
             />
-            <p className="font-semibold text-center text-gray-600 dark:text-slate-50">
+            <p className="font-semibold text-center text-black dark:text-slate-50">
               {book.title}
             </p>
           </div>
