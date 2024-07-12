@@ -18,6 +18,7 @@ import libraryint2 from "../assets/libint2.jpg";
 import Darkmode from "./Darkmode";
 import { useNavigate } from "react-router-dom";
 import Copyright from "./Copyright";
+import axios from "axios";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -36,16 +37,37 @@ function Home() {
     }
   };
 
+  useEffect(()=>{
+    const getBooks=async()=>{
+      try {
+        const res=await axios.get("http://localhost:3000/books");
+        //console.log("hehe");
+        //console.log(res.data);
+       const books=res.data;
+       setBooks(books);
+      } catch (error) {
+        console.log("error",error);
+      }
+      
+
+    }
+    getBooks();
+
+  },[])
+
   useEffect(() => {
     // Assuming booksData is an array of book objects
-    const books = booksData;
+   // const books = booksData;
+
+
+
 
     const onlineBooks = webBook.filter((book) => book.onlineUrl);
     setOnlineBooks(onlineBooks);
 
     const articles = webBook.filter((book) => book.Url);
     const ytplaylist = webBook.filter((book) => book.YtUrl);
-    setBooks(books);
+    // setBooks(books);
     setArticles(articles);
     setytBooks(ytplaylist);
   }, []);
@@ -368,7 +390,7 @@ function Home() {
           <div key={index} className="w-full px-10 mb-4 ">
             <img
               className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
-              src={book.image || image}
+              src={`http://localhost:3000/uploads/${book.image}`}
               alt={book.title}
             />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">
@@ -380,7 +402,7 @@ function Home() {
           <div key={index} className="w-full px-10 mb-4 ">
             <img
               className="w-full mb-3 shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_20px_theme('colors.black')] hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-1 rounded-xl p-3"
-              src={book.image || image}
+              src={`http://localhost:3000/uploads/${book.image}`}
               alt={book.title}
             />
             <p className="font-semibold text-center text-gray-600 dark:text-slate-50">
