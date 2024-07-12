@@ -5,8 +5,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 function Team() {
   return (
-    <section className="text-black body-font bg-neutral-950 min-h-screen sec">
-      <div className="container px-5 py-24 mx-auto">
+    <section className="text-black body-font min-h-screen bg-[url('https://wallpaperaccess.com/full/253442.jpg')] bg-cover bg-no-repeat ">
+      <div className="container px-5 py-24 mx-auto backdrop-blur-md">
         <div className="flex flex-wrap w-full mb-20">
           <div className=" w-full mb-3 lg:mb-0">
             <h1 className="sm:text-3xl text-3xl font-semibold title-font mb-2 text-white  pt-14 text-center">
