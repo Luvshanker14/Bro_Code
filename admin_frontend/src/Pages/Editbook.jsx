@@ -72,6 +72,9 @@ function EditBook() {
                 Name
               </th>
               <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                Department
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
                 Author
               </th>
               <th className="px-2 py-3 text-sm font-semibold text-black dark:text-white">
@@ -93,6 +96,9 @@ function EditBook() {
                 </td>
                 <td className="px-4 py-3 text-black dark:text-slate-100 text-xs md:text-sm">
                   {book.title}
+                </td>
+                <td className="px-4 py-3 text-black dark:text-slate-100 text-xs md:text-sm">
+                  {book.department}
                 </td>
                 <td className="px-4 py-3 text-black dark:text-slate-100 text-xs md:text-sm">
                   {book.author}
