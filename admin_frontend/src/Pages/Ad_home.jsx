@@ -87,8 +87,8 @@ function Home() {
     getBorrow();
   }, []);
 
-  const borrow = {borrowCount};
-  const approve = {pendingCount};
+  const borrow = { borrowCount };
+  const approve = { pendingCount };
 
   const adminCookie = Cookies.get("adminId");
   const admin = JSON.parse(adminCookie);
@@ -262,6 +262,9 @@ function Home() {
                               Name
                             </th>
                             <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
+                              Department
+                            </th>
+                            <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
                               Author
                             </th>
                             <th className="px-6 py-3 text-sm font-semibold text-black dark:text-white">
@@ -278,13 +281,16 @@ function Home() {
                               <td className="px-4 py-3 dark:text-slate-100 break-words text-xs md:text-sm">
                                 {book._id}
                               </td>
-                              <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                              <td className="px-4 py-3 dark:text-slate-100 text-xs md:text-base">
                                 {book.title}
                               </td>
-                              <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                              <td className="px-4 py-3 dark:text-slate-100 text-xs md:text-base">
+                                {book.department}
+                              </td>
+                              <td className="px-4 py-3 dark:text-slate-100 text-xs md:text-base">
                                 {book.author}
                               </td>
-                              <td className="px-4 py-3 dark:text-slate-100 text-sm md:text-base">
+                              <td className="px-4 py-3 dark:text-slate-100 text-xs md:text-base">
                                 {book.count}
                               </td>
                             </tr>
