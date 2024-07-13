@@ -40,7 +40,7 @@ function Account() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-neutral-900 flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl bg-white dark:bg-neutral-800 rounded-lg shadow-[0_0_30px_theme('colors.black')] dark:shadow-[0_0_30px_theme('colors.blue.500')] p-8">
+      <div className="w-full max-w-6xl bg-white dark:bg-neutral-800 rounded-lg shadow-[0_0_30px_theme('colors.black')] dark:shadow-[0_0_30px_theme('colors.black')] p-8">
         <h2 className="text-3xl text-center font-semibold mb-4 border-b border-gray-500 pb-2 dark:text-white">
           Profile
         </h2>
