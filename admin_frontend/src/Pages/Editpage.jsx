@@ -16,7 +16,7 @@ function EditPage() {
     vendor_id: "",
     publisher: "",
     publisher_id: "",
-    image: "",
+    image: null, // Assuming image is initially null or empty string
   });
 
   useEffect(() => {
@@ -26,6 +26,7 @@ function EditPage() {
         .then((response) => {
           const { data } = response;
           setFormData({
+            id: data._id,
             title: data.title,
             description: data.description,
             author: data.author,
@@ -36,7 +37,7 @@ function EditPage() {
             vendor_id: data.vendor_id,
             publisher: data.publisher,
             publisher_id: data.publisher_id,
-            image: data.image, // assuming image is a URL or a file object
+            image: data.image, // Assuming image is a URL or a file object
           });
         })
         .catch((error) => {
@@ -50,7 +51,7 @@ function EditPage() {
     if (name === "image") {
       setFormData({
         ...formData,
-        [name]: files[0], // assuming you want to update the image file
+        [name]: files[0], // Update image file
       });
     } else {
       setFormData({
@@ -60,22 +61,21 @@ function EditPage() {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = new FormData();
+  
+    const formDataToSend = new FormData();
     for (const key in formData) {
-      data.append(key, formData[key]);
+      formDataToSend.append(key, formData[key]);
     }
-
+  
     try {
       const response = await axios.put(
         `http://localhost:3000/books/${bookId}`,
-        data,
+        JSON.stringify(Object.fromEntries(formDataToSend)), // Convert FormData to JSON string
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
