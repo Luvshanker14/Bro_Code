@@ -435,7 +435,7 @@ function Home() {
         ))}
       </div>
       <h2 className="text-2xl font-bold mb-2 text-blue-500">
-        Subscribe to Newsletter
+        Become a Pro Member!
       </h2>
       <p className="text-gray-400 dark:text-slate-300 mb-4">
         Receive the latest updates and offers directly to your inbox!
