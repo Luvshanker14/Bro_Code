@@ -193,7 +193,6 @@ const Books = () => {
                     <option>Engineering Physics</option>
                     <option>Mathematics</option>
                     <option>BS-MS</option>
-
                   </select>
                 </div>
               </div>
@@ -360,6 +359,11 @@ const Books = () => {
                           required
                         />
                       </label>
+                      {formData.image && (
+                        <p className="ml-2 text-black dark:text-white">  {/* Display selected file name if available */}
+                          {formData.image.name}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
