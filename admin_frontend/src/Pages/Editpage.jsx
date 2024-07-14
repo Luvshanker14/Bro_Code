@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function EditPage() {
+  const navigate = useNavigate();
   const { bookId } = useParams();
   const [formData, setFormData] = useState({
     title: "",
@@ -63,12 +64,12 @@ function EditPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formDataToSend = new FormData();
     for (const key in formData) {
       formDataToSend.append(key, formData[key]);
     }
-  
+
     try {
       const response = await axios.put(
         `http://localhost:3000/books/${bookId}`,
@@ -103,6 +104,39 @@ function EditPage() {
     });
     window.alert("Form has been cancelled.");
   };
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this book?"
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:3000/books/${bookId}`);
+        setFormData({
+          title: "",
+          description: "",
+          author: "",
+          genre: "",
+          department: "",
+          count: "",
+          vendor: "",
+          vendor_id: "",
+          publisher: "",
+          publisher_id: "",
+          image: null,
+        });
+        window.alert("Book Deleted Successfully.");
+        navigate("/Editbook"); // Redirect to the book list
+      } catch (err) {
+        console.error(err);
+        window.alert("Failed to Delete Book.");
+      }
+    }
+  };
+
+  function handleBackButton() {
+    navigate("/Editbook");
+  }
 
   return (
     <div>
@@ -359,7 +393,7 @@ function EditPage() {
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
                       <label
                         htmlFor="image"
-                        className="relative cursor-pointer rounded-md dark:bg-neutral-700 bg-white font-semibold text-indigo-600 dark:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                        className="relative cursor-pointer rounded-md bg-neutral-200 dark:bg-neutral-700 font-semibold text-indigo-600 dark:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input
@@ -371,6 +405,13 @@ function EditPage() {
                           required
                         />
                       </label>
+                      {formData.image && (
+                        <p className="ml-2 text-black dark:text-white">
+                          {" "}
+                          {/* Display selected file name if available */}
+                          {formData.image.name}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -381,10 +422,24 @@ function EditPage() {
           <div className="mt-6 pb-6 flex items-center justify-end gap-x-6">
             <button
               type="button"
+              onClick={handleBackButton}
+              className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
+            >
+              Back
+            </button>
+            <button
+              type="button"
               onClick={handleCancel}
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
             >
               Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+            >
+              Delete
             </button>
             <button
               type="submit"
