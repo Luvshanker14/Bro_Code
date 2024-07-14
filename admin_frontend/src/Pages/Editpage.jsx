@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function EditPage() {
   const navigate = useNavigate();
@@ -143,6 +144,12 @@ function EditPage() {
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="min-h-screen space-y-12 pt-7 bg-white dark:bg-neutral-900 px-6 rounded-md">
           <div className="border-b border-gray-900 dark:border-white pb-12">
+            <button
+              onClick={handleBackButton}
+              className="absolute text-gray-900 dark:text-white "
+            >
+              <ArrowBackIcon />
+            </button>
             <h2 className="text-center font-bold text-2xl text-black dark:text-white">
               Edit Book
             </h2>
@@ -422,10 +429,10 @@ function EditPage() {
           <div className="mt-6 pb-6 flex items-center justify-end gap-x-6">
             <button
               type="button"
-              onClick={handleBackButton}
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
+              onClick={handleDelete}
+              className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 left-24 absolute"
             >
-              Back
+              Delete
             </button>
             <button
               type="button"
@@ -433,13 +440,6 @@ function EditPage() {
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
             >
               Cancel
-            </button>
-            <button
-              type="button"
-              onClick={handleDelete}
-              className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-            >
-              Delete
             </button>
             <button
               type="submit"
