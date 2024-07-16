@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import XIcon from "@mui/icons-material/Close";
+import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import image from "../assets/react.svg"; // Adjust the path as needed
 import booksData from "../assets/UpdatedDatasetSOI.json";
@@ -37,27 +37,27 @@ function Home() {
     }
   };
 
-  useEffect(()=>{
-    const getBooks=async()=>{
+  useEffect(() => {
+    const getBooks = async () => {
       try {
-        const res=await axios.get("http://localhost:3000/books");
+        const res = await axios.get("http://localhost:3000/books");
         //console.log("hehe");
         //console.log(res.data);
-       const books=res.data;
-       setBooks(books);
+        const books = res.data;
+        setBooks(books);
       } catch (error) {
-        console.log("error",error);
+        console.log("error", error);
       }
-      
+
 
     }
     getBooks();
 
-  },[])
+  }, [])
 
   useEffect(() => {
     // Assuming booksData is an array of book objects
-   // const books = booksData;
+    // const books = booksData;
 
 
 
@@ -434,41 +434,50 @@ function Home() {
           </div>
         ))}
       </div>
-      <h2 className="text-2xl font-bold mb-2 text-blue-500">
-        Become a Pro Member!
-      </h2>
-      <p className="text-gray-400 dark:text-slate-300 mb-4">
-        Receive the latest updates and offers directly to your inbox!
-      </p>
-      <div className="flex items-center mb-2">
-        <input
-          type="email"
-          className="search-bar border-2 text-black bg-neutral-200 border-gray-300 dark:border-black p-3 rounded-md w-90 sm:w-96 focus:outline-none focus:border-black dark:focus:border-slate-300 dark:text-white dark:bg-neutral-800 "
-          placeholder="Enter your email"
-        />
-      </div>
-      <button className="px-6 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md mb-8">
-        Subscribe
-      </button>
-
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">
-        Library Statistics
-      </h2>
-      <div className="flex flex-wrap items-center mb-8">
-        <div className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4 text-gray-700 dark:text-slate-300">
-          <p>Total Books: 500+</p>
-          <p>Total Active Members: 200+</p>
+      <section className="w-full rounded-md py-12 md:py-24 lg:py-32 bg-gray-100 shadow-md dark:shadow-black dark:bg-neutral-800">
+        <div className="container mx-auto grid items-center justify-center gap-4 px-4 text-center md:px-6">
+          <div className="space-y-3">
+            <h2 className="text-3xl dark:text-slate-300 text-gray-700 font-bold tracking-tighter md:text-4xl/tight">
+              Join Our Community
+            </h2>
+            <p className="mx-auto max-w-[600px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-lg/relaxed dark:text-slate-200">
+              Sign up to receive the latest news, offers, and updates from us. Don't miss out!
+            </p>
+          </div>
+          <div className="mx-auto w-full max-w-sm space-y-2">
+            <form className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="max-w-lg dark:text-black bg-white flex-1 h-10 p-2 rounded-md border-gray-300 shadow-sm sm:text-sm"
+              />
+              <button
+                type="submit"
+                className="rounded-md bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+              >
+                Submit
+              </button>
+            </form>
+            <p className="text-xs dark:text-slate-200 text-gray-600">
+              Subscribe to get notified about our latest products and offers.{" "}
+              <a href="#" className="dark:text-slate-300 underline underline-offset-2">
+                Terms &amp; Conditions
+              </a>
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
+      <footer className="">
+        <div className="flex justify-center space-x-4 mt-8 ">
+          <InstagramIcon className="hover:text-pink-500 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
+          <XIcon className="hover:text-black dark:hover:text-slate-200 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
+          <LinkedInIcon className="hover:text-blue-600 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
+        </div>
+        <div className="text-center pt-3 text-sm ">
+          <Copyright />
+        </div>
+      </footer>
 
-      <div className="flex justify-center space-x-4 mt-8 ">
-        <InstagramIcon className="hover:text-pink-500 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
-        <XIcon className="hover:text-black text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
-        <LinkedInIcon className="hover:text-blue-600 text-2xl  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-x-0  hover:scale-110" />
-      </div>
-      <div className="text-center pt-3 text-sm ">
-      <Copyright />
-      </div>
     </div>
   );
 }
