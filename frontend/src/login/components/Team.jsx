@@ -23,7 +23,7 @@ function Team() {
             <div className="bg-neutral-800 p-6 rounded-lg border shadow-[0_0_20px_theme('colors.blue.500')] hover:shadow-xl hover:shadow-blue-500/50 transition-transform duration-300 ease-in-out transform hover:translate-x-0 hover:scale-105">
               <img
                 className="h-60 w-60 rounded-full object-cover object-top mx-auto mb-6"
-                src="vishal.jpg"
+                src="/vishal.jpg"
                 alt="content"
               />
 
@@ -65,7 +65,7 @@ function Team() {
             <div className="bg-neutral-800 p-6 rounded-lg border shadow-[0_0_20px_theme('colors.blue.500')] hover:shadow-xl hover:shadow-blue-500/50 transition-transform duration-300 ease-in-out transform hover:translate-x-0 hover:scale-105">
               <img
                 className="h-60 w-60 rounded-full object-cover object-center mx-auto mb-6"
-                src="./priyanshu.png"
+                src="/priyanshu.png"
                 alt="content"
               />
 
@@ -107,7 +107,7 @@ function Team() {
             <div className="bg-neutral-800 p-6 rounded-lg border shadow-[0_0_20px_theme('colors.blue.500')] hover:shadow-xl hover:shadow-blue-500/50 transition-transform duration-300 ease-in-out transform hover:translate-x-0 hover:scale-105">
               <img
                 className="h-60 w-60 rounded-full object-cover object-center mx-auto mb-6"
-                src="./karan.jpg"
+                src="/karan.jpg"
                 alt="content"
               />
 
@@ -149,7 +149,7 @@ function Team() {
             <div className="bg-neutral-800 p-6 rounded-lg border shadow-[0_0_20px_theme('colors.blue.500')] hover:shadow-xl hover:shadow-blue-500/50 transition-transform duration-300 ease-in-out transform hover:translate-x-0 hover:scale-105">
               <img
                 className="h-60 w-60 rounded-full object-cover object-center mx-auto mb-6"
-                src="./luv.jpg"
+                src="/luv.jpg"
                 alt="content"
               />
 

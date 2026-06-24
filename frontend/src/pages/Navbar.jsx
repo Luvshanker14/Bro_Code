@@ -34,7 +34,7 @@ function Navbar({ selected, setSelected }) {
         <div className="inline-flex justify-center items-center w-16 h-16 pt-4 pb-4">
           <button onClick={handleLogoClick}>
             <span className="grid items-center pr-1 w-11 h-10 text-xs bg-transparent text-black dark:text-white rounded-md">
-              <img src="iitdh_logo.png" alt="Logo" />
+              <img src="/iitdh_logo.png" alt="Logo" />
             </span>
           </button>
         </div>
