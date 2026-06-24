@@ -60,7 +60,7 @@
 
 .section {
   min-height: 100vh;
-  background: url('../assets/login.jpg') no-repeat; /* Ensure the path is correct */
+  background: url('https://wallpaperaccess.com/full/253442.jpg') no-repeat; /* same backdrop as About page */
   background-size: cover;
   background-position: center;
   display: flex;
