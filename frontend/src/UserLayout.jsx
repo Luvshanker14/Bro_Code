@@ -6,10 +6,15 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
 import Books from './pages/Book';
 import Home from './pages/Home';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function UserLayout() {
   const [selected, setSelected] = useState('Home');
+
+  if (!Cookies.get('userId')) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className='flex w-full min-h-screen bg-slate-200 dark:bg-black'>

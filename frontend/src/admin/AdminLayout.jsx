@@ -9,10 +9,15 @@ import EditPage from "./Pages/Editpage.jsx";
 import Userlist from "./Pages/Userlist.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../App.css";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function AdminLayout() {
   const [selected, setSelected] = useState("Home");
+
+  if (!Cookies.get("adminId")) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className="flex bg-slate-200 dark:bg-black">
