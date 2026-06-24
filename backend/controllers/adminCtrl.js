@@ -52,7 +52,7 @@ const adminCtrl={
 
 
     } catch (error) {
-      return res.json(500).json({msg:error.message});
+      return res.status(500).json({msg:error.message});
     }
   },
   login:async(req,res)=>{

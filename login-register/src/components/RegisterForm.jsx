@@ -18,7 +18,7 @@ const RegisterForm = ({ isActive, onClose }) => {
     if (submitted) {
       const registerUser = async () => {
         try {
-          const res = await axios.post('http://localhost:3000/user/register', {
+          const res = await axios.post('/user/register', {
             name,
             email,
             password

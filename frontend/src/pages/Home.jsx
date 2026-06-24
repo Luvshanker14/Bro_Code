@@ -1,3 +1,4 @@
+import { API_URL, LOGIN_URL } from '../config';
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -40,7 +41,7 @@ function Home() {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/books");
+        const res = await axios.get("/books");
         //console.log("hehe");
         //console.log(res.data);
         const books = res.data;
@@ -91,7 +92,7 @@ function Home() {
   }
   function handleLogoutButton(event) {
     event.preventDefault();
-    window.location.href = 'http://localhost:5175';
+    window.location.href = LOGIN_URL;
     Cookies.remove('userId', { path: '/' });
   }
 
@@ -390,7 +391,7 @@ function Home() {
           <div key={index} className="w-full px-10 mb-4 ">
             <img
               className="w-full h-40 lg:h-80 mb-3 object-fill shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_30px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-2 border-black dark:border-neutral-200 rounded-sm p-1 dark:bg-black bg-white"
-              src={`http://localhost:3000/uploads/${book.image}`}
+              src={`${API_URL}/uploads/${book.image}`}
               alt={book.title}
             />
             <p className="font-semibold text-center text-black dark:text-slate-50">
@@ -402,7 +403,7 @@ function Home() {
           <div key={index} className="w-full px-10 mb-4 ">
             <img
               className="w-full h-40 lg:h-80 mb-3 object-fill shadow-[0_0_30px_theme('colors.slate.400')] dark:shadow-[0_0_30px_theme('colors.black')]  hover:transition hover:ease-in-out hover:delay-30 hover:-translate-y-3  hover:scale-105 hover:duration-150 border-2 border-black dark:border-neutral-200 rounded-sm p-1 dark:bg-black bg-white"
-              src={`http://localhost:3000/uploads/${book.image}`}
+              src={`${API_URL}/uploads/${book.image}`}
               alt={book.title}
             />
             <p className="font-semibold text-center text-black dark:text-slate-50">

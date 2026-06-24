@@ -24,7 +24,7 @@ function EditPage() {
   useEffect(() => {
     if (bookId) {
       axios
-        .get(`http://localhost:3000/books/${bookId}`)
+        .get(`/books/${bookId}`)
         .then((response) => {
           const { data } = response;
           setFormData({
@@ -73,7 +73,7 @@ function EditPage() {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/books/${bookId}`,
+        `/books/${bookId}`,
         JSON.stringify(Object.fromEntries(formDataToSend)), // Convert FormData to JSON string
         {
           headers: {
@@ -112,7 +112,7 @@ function EditPage() {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:3000/books/${bookId}`);
+        await axios.delete(`/books/${bookId}`);
         setFormData({
           title: "",
           description: "",

@@ -1,3 +1,4 @@
+import { ADMIN_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -18,7 +19,7 @@ const LoginAsAdminForm = ({ isActive, onClose }) => {
     if (submitted) {
       const loginAdmin = async () => {
         try {
-          const res = await axios.post('http://localhost:3000/admin/login', {
+          const res = await axios.post('/admin/login', {
             email,
             password,
           });
@@ -31,7 +32,7 @@ const LoginAsAdminForm = ({ isActive, onClose }) => {
             };
             alert('Admin Login Successful');
             Cookies.set('adminId', JSON.stringify(adminData), { path: '/', sameSite: 'strict' });
-            window.location.href = 'http://localhost:5174';
+            window.location.href = ADMIN_URL;
           } else {
             alert(res.data.error || 'Admin Login failed');
           }

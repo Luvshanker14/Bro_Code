@@ -1,9 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
+import axios from "axios";
 import './index.css';
 import App from "./App";
+import { API_URL } from "./config";
 
-ReactDOM.render(
-  <App />
-  ,document.getElementById("root")
-); 
+axios.defaults.baseURL = API_URL;
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

@@ -18,11 +18,11 @@ function Status() {
   useEffect(() => {
     const fetchBorrowedBooks = async () => {
       try {
-        const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
+        const bookRequestsRes = await axios.get(`/bookRequests`);
         const bookRequests = bookRequestsRes.data.filter(request => request.userId === user.userId && request.status !== 'approved');
 
         const bookIds = bookRequests.map(request => request.bookId);
-        const booksRes = await axios.get('http://localhost:3000/books');
+        const booksRes = await axios.get('/books');
         const books = booksRes.data;
 
         const borrowedBooksData = bookRequests.map(request => {
@@ -48,13 +48,13 @@ function Status() {
     const fetchApprovedRequests = async () => {
       try {
         // Fetch all book requests
-        const bookRequestsRes = await axios.get(`http://localhost:3000/bookRequests`);
+        const bookRequestsRes = await axios.get(`/bookRequests`);
 
         // Filter to get only approved requests for the current user
         const approvedRequests = bookRequestsRes.data.filter(request => request.userId === user.userId && request.status === "approved");
 
         // Fetch all books
-        const booksRes = await axios.get('http://localhost:3000/books');
+        const booksRes = await axios.get('/books');
         const books = booksRes.data;
 
         // Map approved requests to borrowing history data
@@ -127,10 +127,10 @@ function Status() {
   const handleConfirmDelete = async () => {
     try {
       if (actionType === 'cancel') {
-        await axios.delete(`http://localhost:3000/bookRequests/delete/${bookRequestIdToDelete}`);
+        await axios.delete(`/bookRequests/delete/${bookRequestIdToDelete}`);
         setBorrowedBooks(prevBooks => prevBooks.filter(book => book._id !== bookRequestIdToDelete));
       } else if (actionType === 'return') {
-        const response = await axios.delete(`http://localhost:3000/bookRequests/return/${bookRequestIdToDelete}`);
+        const response = await axios.delete(`/bookRequests/return/${bookRequestIdToDelete}`);
         if (response.status === 200) {
           setBorrowingHistory(prevHistory => prevHistory.filter(book => book._id !== bookRequestIdToDelete));
           console.log('Book returned successfully');
@@ -151,7 +151,7 @@ function Status() {
   useEffect(() => {
     const fetchFavoriteBooks = async () => {
       try {
-        const favoriteBooksRes = await axios.post(`http://localhost:3000/books/getFavouriteBook`, {
+        const favoriteBooksRes = await axios.post(`/books/getFavouriteBook`, {
           userId: user.userId
         });
         setFavoriteBooks(favoriteBooksRes.data);
@@ -165,7 +165,7 @@ function Status() {
 
   const removeFavoriteBook = async (bookId) => {
     try {
-      await axios.post("http://localhost:3000/books/removeFavouriteBook", {
+      await axios.post("/books/removeFavouriteBook", {
         bookId,
         userId: user.userId,
       });

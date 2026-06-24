@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -18,7 +19,7 @@ function Sumbitimg() {
 
     try {
       const result = await axios.post(
-        "http://localhost:3000/image/upload-image",
+        "/image/upload-image",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -38,7 +39,7 @@ function Sumbitimg() {
 
   const getImage = async () => {
     try {
-      const result = await axios.get("http://localhost:3000/image/get-image");
+      const result = await axios.get("/image/get-image");
       setAllImage(result.data.data);
     } catch (error) {
       console.error("Error fetching images:", error);
@@ -56,7 +57,7 @@ function Sumbitimg() {
         : allImage.map((data) => (
             <img
               key={data._id}
-              src={`http://localhost:3000/uploads/${data.image}`}
+              src={`${API_URL}/uploads/${data.image}`}
               alt={data.image}
               height={100}
               width={100}

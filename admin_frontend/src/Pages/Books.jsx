@@ -46,7 +46,7 @@ const Books = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/admin/addBook",
+        "/admin/addBook",
         data,
         {
           headers: {

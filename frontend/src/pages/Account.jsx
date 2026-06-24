@@ -1,3 +1,4 @@
+import { LOGIN_URL } from '../config';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Darkmode from './Darkmode';
@@ -26,7 +27,7 @@ const user=JSON.parse(userCookie);
 
   function handleLogout()
   {
-    window.location.href= 'http://localhost:5175';
+    window.location.href= LOGIN_URL;
     Cookies.remove('userId',{path:'/'});
    
   }

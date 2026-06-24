@@ -9,7 +9,7 @@ function Status() {
   useEffect(() => {
     const fetchBookRequests = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/bookRequests');
+        const res = await axios.get('/bookRequests');
         if (res.status === 200) {
           setBookRequests(res.data);
         }
@@ -20,7 +20,7 @@ function Status() {
 
     const fetchBooks = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/books');
+        const res = await axios.get('/books');
         if (res.status === 200) {
           const booksData = {};
           res.data.forEach(book => {
@@ -35,7 +35,7 @@ function Status() {
 
     const fetchUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/user');
+        const res = await axios.get('/user');
         if (res.status === 200) {
           const usersData = {};
           res.data.forEach(user => {
@@ -55,9 +55,9 @@ function Status() {
 
   const handleApprove = async (id, email, title, requestDate, name) => {
     try {
-      await axios.put(`http://localhost:3000/bookRequests/approve/${id}`);
+      await axios.put(`/bookRequests/approve/${id}`);
       setBookRequests(prevRequests => prevRequests.filter(request => request._id !== id));
-      await axios.post('http://localhost:3000/mail/send', { email, title, requestDate, name});
+      await axios.post('/mail/send', { email, title, requestDate, name});
     } catch (error) {
       console.log('Error approving request', error);
     }

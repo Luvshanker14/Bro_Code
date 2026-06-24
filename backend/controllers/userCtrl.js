@@ -52,7 +52,7 @@ const userCtrl={
 
 
     } catch (error) {
-      return res.json(500).json({msg:error.message});
+      return res.status(500).json({msg:error.message});
     }
   },
   login:async(req,res)=>{
@@ -87,11 +87,11 @@ const userCtrl={
     const { favoriteBooks } = req.body;
   
     try {
-      const user = await User.findById(userId);
+      const user = await Users.findById(userId);
       if (!user) {
         return res.status(404).send('User not found');
       }
-  
+
       user.cart.push(...favoriteBooks) ;
       await user.save();
       console.log(favoriteBooks)

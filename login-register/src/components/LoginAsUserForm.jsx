@@ -1,3 +1,4 @@
+import { USER_URL } from '../config';
 import React, { useEffect,useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -25,7 +26,7 @@ useEffect(() => {
     if (submitted) {
       const loginUser = async () => {
         try {
-          const res = await axios.post('http://localhost:3000/user/login', {
+          const res = await axios.post('/user/login', {
             
             email,
             password
@@ -43,7 +44,7 @@ useEffect(() => {
             // localStorage.setItem('user',JSON.stringify({...res.user,password:''}));
             Cookies.set('userId', JSON.stringify(userData), { path: '/', sameSite: 'strict' });
             // Cookies.set('')
-            window.location.href = 'http://localhost:5173';
+            window.location.href = USER_URL;
           } else {
             alert(res.data.error || 'User Login failed');
           }

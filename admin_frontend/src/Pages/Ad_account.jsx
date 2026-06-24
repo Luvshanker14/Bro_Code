@@ -1,3 +1,4 @@
+import { LOGIN_URL } from '../config';
 import React, { useState } from "react";
 import Darkmode from "../Darkmode";
 import Cookies from "js-cookie";
@@ -35,7 +36,7 @@ function Account() {
 
   const handleLogout = () => {
     Cookies.remove("adminId", { path: "/" });
-    window.location.href = "http://localhost:5175";
+    window.location.href = LOGIN_URL;
   };
 
   return (

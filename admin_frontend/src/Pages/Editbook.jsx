@@ -14,7 +14,7 @@ function EditBook() {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/books");
+        const res = await axios.get("/books");
         setBooks(res.data);
       } catch (error) {
         console.log("Error", error);

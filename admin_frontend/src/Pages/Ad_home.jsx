@@ -39,7 +39,7 @@ function Home() {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/books");
+        const res = await axios.get("/books");
         setBooks(res.data);
         setBookCount(res.data.length); // book count
       } catch (error) {
@@ -52,7 +52,7 @@ function Home() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/user");
+        const res = await axios.get("/user");
         setUser(res.data);
         setUserCount(res.data.length); // user count
       } catch (error) {
@@ -65,7 +65,7 @@ function Home() {
   useEffect(() => {
     const getBorrow = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/bookRequests");
+        const res = await axios.get("/bookRequests");
         console.log(res.data); // Log the response to inspect its structure
         if (Array.isArray(res.data)) {
           const borrowCount = res.data.filter(

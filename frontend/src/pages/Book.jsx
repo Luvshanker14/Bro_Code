@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from "react";
 import image from "../assets/react.svg";
 import SearchIcon from "@mui/icons-material/Search";
@@ -27,7 +28,7 @@ function Books() {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/books");
+        const res = await axios.get("/books");
         // Map through books and check if each is in favoriteBooks
         const booksWithFavorites = res.data.map((book) => ({
           ...book,
@@ -67,7 +68,7 @@ function Books() {
       removeFavoriteBook(bookId);
 
       try {
-        await axios.post("http://localhost:3000/books/removeFavouriteBook", {
+        await axios.post("/books/removeFavouriteBook", {
           bookId,
           userId: user.userId,
         });
@@ -85,7 +86,7 @@ function Books() {
 
         // Add the book to the cart
         try {
-          await axios.post("http://localhost:3000/books/addFavouriteBook", {
+          await axios.post("/books/addFavouriteBook", {
             bookId,
             userId: user.userId,
           });
@@ -116,7 +117,7 @@ function Books() {
   const handleBorrowClick = async (bookId) => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/bookRequests/borrow",
+        "/bookRequests/borrow",
         {
           userId: user.userId,
           bookId: bookId,
@@ -226,7 +227,7 @@ function Books() {
             >
               <div className=" flex  w-40 h-48  ">
                 <img
-                  src={`http://localhost:3000/uploads/${book.image}`}
+                  src={`${API_URL}/uploads/${book.image}`}
                   onError={(e) => {
                     e.target.src = image; //if book database does not have image show react svg
                   }}
@@ -326,7 +327,7 @@ function Books() {
               &times;
             </button>
             <img
-              src={`http://localhost:3000/uploads/${selectedBook.image}`}
+              src={`${API_URL}/uploads/${selectedBook.image}`}
               onError={(e) => {
                 e.target.src = image; //if book database does not have image show react svg
               }}
