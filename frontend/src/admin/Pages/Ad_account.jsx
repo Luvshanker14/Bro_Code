@@ -1,9 +1,10 @@
-import { LOGIN_URL } from '../config';
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Darkmode from "../Darkmode";
 import Cookies from "js-cookie";
 
 function Account() {
+  const navigate = useNavigate();
   // Placeholder data
   const adminCookie = Cookies.get("adminId");
   if (adminCookie) {
@@ -36,7 +37,7 @@ function Account() {
 
   const handleLogout = () => {
     Cookies.remove("adminId", { path: "/" });
-    window.location.href = LOGIN_URL;
+    navigate('/login');
   };
 
   return (

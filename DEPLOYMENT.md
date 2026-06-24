@@ -1,15 +1,15 @@
 # Deployment Guide
 
-This project is **4 deployables**: one Express/MongoDB backend + three React (Vite) apps.
-Recommended setup: **backend on Render** (it writes uploaded images to disk), **the 3 React apps on Vercel**.
+This project is **2 deployables**: one Express/MongoDB backend + one React (Vite) SPA
+(the former three apps — login, user, admin — are now merged into `frontend/`).
+Recommended setup: **backend on Render** (it writes uploaded images to disk), **the React app on Vercel**.
 
 ```
-login-register  (Vercel)  ─┐
-frontend (user) (Vercel)  ─┼──>  backend (Render)  ──>  MongoDB Atlas
-admin_frontend  (Vercel)  ─┘
+frontend (Vercel)  ──>  backend (Render)  ──>  MongoDB Atlas
+  /login  /  /admin
 ```
 
-All URLs are now configurable via environment variables (no more hardcoded `localhost`).
+The API URL is configurable via the `VITE_API_URL` environment variable (no more hardcoded `localhost`).
 
 ---
 
@@ -37,30 +37,30 @@ All URLs are now configurable via environment variables (no more hardcoded `loca
 > Note: Render's free disk is ephemeral — uploaded book cover images may be lost on
 > redeploy/sleep. Fine for a demo; move to Cloudinary/S3 later if you need persistence.
 
-## 3. The three React apps on Vercel
-Create **three** Vercel projects from the same repo, one per folder. For each:
-- **Root Directory:** `frontend` (then `admin_frontend`, then `login-register`)
+## 3. The single React app on Vercel
+The three React apps were merged into **one** Vite SPA (`frontend/`) with routes:
+`/login` (login/register), `/` (user portal), `/admin` (admin portal).
+
+Create **one** Vercel project from the repo:
+- **Root Directory:** `frontend`
 - Framework preset: **Vite** (Build: `npm run build`, Output: `dist`)
-- `vercel.json` is already included so client-side routing works on refresh.
+- `frontend/vercel.json` is already included so client-side routing works on refresh.
 
-Deploy `login-register` first (it's the entry point), then the other two so you know their URLs.
-
-**Environment variables** for each project (see `*/.env.example`):
+**Environment variable** (see `frontend/.env.example`):
 | Variable | Value |
 |---|---|
-| `VITE_API_URL` | your Render backend URL |
-| `VITE_USER_URL` | the deployed **frontend** (user app) URL |
-| `VITE_ADMIN_URL` | the deployed **admin_frontend** URL |
-| `VITE_LOGIN_URL` | the deployed **login-register** URL |
+| `VITE_API_URL` | your Render backend URL (e.g. `https://lms-backend-gkt2.onrender.com`) |
 
-Set all four on all three projects, then **redeploy** so the values are baked into the build.
+Set it, deploy, and your whole app lives at one URL (e.g. `https://your-app.vercel.app`,
+with `/login` and `/admin` under the same domain).
 
 ---
 
 ## Local development
-Unchanged — from the repo root:
+From the repo root:
 ```sh
-npm run lms
+npm run lms          # runs frontend (vite) + backend (express) together
 ```
-Defaults fall back to `localhost:3000` / `5173` / `5174` / `5175`. Create a `backend/.env`
-from `backend/.env.example` with your local `MONGODB_URL`, `EMAIL`, `PASSWORD`.
+The frontend dev server runs on `http://localhost:5173`. The backend reads `backend/.env`
+(`MONGODB_URL`, `EMAIL`, `PASSWORD`, and `PORT` — currently `4000`). The frontend falls
+back to `http://localhost:4000` for the API if `VITE_API_URL` isn't set.

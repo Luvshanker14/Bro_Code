@@ -1,10 +1,11 @@
-import { USER_URL } from '../config';
 import React, { useEffect,useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const LoginAsUserForm = ({ isActive, onClose }) => {
+  const navigate = useNavigate();
 
     const [email, setCollegeEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +45,7 @@ useEffect(() => {
             // localStorage.setItem('user',JSON.stringify({...res.user,password:''}));
             Cookies.set('userId', JSON.stringify(userData), { path: '/', sameSite: 'strict' });
             // Cookies.set('')
-            window.location.href = USER_URL;
+            navigate('/');
           } else {
             alert(res.data.error || 'User Login failed');
           }

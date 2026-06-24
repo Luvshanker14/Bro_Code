@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.login-app {
 * {
   margin: 0;
   padding: 0;
@@ -63,7 +60,7 @@
 
 .section {
   min-height: 100vh;
-  background: url('./assets/login.jpg') no-repeat; /* Ensure the path is correct */
+  background: url('../assets/login.jpg') no-repeat; /* Ensure the path is correct */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -444,4 +441,4 @@
 }
 .btnLogin-popup {
   margin-right: 30px; /* Adjust as needed */
-}
+}}

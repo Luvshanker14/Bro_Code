@@ -1,4 +1,3 @@
-import { LOGIN_URL } from '../config';
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Dashboard";
@@ -18,7 +17,7 @@ function Navbar({ selected, setSelected }) {
 
   function handleLogout(event) {
     event.preventDefault();
-    window.location.href = LOGIN_URL;
+    navigate('/login');
     Cookies.remove('userId', { path: '/' });
   }
 

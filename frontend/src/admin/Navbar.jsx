@@ -1,4 +1,3 @@
-import { LOGIN_URL } from './config';
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Dashboard";
@@ -9,10 +8,10 @@ import Cookies from 'js-cookie';
 function Navbar({ selected, setSelected }) {
   const navigate = useNavigate();
   const menuItems = [
-    { name: "Home", icon: HomeIcon, path: "/" },
-    { name: "Books", icon: BooksIcon, path: "/books" },
-    {name: "Status", icon: StatusIcon, path: "/status"},
-    { name: "Account", icon: AccountIcon, path: "/account" },
+    { name: "Home", icon: HomeIcon, path: "/admin" },
+    { name: "Books", icon: BooksIcon, path: "/admin/books" },
+    {name: "Status", icon: StatusIcon, path: "/admin/status"},
+    { name: "Account", icon: AccountIcon, path: "/admin/account" },
   ];
 
   function handleLogout(event)
@@ -20,13 +19,13 @@ function Navbar({ selected, setSelected }) {
     event.preventDefault();
     Cookies.remove('adminId',{path:'/'});
 
-    window.location.href= LOGIN_URL;
+    navigate('/login');
     
   }
 
   function handleLogoClick() {
     setSelected("Home");
-    navigate("/");
+    navigate("/admin");
   }
 
 

@@ -41,7 +41,7 @@ function EditBook() {
   };
 
   const handleEditButton = (bookId) => {
-    navigate(`/editpage/${bookId}`);
+    navigate(`/admin/editPage/${bookId}`);
   };
 
   return (

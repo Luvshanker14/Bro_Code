@@ -8,24 +8,17 @@ import EditBook from "./Pages/Editbook.jsx";
 import EditPage from "./Pages/Editpage.jsx";
 import Userlist from "./Pages/Userlist.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import "../App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-function App() {
+function AdminLayout() {
   const [selected, setSelected] = useState("Home");
 
   return (
-    <Router>
-      <div className="flex bg-slate-200 dark:bg-black">
-        <Navbar selected={selected} setSelected={setSelected} />
-        <MainContent />
-      </div>
-    </Router>
+    <div className="flex bg-slate-200 dark:bg-black">
+      <Navbar selected={selected} setSelected={setSelected} />
+      <MainContent />
+    </div>
   );
 }
 
@@ -37,13 +30,13 @@ function MainContent() {
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <div className="flex-1 p-2 page dark:bg-black ">
           <Routes location={location}>
-            <Route path="/books" element={<Books />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/status" element={<Status />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/editBook" element={<EditBook />} />
-            <Route path="/editPage/:bookId" element={<EditPage />} />
-            <Route path="/userlist" element={<Userlist />} />
+            <Route path="books" element={<Books />} />
+            <Route index element={<Home />} />
+            <Route path="status" element={<Status />} />
+            <Route path="account" element={<Account />} />
+            <Route path="editBook" element={<EditBook />} />
+            <Route path="editPage/:bookId" element={<EditPage />} />
+            <Route path="userlist" element={<Userlist />} />
           </Routes>
         </div>
       </CSSTransition>
@@ -51,4 +44,4 @@ function MainContent() {
   );
 }
 
-export default App;
+export default AdminLayout;

@@ -1,10 +1,11 @@
-import { ADMIN_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const LoginAsAdminForm = ({ isActive, onClose }) => {
+  const navigate = useNavigate();
   const [email, setCollegeEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -32,7 +33,7 @@ const LoginAsAdminForm = ({ isActive, onClose }) => {
             };
             alert('Admin Login Successful');
             Cookies.set('adminId', JSON.stringify(adminData), { path: '/', sameSite: 'strict' });
-            window.location.href = ADMIN_URL;
+            navigate('/admin');
           } else {
             alert(res.data.error || 'Admin Login failed');
           }

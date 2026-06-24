@@ -1,4 +1,4 @@
-import { API_URL, LOGIN_URL } from '../config';
+import { API_URL } from '../config';
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -92,7 +92,7 @@ function Home() {
   }
   function handleLogoutButton(event) {
     event.preventDefault();
-    window.location.href = LOGIN_URL;
+    navigate('/login');
     Cookies.remove('userId', { path: '/' });
   }
 

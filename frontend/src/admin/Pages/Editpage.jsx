@@ -127,7 +127,7 @@ function EditPage() {
           image: null,
         });
         window.alert("Book Deleted Successfully.");
-        navigate("/Editbook"); // Redirect to the book list
+        navigate("/admin/editBook"); // Redirect to the book list
       } catch (err) {
         console.error(err);
         window.alert("Failed to Delete Book.");
@@ -136,7 +136,7 @@ function EditPage() {
   };
 
   function handleBackButton() {
-    navigate("/Editbook");
+    navigate("/admin/editBook");
   }
 
   return (

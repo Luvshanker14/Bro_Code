@@ -1,11 +1,12 @@
-import { LOGIN_URL } from '../config';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Darkmode from './Darkmode';
 import Cookies from 'js-cookie';
 
 
 function Account() {
+  const navigate = useNavigate();
   // Placeholder data
   // const user=JSON.parse(localStorage.getItem('user'));
   // console.log(user);
@@ -27,8 +28,8 @@ const user=JSON.parse(userCookie);
 
   function handleLogout()
   {
-    window.location.href= LOGIN_URL;
     Cookies.remove('userId',{path:'/'});
+    navigate('/login');
    
   }
 

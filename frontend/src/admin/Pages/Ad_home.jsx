@@ -95,15 +95,15 @@ function Home() {
   const name = admin.adminName;
 
   const handleAddBook = () => {
-    navigate("/books");
+    navigate("/admin/books");
   };
 
   const handleShowall = () => {
-    navigate("/editBook");
+    navigate("/admin/editBook");
   };
 
   const handleShowallUser = () => {
-    navigate("/userlist");
+    navigate("/admin/userlist");
   };
 
   return (
